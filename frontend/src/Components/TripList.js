@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { List, Card } from 'antd';
+import { List } from 'antd';
 
 class TripList extends Component {
     render() {
-        console.log(this.props.data)
         return(
             <div>
                 <List
