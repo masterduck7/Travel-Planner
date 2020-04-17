@@ -27,11 +27,11 @@ class Flight(models.Model):
 
 class City(models.Model):
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name='cities')
-    name_city = models.CharField(max_length=250, blank=False)
+    name = models.CharField(max_length=250, blank=False)
     map_link = models.CharField(max_length=250, blank=True)
 
     def __str__(self):
-        return self.city
+        return self.name
 
 class Hotel(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='hotels')
