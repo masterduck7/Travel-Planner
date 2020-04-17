@@ -1,7 +1,7 @@
-from django.contrib.auth.models import Trip
+from trips.models import Trip
 from rest_framework import serializers
 
-class TripSerializer(serializers.ModelSerializer):
+class TripSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Trip
-        fields = __all__
+        fields = "__all__"
