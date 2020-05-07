@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Input } from 'antd';
 
-class TripCreateView extends Component {
+export default class TripCreateView extends Component {
 
     onClick = event => {
         const postObj = {
@@ -42,5 +42,3 @@ class TripCreateView extends Component {
         )
     }
 };
-
-export default TripCreateView;

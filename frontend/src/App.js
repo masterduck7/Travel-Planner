@@ -1,16 +1,13 @@
-import React from 'react';
-import TripListView from './Containers/TripListView'
-import TripCreateView from './Containers/TripCreateView'
+import React, { Component } from 'react';
 import './App.css';
+import BaseRouter from './routes';
 
-function App() {
-  return (
-    <div className="App">
-      <p>Hello World</p>
-      <TripListView />
-      <TripCreateView />
-    </div>
-  );
+class App extends Component{
+  render(){
+    return (
+      <BaseRouter />
+    );
+  }
 }
 
 export default App;

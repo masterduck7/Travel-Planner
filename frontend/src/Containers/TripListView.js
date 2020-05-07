@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import TripList from '../Components/TripList';
 
-class TripListView extends Component {
+export default class TripListView extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -32,6 +32,4 @@ class TripListView extends Component {
             </div>
         )
     }
-}
-
-export default TripListView;
+};
