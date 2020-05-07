@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import CustomLayout from '../Components/CustomLayout'
 
 export default class Home extends Component {
     render() {
         return  (
             <div>
-                <h1>Hola</h1>
+                <CustomLayout />
             </div>
         )
     }

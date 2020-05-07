@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import TripList from '../Components/TripList';
+import CustomLayout from '../Components/CustomLayout'
 
 export default class TripListView extends Component {
     constructor(props){
@@ -28,6 +29,7 @@ export default class TripListView extends Component {
     render() {
         return  (
             <div>
+                <CustomLayout />
                 <TripList data={this.state.trips}/>
             </div>
         )
