@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Divider, Icon, Menu, Row, Table } from 'antd';
+import { Col, Divider, Icon, Menu, Row, Table, Tag } from 'antd';
 import {Link} from 'react-router-dom';
 
 export default class TripList extends Component {
@@ -25,6 +25,34 @@ export default class TripList extends Component {
                 render: end_date => <a>{end_date}</a>,
             },
             {
+                title: 'Estado',
+                dataIndex: 'status',
+                key: 'status',
+                render: status => {
+                    if (status === "Active") {
+                        return (
+                            <Tag color={'green'} key={status}>
+                                ACTIVO
+                            </Tag>
+                        )
+                    } 
+                    else if (status === "Cancelled") {
+                        return(
+                            <Tag color={'red'} key={status}>
+                                CANCELADO
+                            </Tag>
+                        )
+                    }
+                    else {
+                        return(
+                            <Tag color={'gray'} key={status}>
+                                PASADO
+                            </Tag>
+                        )
+                    }
+                }                    
+            },
+            {
                 title: 'Archivo planificación',
                 dataIndex: 'planning_file',
                 key: 'planning_file',
@@ -45,7 +73,7 @@ export default class TripList extends Component {
         return(
             <div>
                 <Row>
-                <Col span={4}>
+                <Col xs={4} sm={6} md={6} lg={86} xl={4}>
                     <div style={{width: 200}}>
                         <Menu
                         defaultSelectedKeys={['1']}
@@ -70,7 +98,7 @@ export default class TripList extends Component {
                         </Menu>
                     </div>
                 </Col>
-                <Col span={19}>
+                <Col xs={19} sm={17} md={17} lg={17} xl={19}>
                     <Table columns={columns} dataSource={this.props.data} />
                 </Col>
                 </Row>

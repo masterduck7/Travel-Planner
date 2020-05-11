@@ -8,6 +8,7 @@ class Trip(models.Model):
     start_date = models.DateField(default=date.today(), blank=False)
     end_date = models.DateField(default=date.today(), blank=False)
     planning_file = models.CharField(max_length=250, blank=True)
+    status = models.CharField( max_length=10, default="Active", blank=False )
 
     def __str__(self):
         return self.destination
