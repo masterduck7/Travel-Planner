@@ -24,7 +24,7 @@ export default class TripDetail extends Component {
                             <Menu.Item key="2">
                                 <Icon type="global" />
                                 <span>Vuelos</span>
-                                <Link to="/trips"></Link>
+                                <Link to={{ pathname:"/flights", state: { tripID: this.props.trip.trip_id } }} ></Link>
                             </Menu.Item>
                             <Menu.Item key="3">
                                 <Icon type="border" />
