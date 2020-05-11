@@ -63,7 +63,7 @@ export default class TripList extends Component {
                 key: 'action',
                 render: (text, item) => (
                   <span>
-                    <a>Editar</a>
+                    <Link to={`/trips/${item.trip_id}/`}><a>Editar</a></Link>
                     <Divider type="vertical" />
                     <a>Eliminar</a>
                   </span>

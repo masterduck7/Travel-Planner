@@ -4,19 +4,21 @@ from rest_framework import serializers
 class TripSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Trip
-        fields = "__all__"
+        fields = ('url','trip_id','destination','start_date','end_date','status','planning_file')
 
 class FlightSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Flight
-        fields = "__all__"
+        fields = ('url','flight_id','trip','origin','destination','start_date',
+        'end_date','airline_name','flight_number','price')
 
 class HotelSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Hotel
-        fields = "__all__"
+        fields = ('url','hotel_id','city','name','start_date','end_date','number_beds',
+        'breakfast','total_price','amount_paid','amount_not_paid')
 
 class CitySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = City
-        fields = "__all__"
+        fields = ('url','city_id','trip','name','map_link')

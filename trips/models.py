@@ -4,6 +4,7 @@ from datetime import date
 # Create your models here.
 
 class Trip(models.Model):
+    trip_id = models.AutoField(primary_key=True)
     destination = models.CharField(max_length=250, blank=False)
     start_date = models.DateField(default=date.today(), blank=False)
     end_date = models.DateField(default=date.today(), blank=False)
@@ -14,6 +15,7 @@ class Trip(models.Model):
         return self.destination
 
 class Flight(models.Model):
+    flight_id = models.AutoField(primary_key=True)
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name='flights')
     origin = models.CharField(max_length=250, blank=False)
     destination = models.CharField(max_length=250, blank=False)
@@ -27,6 +29,7 @@ class Flight(models.Model):
         return self.destination
 
 class City(models.Model):
+    city_id = models.AutoField(primary_key=True)
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name='cities')
     name = models.CharField(max_length=250, blank=False)
     map_link = models.CharField(max_length=250, blank=True)
@@ -35,6 +38,7 @@ class City(models.Model):
         return self.name
 
 class Hotel(models.Model):
+    hotel_id = models.AutoField(primary_key=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='hotels')
     name = models.CharField(max_length=250, blank=False)
     start_date = models.DateField(default=date.today(), blank=False)
