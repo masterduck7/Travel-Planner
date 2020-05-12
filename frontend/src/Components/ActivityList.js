@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Col, Divider, Icon, Menu, Row, Table, Tag } from 'antd';
 import {Link} from 'react-router-dom';
 
-export default class CityList extends Component {
+export default class ActivityList extends Component {
 
     render() {
         const columns = [
@@ -13,17 +13,35 @@ export default class CityList extends Component {
                 render: name => <a>{name}</a>,
             },
             {
-                title: 'Mapa',
-                dataIndex: 'map_link',
-                key: 'map_link',
-                render: map_link => <a>{map_link}</a>,
+                title: 'Fecha',
+                dataIndex: 'activity_date',
+                key: 'activity_date',
+                render: activity_date => <a>{activity_date}</a>,
+            },
+            {
+                title: 'Precio',
+                dataIndex: 'total_price',
+                key: 'total_price',
+                render: total_price => <a>{total_price}</a>,
+            },
+            {
+                title: 'Precio pagado',
+                dataIndex: 'amount_paid',
+                key: 'amount_paid',
+                render: amount_paid => <a>{amount_paid}</a>,
+            },
+            {
+                title: 'Precio por pagar',
+                dataIndex: 'amount_not_paid',
+                key: 'amount_not_paid',
+                render: amount_not_paid => <a>{amount_not_paid}</a>,
             },
             {
                 title: 'Acción',
                 key: 'action',
                 render: (text, item) => (
                   <span>
-                    <Link to={`/cities/${item.city_id}/`}><a>Editar</a></Link>
+                    <Link to={`/activities/${item.activity_id}/`}><a>Editar</a></Link>
                     <Divider type="vertical" />
                     <a>Eliminar</a>
                   </span>
@@ -43,18 +61,13 @@ export default class CityList extends Component {
                             <Menu.Item key="1">
                                 <Icon type="rollback" />
                                 <span>Volver</span>
-                                <Link to={`/trips/${this.props.data.tripID}`}></Link>
-                            </Menu.Item>
-                            <Menu.Item key="2">
-                                <Icon type="rollback" />
-                                <span>Activities</span>
-                                <Link to={{ pathname:"/activities", state: { tripID: this.props.data.tripID } }} ></Link>
+                                <Link to={{ pathname:"/cities", state: { tripID: this.props.data.tripID } }} ></Link>
                             </Menu.Item>
                         </Menu>
                     </div>
                 </Col>
                 <Col xs={19} sm={17} md={17} lg={17} xl={19}>
-                    <Table columns={columns} dataSource={this.props.data.cities} />
+                    <Table columns={columns} dataSource={this.props.data.activities} />
                 </Col>
                 </Row>
             </div>

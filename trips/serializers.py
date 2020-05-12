@@ -26,4 +26,4 @@ class CitySerializer(serializers.HyperlinkedModelSerializer):
 class ActivitySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Activity
-        fields = ('url','activity_id','name','total_price','amount_paid','amount_not_paid','activity_date')
+        fields = ('url','activity_id','city','name','total_price','amount_paid','amount_not_paid','activity_date')

@@ -7,6 +7,7 @@ import TripDetailView from './Containers/TripDetailView';
 import FlightListView from './Containers/FlightListView';
 import HotelListView from './Containers/HotelListView';
 import CityListView from './Containers/CityListView';
+import ActivityListView from './Containers/ActivityListView';
 
 const BaseRouter = () => (
     <div>
@@ -18,6 +19,7 @@ const BaseRouter = () => (
                 <Route exact path='/flights' component={FlightListView} />
                 <Route exact path='/hotels' component={HotelListView} />
                 <Route exact path='/cities' component={CityListView} />
+                <Route exact path='/activities' component={ActivityListView} />
             </Switch>
         </HashRouter>
     </div>
