@@ -39,7 +39,7 @@ export default class TripDetail extends Component {
                             <Menu.Item key="5">
                                 <Icon type="bank" />
                                 <span>Costos</span>
-                                <Link to="/trips"></Link>
+                                <Link to={{ pathname:"/costs", state: { tripID: this.props.trip.trip_id } }} ></Link>
                             </Menu.Item>
                         </Menu>
                     </div>

@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import CustomLayout from '../Components/CustomLayout'
 
-export default class Home extends Component {
+export default class StatisticsView extends Component {
     render() {
         return  (
             <div>
                 <CustomLayout />
-                <h1>Dashboard</h1>
+                <h1>Estadisticas</h1>
             </div>
         )
     }
