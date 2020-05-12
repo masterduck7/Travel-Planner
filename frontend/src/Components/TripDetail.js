@@ -34,7 +34,7 @@ export default class TripDetail extends Component {
                             <Menu.Item key="4">
                                 <Icon type="environment" />
                                 <span>Ciudades</span>
-                                <Link to="/trips"></Link>
+                                <Link to={{ pathname:"/cities", state: { tripID: this.props.trip.trip_id } }} ></Link>
                             </Menu.Item>
                             <Menu.Item key="5">
                                 <Icon type="bank" />
