@@ -1,4 +1,4 @@
-from trips.models import Trip, Flight, Hotel, City
+from trips.models import Trip, Flight, Hotel, City, Activity
 from rest_framework import serializers
 
 class TripSerializer(serializers.HyperlinkedModelSerializer):
@@ -22,3 +22,8 @@ class CitySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = City
         fields = ('url','city_id','trip','name','map_link')
+
+class ActivitySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Activity
+        fields = ('url','activity_id','name','total_price','amount_paid','amount_not_paid','activity_date')

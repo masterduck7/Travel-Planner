@@ -51,3 +51,15 @@ class Hotel(models.Model):
 
     def __str__(self):
         return self.name
+
+class Activity(models.Model):
+    activity_id = models.AutoField(primary_key=True)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='activities')
+    name = models.CharField(max_length=250, blank=False)
+    total_price = models.DecimalField(max_digits=8, decimal_places=2)
+    amount_paid = models.DecimalField(max_digits=8, decimal_places=2)
+    amount_not_paid = models.DecimalField(max_digits=8, decimal_places=2)
+    activity_date = models.DateField(default=date.today(), blank=False)
+
+    def __str__(self):
+        return self.name
