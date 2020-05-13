@@ -76,30 +76,30 @@ export default class TripList extends Component {
                 <Col xs={4} sm={6} md={6} lg={86} xl={4}>
                     <div style={{width: 200}}>
                         <Menu
-                        defaultSelectedKeys={['1']}
+                        defaultSelectedKeys={[this.props.data.tab]}
                         mode="inline"
                         theme="dark"
                         >
                             <Menu.Item key="1">
                                 <Icon type="history" />
                                 <span>Anteriores</span>
-                                <Link to="/trips"></Link>
+                                <Link to="/past-trips"></Link>
                             </Menu.Item>
                             <Menu.Item key="2">
                                 <Icon type="environment" />
                                 <span>Futuros</span>
-                                <Link to="/trips"></Link>
+                                <Link to="/active-trips"></Link>
                             </Menu.Item>
                             <Menu.Item key="3">
                                 <Icon type="stop" />
                                 <span>Cancelados</span>
-                                <Link to="/trips"></Link>
+                                <Link to="/cancelled-trips"></Link>
                             </Menu.Item>
                         </Menu>
                     </div>
                 </Col>
                 <Col xs={19} sm={17} md={17} lg={17} xl={19}>
-                    <Table columns={columns} dataSource={this.props.data} />
+                    <Table columns={columns} dataSource={this.props.data.trips} />
                 </Col>
                 </Row>
             </div>
