@@ -5,7 +5,7 @@ export default class Home extends Component {
     render() {
         return  (
             <div>
-                <CustomLayout />
+                <CustomLayout data={{tab: '1'}} />
                 <h1>Dashboard</h1>
             </div>
         )

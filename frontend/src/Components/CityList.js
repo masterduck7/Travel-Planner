@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Divider, Icon, Menu, Row, Table, Tag } from 'antd';
+import { Col, Divider, Icon, Menu, Row, Table } from 'antd';
 import {Link} from 'react-router-dom';
 
 export default class CityList extends Component {

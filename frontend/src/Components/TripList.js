@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Divider, Icon, Menu, Row, Table, Tag } from 'antd';
+import { Button, Col, Divider, Icon, Menu, Row, Table, Tag } from 'antd';
 import {Link} from 'react-router-dom';
 
 export default class TripList extends Component {
@@ -63,7 +63,7 @@ export default class TripList extends Component {
                 key: 'action',
                 render: (text, item) => (
                   <span>
-                    <Link to={`/trips/${item.trip_id}/`}><a>Editar</a></Link>
+                    <Link to={`/trips/${item.trip_id}/`}><a>Detalles</a></Link>
                     <Divider type="vertical" />
                     <a>Eliminar</a>
                   </span>
@@ -99,6 +99,15 @@ export default class TripList extends Component {
                     </div>
                 </Col>
                 <Col xs={19} sm={17} md={17} lg={17} xl={19}>
+                    <Row>
+                        <Col span={22}></Col>
+                        <Col span={2}>
+                            <Button type="primary" size={'small'} style={{top: 10}}>
+                                <Link to="/create-trip">Agregar viaje</Link>
+                            </Button>
+                        </Col>
+                    </Row>
+                    <br />
                     <Table columns={columns} dataSource={this.props.data.trips} />
                 </Col>
                 </Row>

@@ -45,7 +45,16 @@ export default class TripDetail extends Component {
                     </div>
                 </Col>
                 <Col xs={19} sm={17} md={17} lg={17} xl={19}>
-                    <Descriptions size= "middle" layout="vertical" bordered>
+                    <Row>
+                        <Col span={22}></Col>
+                        <Col span={2}>
+                            <Button type="primary" size={'small'} style={{top: 10}} >
+                                Editar
+                            </Button>
+                        </Col>
+                    </Row>
+                    <br />
+                    <Descriptions size= "small" layout="vertical" bordered >
                         <Descriptions.Item label="Destino" span={1}>{this.props.trip.destination}</Descriptions.Item>
                         <Descriptions.Item label="Fecha Inicio"span={1}>{this.props.trip.start_date}</Descriptions.Item>
                         <Descriptions.Item label="Fecha Fin"span={1}>{this.props.trip.end_date}</Descriptions.Item>

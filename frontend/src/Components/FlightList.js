@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Divider, Icon, Menu, Row, Table, Tag } from 'antd';
+import { Col, Divider, Icon, Menu, Row, Table } from 'antd';
 import {Link} from 'react-router-dom';
 
 export default class FlightList extends Component {
@@ -53,6 +53,8 @@ export default class FlightList extends Component {
                 key: 'action',
                 render: (text, item) => (
                   <span>
+                    <Link to='/'><a>Editar</a></Link>
+                    <Divider type="vertical" />
                     <a>Eliminar</a>
                   </span>
                 ),
