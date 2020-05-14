@@ -49,7 +49,7 @@ export default class TripDetail extends Component {
                         <Col span={22}></Col>
                         <Col span={2}>
                             <Button type="primary" size={'small'} style={{top: 10}} >
-                                Editar
+                                <Link to={{ pathname:`/trips/edit/${this.props.trip.trip_id}`, params: { tripID: this.props.trip.trip_id } }} >Editar</Link>
                             </Button>
                         </Col>
                     </Row>

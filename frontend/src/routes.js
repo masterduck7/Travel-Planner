@@ -17,6 +17,7 @@ import TripListPastView from './Containers/TripListPastView';
 import TripListFutureView from './Containers/TripListFutureView';
 import TripListCancelledView from './Containers/TripListCancelledView';
 import TripCreateView from './Containers/TripCreateView';
+import TripEditView from './Containers/TripEditView';
 
 const BaseRouter = () => (
     <div>
@@ -26,6 +27,7 @@ const BaseRouter = () => (
                 <Route exact path='/profile' component={ProfileView} />
                 <Route exact path='/trips' component={TripListView} />
                 <Route exact path='/trips/:tripID' component={TripDetailView} />
+                <Route exact path='/trips/edit/:tripID' component={TripEditView} />
                 <Route exact path='/past-trips' component={TripListPastView} />
                 <Route exact path='/active-trips' component={TripListFutureView} />
                 <Route exact path='/cancelled-trips' component={TripListCancelledView} />
