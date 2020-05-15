@@ -1,55 +1,57 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, DatePicker, Form, Input, Select } from 'antd';
 import moment from 'moment';
+import { Button, DatePicker, Form, Input } from 'antd';
 import CustomLayout from '../Components/CustomLayout'
 
-
-const { Option } = Select;
-
-export default class TripEditView extends Component {
+export default class FlightCreateView extends Component {
 
     constructor(props){
         super(props)
         this.state = {
-            tripID: null,
+            trips: [],
+            trip: this.props.location.state.trip_id,
+            origin: "",
             destination: "",
-            planning_file: "",
-            status: "",
-            start_date: "",
-            end_date: ""
+            start_date: moment().format("YYYY-MM-DD"),
+            end_date: moment().format("YYYY-MM-DD"),
+            airline_name: "",
+            flight_number: "",
+            price: ""
         }
     }
-    
+
     componentDidMount(){
-        const tripID = this.props.match.params.tripID;
-        axios.get(`http://127.0.0.1:8000/trips/${tripID}/`)
+        axios.get(`http://127.0.0.1:8000/trips/`)
             .then(res => {
-                this.setState({
-                    destination: res.data.destination,
-                    planning_file: res.data.planning_file,
-                    status: res.data.status,
-                    start_date: res.data.start_date,
-                    end_date: res.data.end_date,
-                    tripID: tripID
-                })
+                if (!res.data["Error"]) {
+                    this.setState({
+                        trips: res.data
+                    })    
+                }else{
+                    this.setState({
+                        trips: []
+                    }) 
+                }
             })
     }
 
     onClick = event => {
         event.preventDefault();
-        const tripID = this.state.tripID
-        const tripObj = {
+        const postObj = {
+            trip: this.state.trip,
+            origin: this.state.origin,
             destination: this.state.destination,
-            planning_file: this.state.planning_file,
-            status: this.state.status,
             start_date: this.state.start_date,
-            end_date: this.state.end_date
+            end_date: this.state.end_date,
+            airline_name: this.state.airline_name,
+            flight_number: this.state.flight_number,
+            price: this.state.price
         }
-        axios.put(`http://127.0.0.1:8000/trips/${tripID}/`, tripObj)
+        axios.post(`http://127.0.0.1:8000/flights/`, postObj)
         .then(function (response) {
             console.log(response)
-            window.location.href = "/#/trips"
+            window.location.href = `/#/trips/${postObj.trip}`
         })
         .catch(function (error) {
           console.log(error.response);
@@ -85,37 +87,23 @@ export default class TripEditView extends Component {
         return(
             <div>
                 <CustomLayout />
-                <center><h1>Editar viaje</h1></center>
+                <center><h1>Agregar Vuelo</h1></center>
                 <Form {...formItemLayout} onSubmit={this.onClick.bind(this)} >
+                    <Form.Item label="Origen">
+                        <Input name="origin"
+                        onChange={(e) => {
+                            this.setState({
+                                origin: e.target.value
+                            })
+                        }} />
+                    </Form.Item>
                     <Form.Item label="Destino">
-                        <Input name="destination" type="text" value={this.state.destination} 
+                        <Input name="destination"
                         onChange={(e) => {
                             this.setState({
                                 destination: e.target.value
                             })
-                        }}/>
-                    </Form.Item>
-                    <Form.Item label="Archivo Excel">
-                        <Input name="planning_file" placeholder="Link a archivo en Google Drive" 
-                        value={this.state.planning_file} 
-                        onChange={(e) => {
-                            this.setState({
-                                planning_file:e.target.value
-                            })
-                        }}/>
-                    </Form.Item>
-                    <Form.Item label="Estado">
-                        <Select name="status" placeholder="Por favor seleccione estado del viaje"
-                        value={this.state.status}
-                        onChange={(value) => {
-                            this.setState({
-                                status: value
-                            })
-                        }}>
-                            <Option value="Active">Viaje futuro</Option>
-                            <Option value="Past">Viaje del pasado</Option>
-                            <Option value="Cancelled">Viaje cancelado</Option>
-                        </Select>
+                        }} />
                     </Form.Item>
                     <Form.Item label="Fecha Inicio">
                         <DatePicker name="start_date" placeholder="Ingrese fecha" format='YYYY-MM-DD'
@@ -135,9 +123,33 @@ export default class TripEditView extends Component {
                             })
                         }}/>
                     </Form.Item>
+                    <Form.Item label="Aerolinea">
+                        <Input name="airline_name"
+                        onChange={(e) => {
+                            this.setState({
+                                airline_name: e.target.value
+                            })
+                        }} />
+                    </Form.Item>
+                    <Form.Item label="Número de vuelo">
+                        <Input name="flight_number"
+                        onChange={(e) => {
+                            this.setState({
+                                flight_number: e.target.value
+                            })
+                        }} />
+                    </Form.Item>
+                    <Form.Item label="Precio">
+                        <Input name="price"
+                        onChange={(e) => {
+                            this.setState({
+                                price: e.target.value
+                            })
+                        }} />
+                    </Form.Item>
                     <Form.Item {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit">
-                            Editar
+                            Agregar
                         </Button>
                     </Form.Item>
                 </Form>

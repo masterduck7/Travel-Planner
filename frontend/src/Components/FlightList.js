@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Divider, Icon, Menu, Row, Table } from 'antd';
+import { Button, Col, Divider, Icon, Menu, Row, Table } from 'antd';
 import {Link} from 'react-router-dom';
 
 export default class FlightList extends Component {
@@ -79,6 +79,16 @@ export default class FlightList extends Component {
                     </div>
                 </Col>
                 <Col xs={19} sm={17} md={17} lg={17} xl={19}>
+                    <Row>
+                        <Col span={22}></Col>
+                        <Col span={2}>
+                            <Button type="primary" size={'small'} style={{top: 10}}>
+                                <Link to={{ pathname:"/create-flight", 
+                                state: { trip_id: this.props.data.tripID } }}>Agregar Vuelo</Link>
+                            </Button>
+                        </Col>
+                    </Row>
+                    <br />
                     <Table columns={columns} dataSource={this.props.data.flights} />
                 </Col>
                 </Row>
