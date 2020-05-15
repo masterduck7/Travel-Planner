@@ -16,6 +16,7 @@ export default class TripDetail extends Component {
         super(props)
         this.state = {
             modalEdit: null,
+            modalRemove: null,
             tripID: null,
             destination: "",
             planning_file: "",
@@ -25,7 +26,15 @@ export default class TripDetail extends Component {
         }
     }
 
-    onOpenModal = () => {
+    onOpenModalRemove = () => {
+        this.setState({modalRemove: true})
+    };
+
+    onCloseModalRemove = () => {
+        this.setState({modalRemove: false})
+    };
+
+    onOpenModalEdit = () => {
         this.setState({ 
             modalEdit: true,
             tripID: this.props.trip.trip_id,
@@ -37,7 +46,7 @@ export default class TripDetail extends Component {
         });
     };
      
-    onCloseModal = () => {
+    onCloseModalEdit = () => {
         this.setState({ modalEdit: false });
     };
 
@@ -59,7 +68,21 @@ export default class TripDetail extends Component {
         .catch(function (error) {
           console.log(error);
         });
-    }    
+    }
+
+    removeTrip = event => {
+        event.preventDefault();
+        console.log(this.props.trip.trip_id)
+        const tripID = this.props.trip.trip_id
+        axios.delete(`http://127.0.0.1:8000/trips/${tripID}/`)
+        .then(res => {
+            alert("Viaje eliminado")
+            window.location.href = "/#/trips"
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
 
     render() {
 
@@ -90,7 +113,7 @@ export default class TripDetail extends Component {
         return  (
             <div>
                 <CustomLayout />
-                <Modal open={this.state.modalEdit} onClose={this.onCloseModal} classNames={{modal: 'customModal'}} center>
+                <Modal open={this.state.modalEdit} onClose={this.onCloseModalEdit} classNames={{modal: 'customModal'}} center>
                     <h1><center>Editar viaje</center></h1>
                     <p>
                     <Form {...formItemLayout} onSubmit={this.onClick.bind(this)} >
@@ -150,6 +173,17 @@ export default class TripDetail extends Component {
                     </Form>
                     </p>
                 </Modal>
+                <Modal open={this.state.modalRemove} onClose={this.onCloseModalRemove} classNames={{modal: 'customSmallModal'}} center>
+                    <h2><center>¿ Desea eliminar el viaje seleccionado ?</center></h2>
+                    <p><center>
+                        <Button type="primary" size={'large'} style={{right: 25, top: 10}} onClick={this.removeTrip} >
+                            Si
+                        </Button>
+                        <Button type="danger" size={'large'} style={{left: 25, top: 10}} onClick={this.onCloseModalRemove} >
+                            No
+                        </Button>
+                    </center></p>
+                </Modal>
                 <Row>
                 <Col xs={4} sm={6} md={6} lg={86} xl={4}>
                     <div style={{width: 200}}>
@@ -192,10 +226,13 @@ export default class TripDetail extends Component {
                 </Col>
                 <Col xs={19} sm={17} md={17} lg={17} xl={19}>
                     <Row>
-                        <Col span={22}></Col>
-                        <Col span={2}>
-                            <Button type="primary" size={'small'} style={{top: 10}} onClick={this.onOpenModal} >
+                        <Col span={19}></Col>
+                        <Col span={5}>
+                            <Button type="primary" size={'small'} style={{top: 10}} onClick={this.onOpenModalEdit} >
                                 Editar
+                            </Button>
+                            <Button type="danger" size={'small'} style={{left: 5, top: 10}} onClick={this.onOpenModalRemove} >
+                                Eliminar
                             </Button>
                         </Col>
                     </Row>

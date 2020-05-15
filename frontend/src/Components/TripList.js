@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Col, Divider, Icon, Menu, Row, Table, Tag } from 'antd';
+import { Button, Col, Icon, Menu, Row, Table, Tag } from 'antd';
 import {Link} from 'react-router-dom';
 
 export default class TripList extends Component {
@@ -64,8 +64,6 @@ export default class TripList extends Component {
                 render: (text, item) => (
                   <span>
                     <Link to={`/trips/${item.trip_id}/`}><a>Detalles</a></Link>
-                    <Divider type="vertical" />
-                    <a>Eliminar</a>
                   </span>
                 ),
             }
