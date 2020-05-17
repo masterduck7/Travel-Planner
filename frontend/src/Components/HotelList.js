@@ -39,7 +39,6 @@ export default class HotelList extends Component {
 
     onClickCreate = event => {
         event.preventDefault();
-        console.log(this.props)
         const postObj = {
             city: this.props.data.cityID,
             name: event.target.name.value,

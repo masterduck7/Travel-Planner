@@ -30,7 +30,7 @@ export default class ActivityListView extends Component {
         return  (
             <div>
                 <CustomLayout />
-                <ActivityList data={{ activities: this.state.activities, tripID: this.props.location.state.tripID }}/>
+                <ActivityList data={{ activities: this.state.activities, tripID: this.props.location.state.tripID, cityID: this.props.location.state.cityID }}/>
             </div>
         )
     }
