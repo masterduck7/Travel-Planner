@@ -12,6 +12,7 @@ export default class FlightList extends Component {
     constructor(props){
         super(props)
         this.state = {
+            modalCreate: false,
             modalEdit: false,
             modalRemove: false,
             flight_id: "",
@@ -19,8 +20,8 @@ export default class FlightList extends Component {
             destination: "",
             airline_name: "",
             flight_number: "",
-            start_date: "",
-            end_date: "",
+            start_date: moment().format("YYYY-MM-DD"),
+            end_date: moment().format("YYYY-MM-DD"),
             price: ""
         }
     }
@@ -41,10 +42,6 @@ export default class FlightList extends Component {
 
     onCloseModalEdit = () => {
         this.setState({ modalEdit: false });
-    };
-
-    onCloseModalRemove = () => {
-        this.setState({ modalRemove: false });
     };
 
     onClickEdit = event => {
@@ -70,7 +67,7 @@ export default class FlightList extends Component {
         });
     }
 
-    removeFlightModal = (event, item) => {
+    onOpenModalRemove = (event, item) => {
         event.preventDefault();
         this.setState({
             modalRemove: true,
@@ -78,7 +75,11 @@ export default class FlightList extends Component {
         })
     }
 
-    removeFlight = (event) => {
+    onCloseModalRemove = () => {
+        this.setState({ modalRemove: false });
+    };
+
+    onClickRemove = (event) => {
         event.preventDefault();
         const flightID = this.state.flight_id
         axios.delete(`http://127.0.0.1:8000/flights/${flightID}/`)
@@ -89,6 +90,38 @@ export default class FlightList extends Component {
         .catch(error => {
             console.log(error)
         })
+    }
+
+    onOpenModalCreate(e){
+        this.setState({ 
+            modalCreate: true
+        });
+    }
+
+    onCloseModalCreate= () => {
+        this.setState({ modalCreate: false });
+    };
+
+    onClickCreate = event => {
+        event.preventDefault();
+        const postObj = {
+            trip: this.props.data.tripID,
+            origin: event.target.origin.value,
+            destination: event.target.destination.value,
+            start_date: event.target.start_date.value,
+            end_date: event.target.end_date.value,
+            airline_name: event.target.airline_name.value,
+            flight_number: event.target.flight_number.value,
+            price: event.target.price.value
+        }
+        axios.post(`http://127.0.0.1:8000/flights/`, postObj)
+        .then(function (response) {
+            alert("Vuelo agregado")
+            window.location.href = "/#/trips"
+        })
+        .catch(function (error) {
+          console.log(error.response);
+        });
     }
 
     render() {
@@ -171,13 +204,83 @@ export default class FlightList extends Component {
                     <Divider type="vertical" />
                     <a onClick={(e)=>{
 					    e.stopPropagation();
-					    this.removeFlightModal(e, item)}}>Eliminar</a>
+					    this.onOpenModalRemove(e, item)}}>Eliminar</a>
                   </span>
                 ),
             }
         ]
         return(
             <div>
+                <Modal open={this.state.modalCreate} onClose={this.onCloseModalCreate} classNames={{modal: 'customModal'}} center>
+                    <h1><center>Agregar vuelo</center></h1>
+                    <p>
+                    <Form {...formItemLayout} onSubmit={this.onClickCreate.bind(this)} >
+                        <Form.Item label="Origen">
+                            <Input name="origin"
+                            onChange={(e) => {
+                                this.setState({
+                                    origin: e.target.value
+                                })
+                            }} />
+                        </Form.Item>
+                        <Form.Item label="Destino">
+                            <Input name="destination"
+                            onChange={(e) => {
+                                this.setState({
+                                    destination: e.target.value
+                                })
+                            }} />
+                        </Form.Item>
+                        <Form.Item label="Fecha Inicio">
+                            <DatePicker name="start_date" placeholder="Ingrese fecha" format='YYYY-MM-DD'
+                            value={moment(this.state.start_date)}
+                            onChange={(value) => {
+                                this.setState({
+                                    start_date: moment(value).format('YYYY-MM-DD')
+                                })
+                            }}/>
+                        </Form.Item>
+                        <Form.Item label="Fecha Fin">
+                            <DatePicker name="end_date" placeholder="Ingrese fecha" format='YYYY-MM-DD'
+                            value={moment(this.state.end_date)}
+                            onChange={(value) => {
+                                this.setState({
+                                    end_date: moment(value).format('YYYY-MM-DD')
+                                })
+                            }}/>
+                        </Form.Item>
+                        <Form.Item label="Aerolinea">
+                            <Input name="airline_name"
+                            onChange={(e) => {
+                                this.setState({
+                                    airline_name: e.target.value
+                                })
+                            }} />
+                        </Form.Item>
+                        <Form.Item label="Número de vuelo">
+                            <Input name="flight_number"
+                            onChange={(e) => {
+                                this.setState({
+                                    flight_number: e.target.value
+                                })
+                            }} />
+                        </Form.Item>
+                        <Form.Item label="Precio">
+                            <Input name="price"
+                            onChange={(e) => {
+                                this.setState({
+                                    price: e.target.value
+                                })
+                            }} />
+                        </Form.Item>
+                        <Form.Item {...tailFormItemLayout}>
+                            <Button type="primary" htmlType="submit">
+                                Agregar
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                    </p>
+                </Modal>
                 <Modal open={this.state.modalEdit} onClose={this.onCloseModalEdit} classNames={{modal: 'customModal'}} center>
                     <h1><center>Editar vuelo</center></h1>
                     <p>
@@ -252,7 +355,7 @@ export default class FlightList extends Component {
                     <h2><center>¿ Desea eliminar el vuelo seleccionado ?</center></h2>
                     <p><center>
                         <Button type="primary" size={'large'} style={{right: 25, top: 10}} 
-                            onClick={(e) => this.removeFlight(e)} >
+                            onClick={(e) => this.onClickRemove(e)} >
                             Si
                         </Button>
                         <Button type="danger" size={'large'} style={{left: 25, top: 10}} onClick={this.onCloseModalRemove} >
@@ -280,9 +383,8 @@ export default class FlightList extends Component {
                     <Row>
                         <Col span={22}></Col>
                         <Col span={2}>
-                            <Button type="primary" size={'small'} style={{top: 10}}>
-                                <Link to={{ pathname:"/create-flight", 
-                                state: { trip_id: this.props.data.tripID } }}>Agregar Vuelo</Link>
+                            <Button type="primary" size={'small'} style={{top: 10}} onClick={(e)=> this.onOpenModalCreate(e)}>
+                                Agregar Vuelo
                             </Button>
                         </Col>
                     </Row>
