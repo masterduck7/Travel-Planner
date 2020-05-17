@@ -43,6 +43,10 @@ export default class FlightList extends Component {
         this.setState({ modalEdit: false });
     };
 
+    onCloseModalRemove = () => {
+        this.setState({ modalRemove: false });
+    };
+
     onClickEdit = event => {
         event.preventDefault();
         const flightID = this.state.flight_id
@@ -67,9 +71,17 @@ export default class FlightList extends Component {
         });
     }
 
-    removeFlight = (event, item) => {
+    removeFlightModal = (event, item) => {
         event.preventDefault();
-        const flightID = item.flight_id
+        this.setState({
+            modalRemove: true,
+            flight_id: item.flight_id,
+        })
+    }
+
+    removeFlight = (event) => {
+        event.preventDefault();
+        const flightID = this.state.flight_id
         axios.delete(`http://127.0.0.1:8000/flights/${flightID}/`)
         .then(res => {
             alert("Vuelo eliminado")
@@ -160,7 +172,7 @@ export default class FlightList extends Component {
                     <Divider type="vertical" />
                     <a onClick={(e)=>{
 					    e.stopPropagation();
-					    this.removeFlight(e, item)}}>Eliminar</a>
+					    this.removeFlightModal(e, item)}}>Eliminar</a>
                   </span>
                 ),
             }
@@ -236,6 +248,18 @@ export default class FlightList extends Component {
                         </Form.Item>
                     </Form>
                     </p>
+                </Modal>
+                <Modal open={this.state.modalRemove} onClose={this.onCloseModalRemove} classNames={{modal: 'customSmallModal'}} center>
+                    <h2><center>¿ Desea eliminar el vuelo seleccionado ?</center></h2>
+                    <p><center>
+                        <Button type="primary" size={'large'} style={{right: 25, top: 10}} 
+                            onClick={(e) => this.removeFlight(e)} >
+                            Si
+                        </Button>
+                        <Button type="danger" size={'large'} style={{left: 25, top: 10}} onClick={this.onCloseModalRemove} >
+                            No
+                        </Button>
+                    </center></p>
                 </Modal>
                 <Row>
                 <Col xs={4} sm={6} md={6} lg={86} xl={4}>
