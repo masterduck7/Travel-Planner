@@ -60,7 +60,6 @@ export default class FlightList extends Component {
             end_date: this.state.end_date,
             price: this.state.price
         }
-        console.log(flightObj)
         axios.put(`http://127.0.0.1:8000/flights/${flightID}/`, flightObj)
         .then((response) => {
             alert("Vuelo editado")
