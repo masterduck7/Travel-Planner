@@ -26,14 +26,6 @@ export default class TripDetail extends Component {
         }
     }
 
-    onOpenModalRemove = () => {
-        this.setState({modalRemove: true})
-    };
-
-    onCloseModalRemove = () => {
-        this.setState({modalRemove: false})
-    };
-
     onOpenModalEdit = () => {
         this.setState({ 
             modalEdit: true,
@@ -50,7 +42,7 @@ export default class TripDetail extends Component {
         this.setState({ modalEdit: false });
     };
 
-    onClick = event => {
+    onClickEdit = event => {
         event.preventDefault();
         const tripID = this.state.tripID
         const tripObj = {
@@ -70,7 +62,15 @@ export default class TripDetail extends Component {
         });
     }
 
-    removeTrip = event => {
+    onOpenModalRemove = () => {
+        this.setState({modalRemove: true})
+    };
+
+    onCloseModalRemove = () => {
+        this.setState({modalRemove: false})
+    };
+
+    onClickRemove = event => {
         event.preventDefault();
         console.log(this.props.trip.trip_id)
         const tripID = this.props.trip.trip_id
@@ -116,7 +116,7 @@ export default class TripDetail extends Component {
                 <Modal open={this.state.modalEdit} onClose={this.onCloseModalEdit} classNames={{modal: 'customModal'}} center>
                     <h1><center>Editar viaje</center></h1>
                     <p>
-                    <Form {...formItemLayout} onSubmit={this.onClick.bind(this)} >
+                    <Form {...formItemLayout} onSubmit={this.onClickEdit.bind(this)} >
                         <Form.Item label="Destino">
                             <Input name="destination" type="text" value={this.state.destination} 
                             onChange={(e) => {
@@ -176,7 +176,7 @@ export default class TripDetail extends Component {
                 <Modal open={this.state.modalRemove} onClose={this.onCloseModalRemove} classNames={{modal: 'customSmallModal'}} center>
                     <h2><center>¿ Desea eliminar el viaje seleccionado ?</center></h2>
                     <p><center>
-                        <Button type="primary" size={'large'} style={{right: 25, top: 10}} onClick={this.removeTrip} >
+                        <Button type="primary" size={'large'} style={{right: 25, top: 10}} onClick={this.onClickRemove} >
                             Si
                         </Button>
                         <Button type="danger" size={'large'} style={{left: 25, top: 10}} onClick={this.onCloseModalRemove} >
@@ -207,16 +207,11 @@ export default class TripDetail extends Component {
                                 } }}></Link>
                             </Menu.Item>
                             <Menu.Item key="3">
-                                <Icon type="border" />
-                                <span>Hotel</span>
-                                <Link to={{ pathname:"/hotels", state: { tripID: this.props.trip.trip_id } }}></Link>
-                            </Menu.Item>
-                            <Menu.Item key="4">
                                 <Icon type="environment" />
                                 <span>Ciudades</span>
                                 <Link to={{ pathname:"/cities", state: { tripID: this.props.trip.trip_id } }} ></Link>
                             </Menu.Item>
-                            <Menu.Item key="5">
+                            <Menu.Item key="4">
                                 <Icon type="bank" />
                                 <span>Costos</span>
                                 <Link to={{ pathname:"/costs", state: { tripID: this.props.trip.trip_id } }} ></Link>

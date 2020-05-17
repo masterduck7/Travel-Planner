@@ -20,6 +20,33 @@ export default class CityList extends Component {
         }
     }
 
+    onOpenModalCreate(e){
+        this.setState({ 
+            modalCreate: true
+        });
+    }
+
+    onCloseModalCreate= () => {
+        this.setState({ modalCreate: false });
+    };
+
+    onClickCreate = event => {
+        event.preventDefault();
+        const postObj = {
+            trip: this.props.data.tripID,
+            name: event.target.name.value,
+            map_link: event.target.map_link.value
+        }
+        axios.post(`http://127.0.0.1:8000/cities/`, postObj)
+        .then(function (response) {
+            alert("Ciudad agregada")
+            window.location.href = "/#/trips"
+        })
+        .catch(function (error) {
+          console.log(error.response);
+        });
+    }
+
     onOpenModalEdit = (record) => {
         this.setState({ 
             modalEdit: true,
@@ -76,33 +103,6 @@ export default class CityList extends Component {
         })
     }
 
-    onOpenModalCreate(e){
-        this.setState({ 
-            modalCreate: true
-        });
-    }
-
-    onCloseModalCreate= () => {
-        this.setState({ modalCreate: false });
-    };
-
-    onClickCreate = event => {
-        event.preventDefault();
-        const postObj = {
-            trip: this.props.data.tripID,
-            name: event.target.name.value,
-            map_link: event.target.map_link.value
-        }
-        axios.post(`http://127.0.0.1:8000/cities/`, postObj)
-        .then(function (response) {
-            alert("Ciudad agregada")
-            window.location.href = "/#/trips"
-        })
-        .catch(function (error) {
-          console.log(error.response);
-        });
-    }
-
     render() {
 
         const formItemLayout = {
@@ -143,6 +143,26 @@ export default class CityList extends Component {
                 render: map_link => <a>{map_link}</a>,
             },
             {
+                title: 'Detalles',
+                dataIndex: 'city_id',
+                key: 'city_id',
+                render: city_id => (
+                    <span>
+                        <Button>
+                            <Link to={{ pathname:"/hotels", state: { tripID: this.props.data.tripID, cityID: city_id } }} >
+                                Hoteles
+                            </Link>
+                        </Button>
+                        <Divider type="vertical" />
+                        <Button>
+                            <Link to={{ pathname:"/activities", state: { tripID: this.props.data.tripID, cityID: city_id } }} >
+                                Actividades
+                            </Link>
+                        </Button>
+                    </span>
+                ),
+            },
+            {
                 title: 'Acción',
                 key: 'action',
                 render: (text, item) => (
@@ -154,7 +174,7 @@ export default class CityList extends Component {
                     <a onClick={(e)=>{
 					    e.stopPropagation();
 					    this.onOpenModalRemove(e, item)}}>Eliminar</a>
-                  </span>
+                    </span>
                 ),
             }
         ]
@@ -240,11 +260,6 @@ export default class CityList extends Component {
                                 <Icon type="rollback" />
                                 <span>Volver</span>
                                 <Link to={`/trips/${this.props.data.tripID}`}></Link>
-                            </Menu.Item>
-                            <Menu.Item key="2">
-                                <Icon type="rollback" />
-                                <span>Activities</span>
-                                <Link to={{ pathname:"/activities", state: { tripID: this.props.data.tripID } }} ></Link>
                             </Menu.Item>
                         </Menu>
                     </div>

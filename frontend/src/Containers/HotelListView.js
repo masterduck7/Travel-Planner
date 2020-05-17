@@ -30,7 +30,7 @@ export default class HotelListView extends Component {
         return  (
             <div>
                 <CustomLayout />
-                <HotelList data={{ hotels: this.state.hotels, tripID: this.props.location.state.tripID }}/>
+                <HotelList data={{ hotels: this.state.hotels, tripID: this.props.location.state.tripID, cityID: this.props.location.state.cityID }}/>
             </div>
         )
     }

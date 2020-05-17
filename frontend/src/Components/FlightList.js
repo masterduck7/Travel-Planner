@@ -26,6 +26,38 @@ export default class FlightList extends Component {
         }
     }
 
+    onOpenModalCreate(e){
+        this.setState({ 
+            modalCreate: true
+        });
+    }
+
+    onCloseModalCreate= () => {
+        this.setState({ modalCreate: false });
+    };
+
+    onClickCreate = event => {
+        event.preventDefault();
+        const postObj = {
+            trip: this.props.data.tripID,
+            origin: event.target.origin.value,
+            destination: event.target.destination.value,
+            start_date: event.target.start_date.value,
+            end_date: event.target.end_date.value,
+            airline_name: event.target.airline_name.value,
+            flight_number: event.target.flight_number.value,
+            price: event.target.price.value
+        }
+        axios.post(`http://127.0.0.1:8000/flights/`, postObj)
+        .then(function (response) {
+            alert("Vuelo agregado")
+            window.location.href = "/#/trips"
+        })
+        .catch(function (error) {
+          console.log(error.response);
+        });
+    }
+
     onOpenModalEdit = (record) => {
         this.setState({ 
             modalEdit: true,
@@ -90,38 +122,6 @@ export default class FlightList extends Component {
         .catch(error => {
             console.log(error)
         })
-    }
-
-    onOpenModalCreate(e){
-        this.setState({ 
-            modalCreate: true
-        });
-    }
-
-    onCloseModalCreate= () => {
-        this.setState({ modalCreate: false });
-    };
-
-    onClickCreate = event => {
-        event.preventDefault();
-        const postObj = {
-            trip: this.props.data.tripID,
-            origin: event.target.origin.value,
-            destination: event.target.destination.value,
-            start_date: event.target.start_date.value,
-            end_date: event.target.end_date.value,
-            airline_name: event.target.airline_name.value,
-            flight_number: event.target.flight_number.value,
-            price: event.target.price.value
-        }
-        axios.post(`http://127.0.0.1:8000/flights/`, postObj)
-        .then(function (response) {
-            alert("Vuelo agregado")
-            window.location.href = "/#/trips"
-        })
-        .catch(function (error) {
-          console.log(error.response);
-        });
     }
 
     render() {
@@ -197,15 +197,15 @@ export default class FlightList extends Component {
                 title: 'Acción',
                 key: 'action',
                 render: (text, item) => (
-                  <span>
-                    <a onClick={(e)=>{
-					    e.stopPropagation();
-					    this.onOpenModalEdit(item)}}>Editar</a>
-                    <Divider type="vertical" />
-                    <a onClick={(e)=>{
-					    e.stopPropagation();
-					    this.onOpenModalRemove(e, item)}}>Eliminar</a>
-                  </span>
+                    <span>
+                        <a onClick={(e)=>{
+                            e.stopPropagation();
+                            this.onOpenModalEdit(item)}}>Editar</a>
+                        <Divider type="vertical" />
+                        <a onClick={(e)=>{
+                            e.stopPropagation();
+                            this.onOpenModalRemove(e, item)}}>Eliminar</a>
+                    </span>
                 ),
             }
         ]
