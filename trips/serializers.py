@@ -16,15 +16,6 @@ class FlightSerializer(serializers.ModelSerializer):
             self.fields['trip'] =  TripSerializer(read_only=True)
             return super(FlightSerializer, self).to_representation(instance)
 
-class CitySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = City
-        fields = ('url','city_id','trip','name','map_link','total_cost')
-
-        def to_representation(self, instance):
-            self.fields['trip'] =  TripSerializer(read_only=True)
-            return super(CitySerializer, self).to_representation(instance)
-
 class HotelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hotel
@@ -52,3 +43,15 @@ class CostSerializer(serializers.ModelSerializer):
         def to_representation(self, instance):
             self.fields['city'] =  CitySerializer(read_only=True)
             return super(CostSerializer, self).to_representation(instance)
+
+class CitySerializer(serializers.ModelSerializer):
+    hotels = HotelSerializer(many=True, read_only=True)
+    activities = ActivitySerializer(many=True, read_only=True)
+    costs = CostSerializer(many=True, read_only=True)
+    class Meta:
+        model = City
+        fields = ('url','city_id','trip','name','map_link','total_cost','hotels','activities','costs')
+
+        def to_representation(self, instance):
+            self.fields['trip'] =  TripSerializer(read_only=True)
+            return super(CitySerializer, self).to_representation(instance)
