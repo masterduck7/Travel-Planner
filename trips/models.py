@@ -10,6 +10,7 @@ class Trip(models.Model):
     end_date = models.DateField(default=date.today(), blank=False)
     planning_file = models.CharField(max_length=250, blank=True)
     status = models.CharField( max_length=10, default="Active", blank=False )
+    total_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
 
     def __str__(self):
         return self.destination
@@ -33,6 +34,7 @@ class City(models.Model):
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name='cities')
     name = models.CharField(max_length=250, blank=False)
     map_link = models.CharField(max_length=250, blank=True)
+    total_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
 
     def __str__(self):
         return self.name

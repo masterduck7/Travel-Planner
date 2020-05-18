@@ -4,7 +4,7 @@ from rest_framework import serializers
 class TripSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trip
-        fields = ('url','trip_id','destination','start_date','end_date','status','planning_file')
+        fields = ('url','trip_id','destination','start_date','end_date','status','planning_file','total_cost')
 
 class FlightSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,7 +19,7 @@ class FlightSerializer(serializers.ModelSerializer):
 class CitySerializer(serializers.ModelSerializer):
     class Meta:
         model = City
-        fields = ('url','city_id','trip','name','map_link')
+        fields = ('url','city_id','trip','name','map_link','total_cost')
 
         def to_representation(self, instance):
             self.fields['trip'] =  TripSerializer(read_only=True)
