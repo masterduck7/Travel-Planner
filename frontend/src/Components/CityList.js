@@ -214,7 +214,7 @@ export default class CityList extends Component {
         ]
 
         const countryOptions = Object.keys(this.state.country_list).map(key => 
-            <option value={this.state.country_list[key]}>{key}</option>
+            <option value={this.state.country_list[key]}>{this.capitalizeFirstLetter(key)}</option>
         )
 
         return(
