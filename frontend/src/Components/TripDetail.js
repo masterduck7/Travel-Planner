@@ -112,7 +112,7 @@ export default class TripDetail extends Component {
 
         return  (
             <div>
-                <CustomLayout />
+                <CustomLayout data={{tab: '2'}} />
                 <Modal open={this.state.modalEdit} onClose={this.onCloseModalEdit} classNames={{modal: 'customModal'}} center>
                     <h1><center>Editar viaje</center></h1>
                     <p>
@@ -200,21 +200,17 @@ export default class TripDetail extends Component {
                             <Menu.Item key="2">
                                 <Icon type="global" />
                                 <span>Vuelos</span>
-                                <Link to={{ pathname:"/flights", 
-                                state: { 
-                                    tripID: this.props.trip.trip_id,
-                                    trip: this.props.trip 
-                                } }}></Link>
+                                <Link to={{ pathname:`/trips/${this.props.trip.trip_id}/flights` }}></Link>
                             </Menu.Item>
                             <Menu.Item key="3">
                                 <Icon type="environment" />
                                 <span>Ciudades</span>
-                                <Link to={{ pathname:"/cities", state: { tripID: this.props.trip.trip_id } }} ></Link>
+                                <Link to={{ pathname:`/trips/${this.props.trip.trip_id}/cities` }}></Link>
                             </Menu.Item>
                             <Menu.Item key="4">
                                 <Icon type="bank" />
                                 <span>Costos</span>
-                                <Link to={{ pathname:"/costs", state: { tripID: this.props.trip.trip_id } }} ></Link>
+                                <Link to={{ pathname:`/trips/${this.props.trip.trip_id}/costs` }} ></Link>
                             </Menu.Item>
                         </Menu>
                     </div>

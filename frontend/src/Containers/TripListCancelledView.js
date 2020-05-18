@@ -36,7 +36,7 @@ export default class TripListPastView extends Component {
     render() {
         return  (
             <div>
-                <CustomLayout />
+                <CustomLayout data={{tab: '2'}} />
                 <TripList data={{trips: this.state.trips, tab: '3'}}/>
             </div>
         )

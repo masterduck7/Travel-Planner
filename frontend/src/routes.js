@@ -23,21 +23,21 @@ const BaseRouter = () => (
         <HashRouter basename='/'>
             <Switch>
                 <Route exact path='/' component={Home} />
+                <Route exact path='/map' component={MapView} />
                 <Route exact path='/profile' component={ProfileView} />
+                <Route exact path='/statistics' component={StatisticsView} />
+                <Route exact path='/skyscanner' component={SkyScannerView} />
                 <Route exact path='/trips' component={TripListView} />
-                <Route exact path='/trips/:tripID' component={TripDetailView} />
                 <Route exact path='/past-trips' component={TripListPastView} />
                 <Route exact path='/active-trips' component={TripListFutureView} />
                 <Route exact path='/cancelled-trips' component={TripListCancelledView} />
-                <Route exact path='/flights' component={FlightListView} />
-                <Route exact path='/hotels' component={HotelListView} />
-                <Route exact path='/cities' component={CityListView} />
-                <Route exact path='/activities' component={ActivityListView} />
-                <Route exact path='/city-costs' component={CityCostView} />
-                <Route exact path='/costs' component={CostView} />
-                <Route exact path='/map' component={MapView} />
-                <Route exact path='/statistics' component={StatisticsView} />
-                <Route exact path='/skyscanner' component={SkyScannerView} />
+                <Route exact path='/trips/:tripID' component={TripDetailView} />
+                <Route exact path='/trips/:tripID/costs' component={CostView} />
+                <Route exact path='/trips/:tripID/flights' component={FlightListView} />
+                <Route exact path='/trips/:tripID/cities' component={CityListView} />
+                <Route exact path='/trips/:tripID/cities/:cityID/hotels' component={HotelListView} />
+                <Route exact path='/trips/:tripID/cities/:cityID/activities' component={ActivityListView} />
+                <Route exact path='/trips/:tripID/cities/:cityID/city-costs' component={CityCostView} />
             </Switch>
         </HashRouter>
     </div>

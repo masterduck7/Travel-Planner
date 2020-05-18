@@ -29,8 +29,8 @@ export default class CityListView extends Component {
     render() {
         return  (
             <div>
-                <CustomLayout />
-                <CityList data={{ cities: this.state.cities, tripID: this.props.location.state.tripID }}/>
+                <CustomLayout data={{tab: '2'}} />
+                <CityList data={{ cities: this.state.cities, tripID: this.props.match.params.tripID }}/>
             </div>
         )
     }

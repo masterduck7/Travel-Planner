@@ -45,7 +45,7 @@ export default class MapView extends Component {
 
         return  (
             <div>
-                <CustomLayout />
+                <CustomLayout data={{tab: '4'}} />
                 <h1 style={{textAlign: 'center', marginTop: 20}}>Paises visitados</h1>
                 <Col xs={24} sm={12} md={12} lg={86} xl={12}>
                     <h2 style={{textAlign: 'center', marginTop: 20}}>Cantidad</h2>

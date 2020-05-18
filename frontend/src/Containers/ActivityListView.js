@@ -29,8 +29,8 @@ export default class ActivityListView extends Component {
     render() {
         return  (
             <div>
-                <CustomLayout />
-                <ActivityList data={{ activities: this.state.activities, tripID: this.props.location.state.tripID, cityID: this.props.location.state.cityID }}/>
+                <CustomLayout data={{tab: '2'}} />
+                <ActivityList data={{ activities: this.state.activities, tripID: this.props.match.params.tripID, cityID: this.props.match.params.cityID }}/>
             </div>
         )
     }

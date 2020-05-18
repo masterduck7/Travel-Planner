@@ -10,7 +10,7 @@ export default class CustomLayout extends Component{
         return (
             <Layout className="layout">
                 <Header>
-                    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{ lineHeight: '64px', marginLeft: -50 }}>
+                    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[this.props.data.tab]} style={{ lineHeight: '64px', marginLeft: -50 }}>
                         <Menu.Item key="1"><Link to="/"><Icon type="home" />Inicio</Link></Menu.Item>
                         <Menu.Item key="2"><Link to="/trips">Mis Viajes</Link></Menu.Item>
                         <Menu.Item key="3"><Link to="/statistics">Estadísticas</Link></Menu.Item>
