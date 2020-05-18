@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from trips.models import Trip, Flight, Hotel, City
-from trips.serializers import TripSerializer, FlightSerializer, HotelSerializer, CitySerializer
+from trips.models import Trip, Flight, Hotel, City, Activity
+from trips.serializers import TripSerializer, FlightSerializer, HotelSerializer, CitySerializer, ActivitySerializer
 
 
 class TripViewSet(viewsets.ModelViewSet):
@@ -21,3 +21,7 @@ class HotelViewSet(viewsets.ModelViewSet):
 class CityViewSet(viewsets.ModelViewSet):
     queryset = City.objects.all()
     serializer_class = CitySerializer
+
+class ActivityViewSet(viewsets.ModelViewSet):
+    queryset = Activity.objects.all()
+    serializer_class = ActivitySerializer
