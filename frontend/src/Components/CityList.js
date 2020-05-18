@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { Button, Col, Divider, Form, Icon, Input, Menu, Row, Table } from 'antd';
+import { Button, Col, Divider, Form, Icon, Input, Menu, Row, Select, Table } from 'antd';
 import {Link} from 'react-router-dom';
 import { Modal } from 'react-responsive-modal';
 import axios from 'axios';
 import 'react-responsive-modal/styles.css';
 import '../Assets/styles.css'
+
+const { getNameList } = require('country-list');
+const { Option } = Select;
 
 export default class CityList extends Component {
 
@@ -16,13 +19,19 @@ export default class CityList extends Component {
             modalRemove: false,
             city_id: "",
             name: "",
-            map_link: ""
+            country: "",
+            map_link: "",
+            country_list: getNameList()
         }
     }
 
     onOpenModalCreate(e){
         this.setState({ 
-            modalCreate: true
+            modalCreate: true,
+            city_id: "",
+            name: "",
+            country: "",
+            map_link: ""
         });
     }
 
@@ -35,6 +44,7 @@ export default class CityList extends Component {
         const postObj = {
             trip: this.props.data.tripID,
             name: event.target.name.value,
+            country: this.state.country,
             map_link: event.target.map_link.value
         }
         axios.post(`http://127.0.0.1:8000/cities/`, postObj)
@@ -52,6 +62,7 @@ export default class CityList extends Component {
             modalEdit: true,
             city_id: record.city_id,
             name: record.name,
+            country: record.country,
             map_link: record.map_link
         });
     };
@@ -66,6 +77,7 @@ export default class CityList extends Component {
         const cityObj = {
             trip: this.props.data.tripID,
             name: this.state.name,
+            country: this.state.country,
             map_link: this.state.map_link
         }
         axios.put(`http://127.0.0.1:8000/cities/${cityID}/`, cityObj)
@@ -102,6 +114,10 @@ export default class CityList extends Component {
             console.log(error)
         })
     }
+    
+    capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
     render() {
 
@@ -135,6 +151,18 @@ export default class CityList extends Component {
                 dataIndex: 'name',
                 key: 'name',
                 render: name => <a>{name}</a>,
+            },
+            {
+                title: 'Pais',
+                dataIndex: 'country',
+                key: 'country',
+                render: country => {
+                    let countryName = Object.keys(this.state.country_list).find(key => this.state.country_list[key] === country)
+                    let countryNameCapitalized = this.capitalizeFirstLetter(countryName)
+                    return(
+                        <a>{countryNameCapitalized}</a>
+                    )
+                }
             },
             {
                 title: 'Mapa',
@@ -184,6 +212,11 @@ export default class CityList extends Component {
                 ),
             }
         ]
+
+        const countryOptions = Object.keys(this.state.country_list).map(key => 
+            <option value={this.state.country_list[key]}>{this.capitalizeFirstLetter(key)}</option>
+        )
+
         return(
             <div>
                 <Modal open={this.state.modalCreate} onClose={this.onCloseModalCreate} classNames={{modal: 'customModal'}} center>
@@ -197,6 +230,16 @@ export default class CityList extends Component {
                                     name: e.target.value
                                 })
                             }}/>
+                        </Form.Item>
+                        <Form.Item label="Pais">
+                            <Select name="country" placeholder="Por favor seleccione el pais a viajar"
+                            onChange={(value) => {
+                                this.setState({
+                                    country: value
+                                })
+                            }}>
+                                {countryOptions}
+                            </Select>
                         </Form.Item>
                         <Form.Item label="Link a mapa">
                             <Input name="map_link" type="text" value={this.state.map_link} 
@@ -225,6 +268,17 @@ export default class CityList extends Component {
                                     name: e.target.value
                                 })
                             }}/>
+                        </Form.Item>
+                        <Form.Item label="Pais">
+                            <Select name="country" placeholder="Por favor seleccione el pais a viajar"
+                            value = {this.state.country}
+                            onChange={(value) => {
+                                this.setState({
+                                    country: value
+                                })
+                            }}>
+                                {countryOptions}
+                            </Select>
                         </Form.Item>
                         <Form.Item label="Link a mapa">
                             <Input name="map_link" type="text" value={this.state.map_link} 
