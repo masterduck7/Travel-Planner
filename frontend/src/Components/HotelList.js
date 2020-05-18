@@ -421,7 +421,7 @@ export default class HotelList extends Component {
                             <Menu.Item key="1">
                                 <Icon type="rollback" />
                                 <span>Volver</span>
-                                <Link to={{ pathname:"/cities", state: { tripID: this.props.data.tripID } }} ></Link>
+                                <Link to={`/trips/${this.props.data.tripID}/cities/`}></Link>
                             </Menu.Item>
                         </Menu>
                     </div>

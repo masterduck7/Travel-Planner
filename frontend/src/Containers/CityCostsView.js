@@ -29,8 +29,8 @@ export default class CityCostView extends Component {
     render() {
         return  (
             <div>
-                <CustomLayout />
-                <CostList data={{ costs: this.state.costs, tripID: this.props.location.state.tripID, cityID: this.props.location.state.cityID }}/>
+                <CustomLayout data={{tab: '2'}} />
+                <CostList data={{ costs: this.state.costs, tripID: this.props.match.params.tripID, cityID: this.props.match.params.cityID }}/>
             </div>
         )
     }

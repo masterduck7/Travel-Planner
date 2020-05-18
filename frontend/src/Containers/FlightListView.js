@@ -29,8 +29,8 @@ export default class FlightListView extends Component {
     render() {
         return  (
             <div>
-                <CustomLayout />
-                <FlightList data={{ flights: this.state.flights, tripID: this.props.location.state.tripID }}/>
+                <CustomLayout data={{tab: '2'}} />
+                <FlightList data={{ flights: this.state.flights, tripID: this.props.match.params.tripID }}/>
             </div>
         )
     }

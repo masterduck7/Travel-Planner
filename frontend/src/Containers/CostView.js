@@ -29,7 +29,7 @@ export default class CostView extends Component {
                     let selectedFlights = 0
                     let totalFlights = 0
                     res.data.forEach(flight => {
-                        if (flight.trip === this.props.location.state.tripID) {
+                        if (flight.trip === this.props.match.params.tripID) {
                             selectedFlights = Number(selectedFlights) + Number(flight.price)
                             totalFlights = Number(totalFlights) + 1
                         }
@@ -56,7 +56,7 @@ export default class CostView extends Component {
                     let totalActivities_paid = 0
                     let totalActivities_not_paid = 0
                     res.data.forEach(city => {
-                        if (city.trip === this.props.location.state.tripID) {
+                        if (city.trip === this.props.match.params.tripID) {
                             selectedCities = Number(selectedCities) + 1
                             city.hotels.forEach(hotel => {
                                 selectedHotels = Number(selectedHotels) + 1
@@ -96,7 +96,7 @@ export default class CostView extends Component {
     render() {
         return  (
             <div>
-                <CustomLayout />
+                <CustomLayout data={{tab: '2'}} />
                 <Row>
                 <Col xs={4} sm={6} md={6} lg={86} xl={4}>
                     <div style={{width: 200}}>
@@ -108,7 +108,7 @@ export default class CostView extends Component {
                             <Menu.Item key="1">
                                 <Icon type="rollback" />
                                 <span>Volver</span>
-                                <Link to={`/trips/${this.props.location.state.tripID}`}></Link>
+                                <Link to={`/trips/${this.props.match.params.tripID}`}></Link>
                             </Menu.Item>
                         </Menu>
                     </div>

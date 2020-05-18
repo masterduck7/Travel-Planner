@@ -29,8 +29,8 @@ export default class HotelListView extends Component {
     render() {
         return  (
             <div>
-                <CustomLayout />
-                <HotelList data={{ hotels: this.state.hotels, tripID: this.props.location.state.tripID, cityID: this.props.location.state.cityID }}/>
+                <CustomLayout data={{tab: '2'}} />
+                <HotelList data={{ hotels: this.state.hotels, tripID: this.props.match.params.tripID, cityID: this.props.match.params.cityID }}/>
             </div>
         )
     }

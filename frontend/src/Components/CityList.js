@@ -177,19 +177,19 @@ export default class CityList extends Component {
                 render: city_id => (
                     <span>
                         <Button>
-                            <Link to={{ pathname:"/hotels", state: { tripID: this.props.data.tripID, cityID: city_id } }} >
+                            <Link to={{ pathname:`/trips/${this.props.data.tripID}/cities/${city_id}/hotels` }}>
                                 Hoteles
                             </Link>
                         </Button>
                         <Divider type="vertical" />
                         <Button>
-                            <Link to={{ pathname:"/activities", state: { tripID: this.props.data.tripID, cityID: city_id } }} >
+                            <Link to={{ pathname:`/trips/${this.props.data.tripID}/cities/${city_id}/activities` }}>
                                 Actividades
                             </Link>
                         </Button>
                         <Divider type="vertical" />
                         <Button>
-                            <Link to={{ pathname:"/city-costs", state: { tripID: this.props.data.tripID, cityID: city_id } }} >
+                            <Link to={{ pathname:`/trips/${this.props.data.tripID}/cities/${city_id}/city-costs` }}>
                                 Costos
                             </Link>
                         </Button>

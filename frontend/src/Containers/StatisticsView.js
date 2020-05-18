@@ -5,7 +5,7 @@ export default class StatisticsView extends Component {
     render() {
         return  (
             <div>
-                <CustomLayout />
+                <CustomLayout data={{tab: '3'}} />
                 <h1>Estadisticas</h1>
             </div>
         )
