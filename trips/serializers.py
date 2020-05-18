@@ -1,4 +1,4 @@
-from trips.models import Trip, Flight, Hotel, City, Activity
+from trips.models import Trip, Flight, Hotel, City, Activity, Cost
 from rest_framework import serializers
 
 class TripSerializer(serializers.ModelSerializer):
@@ -43,3 +43,12 @@ class ActivitySerializer(serializers.ModelSerializer):
         def to_representation(self, instance):
             self.fields['city'] =  CitySerializer(read_only=True)
             return super(ActivitySerializer, self).to_representation(instance)
+
+class CostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cost
+        fields = ('url','cost_id','city','name','total_price')
+
+        def to_representation(self, instance):
+            self.fields['city'] =  CitySerializer(read_only=True)
+            return super(CostSerializer, self).to_representation(instance)

@@ -63,3 +63,12 @@ class Activity(models.Model):
 
     def __str__(self):
         return self.name
+
+class Cost(models.Model):
+    cost_id = models.AutoField(primary_key=True)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='costs')
+    name = models.CharField(max_length=250, blank=False)
+    total_price = models.DecimalField(max_digits=8, decimal_places=2)
+
+    def __str__(self):
+        return self.name
