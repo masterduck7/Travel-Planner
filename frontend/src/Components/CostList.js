@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Button, Col, Divider, Form, Icon, Input, Menu, Row, Table } from 'antd';
+import { Button, Checkbox, Col, DatePicker, Divider, Form, Icon, Input, Menu, Row, Table, Tag } from 'antd';
 import {Link} from 'react-router-dom';
 import { Modal } from 'react-responsive-modal';
+import moment from 'moment';
 import axios from 'axios';
 import 'react-responsive-modal/styles.css';
 import '../Assets/styles.css'
 
-export default class CityList extends Component {
+export default class CostList extends Component {
 
     constructor(props){
         super(props)
@@ -14,9 +15,9 @@ export default class CityList extends Component {
             modalCreate: false,
             modalEdit: false,
             modalRemove: false,
-            city_id: "",
+            cost_id: "",
             name: "",
-            map_link: ""
+            total_price: ""
         }
     }
 
@@ -33,13 +34,13 @@ export default class CityList extends Component {
     onClickCreate = event => {
         event.preventDefault();
         const postObj = {
-            trip: this.props.data.tripID,
+            city: this.props.data.cityID,
             name: event.target.name.value,
-            map_link: event.target.map_link.value
+            total_price: event.target.total_price.value
         }
-        axios.post(`http://127.0.0.1:8000/cities/`, postObj)
+        axios.post(`http://127.0.0.1:8000/costs/`, postObj)
         .then(function (response) {
-            alert("Ciudad agregada")
+            alert("Gasto agregado")
             window.location.href = "/#/trips"
         })
         .catch(function (error) {
@@ -50,9 +51,9 @@ export default class CityList extends Component {
     onOpenModalEdit = (record) => {
         this.setState({ 
             modalEdit: true,
-            city_id: record.city_id,
+            cost_id: record.cost_id,
             name: record.name,
-            map_link: record.map_link
+            total_price: record.total_price
         });
     };
 
@@ -62,15 +63,15 @@ export default class CityList extends Component {
 
     onClickEdit = event => {
         event.preventDefault();
-        const cityID = this.state.city_id
-        const cityObj = {
-            trip: this.props.data.tripID,
+        const costID = this.state.cost_id
+        const costObj = {
+            city: this.props.data.cityID,
             name: this.state.name,
-            map_link: this.state.map_link
+            total_price: this.state.total_price
         }
-        axios.put(`http://127.0.0.1:8000/cities/${cityID}/`, cityObj)
+        axios.put(`http://127.0.0.1:8000/costs/${costID}/`, costObj)
         .then((response) => {
-            alert("Ciudad editada")
+            alert("Gasto editado")
             window.location.href = "/#/trips"
         })
         .catch(function (error) {
@@ -82,7 +83,7 @@ export default class CityList extends Component {
         event.preventDefault();
         this.setState({
             modalRemove: true,
-            city_id: item.city_id,
+            cost_id: item.cost_id,
         })
     }
 
@@ -92,10 +93,10 @@ export default class CityList extends Component {
 
     onClickRemove = (event) => {
         event.preventDefault();
-        const cityID = this.state.city_id
-        axios.delete(`http://127.0.0.1:8000/cities/${cityID}/`)
+        const costID = this.state.cost_id
+        axios.delete(`http://127.0.0.1:8000/costs/${costID}/`)
         .then(res => {
-            alert("Ciudad eliminada")
+            alert("Gasto eliminado")
             window.location.href = "/#/trips"
         })
         .catch(error => {
@@ -137,49 +138,23 @@ export default class CityList extends Component {
                 render: name => <a>{name}</a>,
             },
             {
-                title: 'Mapa',
-                dataIndex: 'map_link',
-                key: 'map_link',
-                render: map_link => <a>{map_link}</a>,
-            },
-            {
-                title: 'Detalles',
-                dataIndex: 'city_id',
-                key: 'city_id',
-                render: city_id => (
-                    <span>
-                        <Button>
-                            <Link to={{ pathname:"/hotels", state: { tripID: this.props.data.tripID, cityID: city_id } }} >
-                                Hoteles
-                            </Link>
-                        </Button>
-                        <Divider type="vertical" />
-                        <Button>
-                            <Link to={{ pathname:"/activities", state: { tripID: this.props.data.tripID, cityID: city_id } }} >
-                                Actividades
-                            </Link>
-                        </Button>
-                        <Divider type="vertical" />
-                        <Button>
-                            <Link to={{ pathname:"/city-costs", state: { tripID: this.props.data.tripID, cityID: city_id } }} >
-                                Costos
-                            </Link>
-                        </Button>
-                    </span>
-                ),
+                title: 'Precio',
+                dataIndex: 'total_price',
+                key: 'total_price',
+                render: total_price => <a>{total_price}</a>,
             },
             {
                 title: 'Acción',
                 key: 'action',
                 render: (text, item) => (
                     <span>
-                    <a onClick={(e)=>{
-					    e.stopPropagation();
-					    this.onOpenModalEdit(item)}}>Editar</a>
-                    <Divider type="vertical" />
-                    <a onClick={(e)=>{
-					    e.stopPropagation();
-					    this.onOpenModalRemove(e, item)}}>Eliminar</a>
+                        <a onClick={(e)=>{
+                            e.stopPropagation();
+                            this.onOpenModalEdit(item)}}>Editar</a>
+                        <Divider type="vertical" />
+                        <a onClick={(e)=>{
+                            e.stopPropagation();
+                            this.onOpenModalRemove(e, item)}}>Eliminar</a>
                     </span>
                 ),
             }
@@ -187,24 +162,24 @@ export default class CityList extends Component {
         return(
             <div>
                 <Modal open={this.state.modalCreate} onClose={this.onCloseModalCreate} classNames={{modal: 'customModal'}} center>
-                    <h1><center>Agregar ciudad</center></h1>
+                    <h1><center>Agregar gasto</center></h1>
                     <p>
                     <Form {...formItemLayout} onSubmit={this.onClickCreate.bind(this)} >
                         <Form.Item label="Nombre">
-                            <Input name="name" type="text" value={this.state.name} 
+                            <Input name="name"
                             onChange={(e) => {
                                 this.setState({
                                     name: e.target.value
                                 })
-                            }}/>
+                            }} />
                         </Form.Item>
-                        <Form.Item label="Link a mapa">
-                            <Input name="map_link" type="text" value={this.state.map_link} 
+                        <Form.Item label="Precio">
+                            <Input name="total_price"
                             onChange={(e) => {
                                 this.setState({
-                                    map_link: e.target.value
+                                    total_price: e.target.value
                                 })
-                            }}/>
+                            }} />
                         </Form.Item>
                         <Form.Item {...tailFormItemLayout}>
                             <Button type="primary" htmlType="submit">
@@ -215,24 +190,26 @@ export default class CityList extends Component {
                     </p>
                 </Modal>
                 <Modal open={this.state.modalEdit} onClose={this.onCloseModalEdit} classNames={{modal: 'customModal'}} center>
-                    <h1><center>Editar ciudad</center></h1>
+                    <h1><center>Editar gasto</center></h1>
                     <p>
                     <Form {...formItemLayout} onSubmit={this.onClickEdit.bind(this)} >
                         <Form.Item label="Nombre">
-                            <Input name="name" type="text" value={this.state.name} 
+                            <Input name="name"
+                            value={this.state.name}
                             onChange={(e) => {
                                 this.setState({
                                     name: e.target.value
                                 })
-                            }}/>
+                            }} />
                         </Form.Item>
-                        <Form.Item label="Link a mapa">
-                            <Input name="map_link" type="text" value={this.state.map_link} 
+                        <Form.Item label="Precio">
+                            <Input name="total_price"
+                            value={this.state.total_price}
                             onChange={(e) => {
                                 this.setState({
-                                    map_link: e.target.value
+                                    total_price: e.target.value
                                 })
-                            }}/>
+                            }} />
                         </Form.Item>
                         <Form.Item {...tailFormItemLayout}>
                             <Button type="primary" htmlType="submit">
@@ -243,7 +220,7 @@ export default class CityList extends Component {
                     </p>
                 </Modal>
                 <Modal open={this.state.modalRemove} onClose={this.onCloseModalRemove} classNames={{modal: 'customSmallModal'}} center>
-                    <h2><center>¿ Desea eliminar la ciudad seleccionada ?</center></h2>
+                    <h2><center>¿ Desea eliminar el gasto seleccionado ?</center></h2>
                     <p><center>
                         <Button type="primary" size={'large'} style={{right: 25, top: 10}} 
                             onClick={(e) => this.onClickRemove(e)} >
@@ -265,23 +242,22 @@ export default class CityList extends Component {
                             <Menu.Item key="1">
                                 <Icon type="rollback" />
                                 <span>Volver</span>
-                                <Link to={`/trips/${this.props.data.tripID}`}></Link>
+                                <Link to={{ pathname:"/cities", state: { tripID: this.props.data.tripID } }} ></Link>
                             </Menu.Item>
                         </Menu>
                     </div>
                 </Col>
                 <Col xs={19} sm={17} md={17} lg={17} xl={19}>
                     <Row>
-                        <Col span={21}></Col>
+                        <Col span={22}></Col>
                         <Col span={2}>
-                            <Button type="primary" size={'small'} style={{top: 10}} 
-                                onClick={(e) => this.onOpenModalCreate(e)}>
-                                Agregar Ciudad
+                            <Button type="primary" size={'small'} style={{top: 10}} onClick={(e)=> this.onOpenModalCreate(e)}>
+                                Agregar gasto
                             </Button>
                         </Col>
                     </Row>
                     <br />
-                    <Table columns={columns} dataSource={this.props.data.cities} />
+                    <Table columns={columns} dataSource={this.props.data.costs} />
                 </Col>
                 </Row>
             </div>

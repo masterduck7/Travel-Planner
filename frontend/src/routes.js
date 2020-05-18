@@ -8,6 +8,7 @@ import FlightListView from './Containers/FlightListView';
 import HotelListView from './Containers/HotelListView';
 import CityListView from './Containers/CityListView';
 import ActivityListView from './Containers/ActivityListView';
+import CityCostView from './Containers/CityCostsView';
 import CostView from './Containers/CostView';
 import MapView from './Containers/MapView';
 import StatisticsView from './Containers/StatisticsView';
@@ -32,6 +33,7 @@ const BaseRouter = () => (
                 <Route exact path='/hotels' component={HotelListView} />
                 <Route exact path='/cities' component={CityListView} />
                 <Route exact path='/activities' component={ActivityListView} />
+                <Route exact path='/city-costs' component={CityCostView} />
                 <Route exact path='/costs' component={CostView} />
                 <Route exact path='/map' component={MapView} />
                 <Route exact path='/statistics' component={StatisticsView} />

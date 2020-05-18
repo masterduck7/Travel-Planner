@@ -1,10 +1,10 @@
-from trips.models import Trip, Flight, Hotel, City, Activity
+from trips.models import Trip, Flight, Hotel, City, Activity, Cost
 from rest_framework import serializers
 
 class TripSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trip
-        fields = ('url','trip_id','destination','start_date','end_date','status','planning_file')
+        fields = ('url','trip_id','destination','start_date','end_date','status','planning_file','total_cost')
 
 class FlightSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,15 +15,6 @@ class FlightSerializer(serializers.ModelSerializer):
         def to_representation(self, instance):
             self.fields['trip'] =  TripSerializer(read_only=True)
             return super(FlightSerializer, self).to_representation(instance)
-
-class CitySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = City
-        fields = ('url','city_id','trip','name','map_link')
-
-        def to_representation(self, instance):
-            self.fields['trip'] =  TripSerializer(read_only=True)
-            return super(CitySerializer, self).to_representation(instance)
 
 class HotelSerializer(serializers.ModelSerializer):
     class Meta:
@@ -43,3 +34,24 @@ class ActivitySerializer(serializers.ModelSerializer):
         def to_representation(self, instance):
             self.fields['city'] =  CitySerializer(read_only=True)
             return super(ActivitySerializer, self).to_representation(instance)
+
+class CostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cost
+        fields = ('url','cost_id','city','name','total_price')
+
+        def to_representation(self, instance):
+            self.fields['city'] =  CitySerializer(read_only=True)
+            return super(CostSerializer, self).to_representation(instance)
+
+class CitySerializer(serializers.ModelSerializer):
+    hotels = HotelSerializer(many=True, read_only=True)
+    activities = ActivitySerializer(many=True, read_only=True)
+    costs = CostSerializer(many=True, read_only=True)
+    class Meta:
+        model = City
+        fields = ('url','city_id','trip','name','map_link','total_cost','hotels','activities','costs')
+
+        def to_representation(self, instance):
+            self.fields['trip'] =  TripSerializer(read_only=True)
+            return super(CitySerializer, self).to_representation(instance)
