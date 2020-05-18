@@ -39,7 +39,7 @@ export default class CostView extends Component {
                         number_flights: totalFlights
                     })    
                 }else{
-                    console.log("Error get data")
+                    console.log("Error in Get Cost Flight data")
                 }
             })
         axios.get(`http://127.0.0.1:8000/cities/`)
@@ -88,7 +88,7 @@ export default class CostView extends Component {
                         totalHotels_not_paid: totalHotels_not_paid
                     })    
                 }else{
-                    console.log("Error get data")
+                    console.log("Error in Get Cost City data")
                 }
             })
     }

@@ -15,13 +15,17 @@ export default class HotelListView extends Component {
         axios.get(`http://127.0.0.1:8000/hotels/`)
             .then(res => {
                 if (!res.data["Error"]) {
+                    let hotelData = []
+                    res.data.forEach(hotel => {
+                        if (Number(this.props.match.params.cityID) === hotel.city) {
+                            hotelData.push(hotel)
+                        }
+                    });
                     this.setState({
-                        hotels: res.data
-                    })    
+                        hotels: hotelData
+                    })
                 }else{
-                    this.setState({
-                        hotels: []
-                    }) 
+                    console.log("Error in Get Hotel data")
                 }
             })
     }

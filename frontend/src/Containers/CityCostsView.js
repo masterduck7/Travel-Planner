@@ -15,13 +15,17 @@ export default class CityCostView extends Component {
         axios.get(`http://127.0.0.1:8000/costs/`)
             .then(res => {
                 if (!res.data["Error"]) {
+                    let costData = []
+                    res.data.forEach(cost => {
+                        if (Number(this.props.match.params.cityID) === cost.city) {
+                            costData.push(cost)
+                        }
+                    });
                     this.setState({
-                        costs: res.data
-                    })    
+                        costs: costData
+                    })
                 }else{
-                    this.setState({
-                        costs: []
-                    }) 
+                    console.log("Error in Get City Costs data")
                 }
             })
     }

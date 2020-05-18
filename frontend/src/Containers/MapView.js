@@ -36,7 +36,7 @@ export default class MapView extends Component {
                         percentaje_world: Number((total_countries/250).toFixed(2))
                     })   
                 }else{
-                    console.log("Error get data")
+                    console.log("Error in Get City Map data")
                 }
             })
     }
