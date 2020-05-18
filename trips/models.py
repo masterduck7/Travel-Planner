@@ -33,6 +33,7 @@ class City(models.Model):
     city_id = models.AutoField(primary_key=True)
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name='cities')
     name = models.CharField(max_length=250, blank=False)
+    country = models.CharField(max_length=250, blank=True)
     map_link = models.CharField(max_length=250, blank=True)
     total_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
 

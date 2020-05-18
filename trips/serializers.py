@@ -50,7 +50,7 @@ class CitySerializer(serializers.ModelSerializer):
     costs = CostSerializer(many=True, read_only=True)
     class Meta:
         model = City
-        fields = ('url','city_id','trip','name','map_link','total_cost','hotels','activities','costs')
+        fields = ('url','city_id','trip','country','name','map_link','total_cost','hotels','activities','costs')
 
         def to_representation(self, instance):
             self.fields['trip'] =  TripSerializer(read_only=True)
