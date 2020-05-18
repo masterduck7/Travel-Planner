@@ -41,7 +41,7 @@ export default class CostList extends Component {
         axios.post(`http://127.0.0.1:8000/costs/`, postObj)
         .then(function (response) {
             alert("Gasto agregado")
-            window.location.href = "/#/trips"
+            window.location.reload();
         })
         .catch(function (error) {
           console.log(error.response);
@@ -72,7 +72,7 @@ export default class CostList extends Component {
         axios.put(`http://127.0.0.1:8000/costs/${costID}/`, costObj)
         .then((response) => {
             alert("Gasto editado")
-            window.location.href = "/#/trips"
+            window.location.reload();
         })
         .catch(function (error) {
           console.log(error);
@@ -97,7 +97,7 @@ export default class CostList extends Component {
         axios.delete(`http://127.0.0.1:8000/costs/${costID}/`)
         .then(res => {
             alert("Gasto eliminado")
-            window.location.href = "/#/trips"
+            window.location.reload();
         })
         .catch(error => {
             console.log(error)

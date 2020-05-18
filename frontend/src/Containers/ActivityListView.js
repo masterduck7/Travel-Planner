@@ -15,13 +15,17 @@ export default class ActivityListView extends Component {
         axios.get(`http://127.0.0.1:8000/activities/`)
             .then(res => {
                 if (!res.data["Error"]) {
+                    let activityData = []
+                    res.data.forEach(activity => {
+                        if (Number(this.props.match.params.cityID) === activity.city) {
+                            activityData.push(activity)
+                        }
+                    });
                     this.setState({
-                        activities: res.data
-                    })    
+                        activities: activityData
+                    })
                 }else{
-                    this.setState({
-                        activities: []
-                    }) 
+                    console.log("Error in Get Activity data")
                 }
             })
     }

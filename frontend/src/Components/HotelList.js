@@ -53,7 +53,7 @@ export default class HotelList extends Component {
         axios.post(`http://127.0.0.1:8000/hotels/`, postObj)
         .then(function (response) {
             alert("Hotel agregado")
-            window.location.href = "/#/trips"
+            window.location.reload();
         })
         .catch(function (error) {
           console.log(error.response);
@@ -96,7 +96,7 @@ export default class HotelList extends Component {
         axios.put(`http://127.0.0.1:8000/hotels/${hotelID}/`, hotelObj)
         .then((response) => {
             alert("Hotel editado")
-            window.location.href = "/#/trips"
+            window.location.reload();
         })
         .catch(function (error) {
           console.log(error);
@@ -121,7 +121,7 @@ export default class HotelList extends Component {
         axios.delete(`http://127.0.0.1:8000/hotels/${hotelID}/`)
         .then(res => {
             alert("Hotel eliminado")
-            window.location.href = "/#/trips"
+            window.location.reload();
         })
         .catch(error => {
             console.log(error)

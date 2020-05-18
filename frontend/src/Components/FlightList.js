@@ -51,7 +51,7 @@ export default class FlightList extends Component {
         axios.post(`http://127.0.0.1:8000/flights/`, postObj)
         .then(function (response) {
             alert("Vuelo agregado")
-            window.location.href = "/#/trips"
+            window.location.reload();
         })
         .catch(function (error) {
           console.log(error.response);
@@ -92,7 +92,7 @@ export default class FlightList extends Component {
         axios.put(`http://127.0.0.1:8000/flights/${flightID}/`, flightObj)
         .then((response) => {
             alert("Vuelo editado")
-            window.location.href = "/#/trips"
+            window.location.reload();
         })
         .catch(function (error) {
           console.log(error);
@@ -117,7 +117,7 @@ export default class FlightList extends Component {
         axios.delete(`http://127.0.0.1:8000/flights/${flightID}/`)
         .then(res => {
             alert("Vuelo eliminado")
-            window.location.href = "/#/trips"
+            window.location.reload();
         })
         .catch(error => {
             console.log(error)

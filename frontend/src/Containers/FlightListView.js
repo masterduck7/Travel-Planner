@@ -15,13 +15,17 @@ export default class FlightListView extends Component {
         axios.get(`http://127.0.0.1:8000/flights/`)
             .then(res => {
                 if (!res.data["Error"]) {
+                    let flightdata = []
+                    res.data.forEach(flight => {
+                        if (Number(this.props.match.params.tripID) === flight.trip) {
+                            flightdata.push(flight)
+                        }
+                    });
                     this.setState({
-                        flights: res.data
-                    })    
-                }else{
-                    this.setState({
-                        flights: []
+                        flights: flightdata
                     }) 
+                }else{
+                    console.log("Error in Get Flight data")
                 }
             })
     }

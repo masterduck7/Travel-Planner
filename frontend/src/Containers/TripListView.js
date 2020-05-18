@@ -19,9 +19,7 @@ export default class TripListView extends Component {
                         trips: res.data
                     })    
                 }else{
-                    this.setState({
-                        trips: []
-                    }) 
+                    console.log("Error in Get Trips data")
                 }
             })
     }

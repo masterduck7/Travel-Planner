@@ -15,13 +15,17 @@ export default class CityListView extends Component {
         axios.get(`http://127.0.0.1:8000/cities/`)
             .then(res => {
                 if (!res.data["Error"]) {
+                    let citiesdata = []
+                    res.data.forEach(city => {
+                        if (Number(this.props.match.params.tripID) === city.trip) {
+                            citiesdata.push(city)
+                        }
+                    });
                     this.setState({
-                        cities: res.data
-                    })    
-                }else{
-                    this.setState({
-                        cities: []
+                        cities: citiesdata
                     }) 
+                }else{
+                    console.log("Error in Get City data")
                 }
             })
     }

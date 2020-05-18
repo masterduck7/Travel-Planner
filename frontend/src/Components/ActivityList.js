@@ -47,7 +47,7 @@ export default class ActivityList extends Component {
         axios.post(`http://127.0.0.1:8000/activities/`, postObj)
         .then(function (response) {
             alert("Actividad agregada")
-            window.location.href = "/#/trips"
+            window.location.reload();
         })
         .catch(function (error) {
           console.log(error.response);
@@ -84,7 +84,7 @@ export default class ActivityList extends Component {
         axios.put(`http://127.0.0.1:8000/activities/${activityID}/`, activityObj)
         .then((response) => {
             alert("Actividad editada")
-            window.location.href = "/#/trips"
+            window.location.reload();
         })
         .catch(function (error) {
           console.log(error);
@@ -109,7 +109,7 @@ export default class ActivityList extends Component {
         axios.delete(`http://127.0.0.1:8000/activities/${activityID}/`)
         .then(res => {
             alert("Actividad eliminada")
-            window.location.href = "/#/trips"
+            window.location.reload();
         })
         .catch(error => {
             console.log(error)

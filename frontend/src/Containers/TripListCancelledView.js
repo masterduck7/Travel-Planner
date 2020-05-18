@@ -26,9 +26,7 @@ export default class TripListPastView extends Component {
                         trips: filterData
                     })
                 }else{
-                    this.setState({
-                        trips: []
-                    }) 
+                    console.log("Error in Get Cancelled Trips data")
                 }
             })
     }
