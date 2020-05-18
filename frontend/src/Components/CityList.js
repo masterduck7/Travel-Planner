@@ -50,7 +50,7 @@ export default class CityList extends Component {
         axios.post(`http://127.0.0.1:8000/cities/`, postObj)
         .then(function (response) {
             alert("Ciudad agregada")
-            window.location.href = "/#/trips"
+            window.location.reload();
         })
         .catch(function (error) {
           console.log(error.response);
@@ -83,7 +83,7 @@ export default class CityList extends Component {
         axios.put(`http://127.0.0.1:8000/cities/${cityID}/`, cityObj)
         .then((response) => {
             alert("Ciudad editada")
-            window.location.href = "/#/trips"
+            window.location.reload();
         })
         .catch(function (error) {
           console.log(error);
@@ -108,7 +108,7 @@ export default class CityList extends Component {
         axios.delete(`http://127.0.0.1:8000/cities/${cityID}/`)
         .then(res => {
             alert("Ciudad eliminada")
-            window.location.href = "/#/trips"
+            window.location.reload();
         })
         .catch(error => {
             console.log(error)

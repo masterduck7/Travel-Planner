@@ -55,7 +55,7 @@ export default class TripDetail extends Component {
         axios.put(`http://127.0.0.1:8000/trips/${tripID}/`, tripObj)
         .then((response) => {
             alert("Viaje editado")
-            window.location.reload(true)
+            window.location.reload();
         })
         .catch(function (error) {
           console.log(error);
