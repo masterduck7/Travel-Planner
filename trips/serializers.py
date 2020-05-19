@@ -53,6 +53,7 @@ class CitySerializer(serializers.ModelSerializer):
 
 class TripSerializer(serializers.ModelSerializer):
     flights = FlightSerializer(many=True, read_only=True)
+    cities = CitySerializer(many=True, read_only=True)
     class Meta:
         model = Trip
-        fields = ('url','trip_id','destination','start_date','end_date','status','planning_file','total_cost','flights')
+        fields = ('url','trip_id','destination','start_date','end_date','status','planning_file','total_cost','flights','cities')

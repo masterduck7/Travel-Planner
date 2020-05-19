@@ -11,12 +11,13 @@ export default class StatisticsView extends Component {
         super(props)
         this.state = {
             country_list: getNameList(),
-            flights: {}, //First view
-            cityData: {},//Second view
+            flights: {},       //First view
+            cityData: {},      //Second view
+            avgCountryData : null, //Third view
+            yearData: {},      //Fourth view
             number_cities : 0, //Last View
             number_flights: 0, //Last View
             hotelNights: 0,    //Last View
-
         }
     }
 
@@ -49,6 +50,7 @@ export default class StatisticsView extends Component {
                     console.log("Error in Get Flights of Trip data")
                 }
             })
+        // GET CITY DATA
         axios.get(`http://127.0.0.1:8000/cities/`)
             .then(res => {
                 if (!res.data["Error"]) {
@@ -146,10 +148,69 @@ export default class StatisticsView extends Component {
                     this.setState({
                         cityData: cityData,
                         hotelNights: TotalHotelNights,
-                        number_cities: Object.keys(cities).length
+                        number_cities: Object.keys(cities).length,
+                        avgCountryData: avgCountryData
                     })    
                 }else{
                     console.log("Error in Get Cost City data")
+                }
+            })
+        // GET YEAR DETAILS
+        axios.get(`http://127.0.0.1:8000/trips/`)
+            .then(res => {
+                if (!res.data["Error"]) {
+                    let yearData = {}
+                    res.data.forEach(trip => {
+                        let totalFlights = 0
+                        let totalHotels = 0
+                        let totalActivities = 0
+                        let totalCityCost = 0
+                        trip.flights.forEach(flight => {
+                            totalFlights = Number(totalFlights) + Number(flight.price)
+                        });
+                        trip.cities.forEach(city => {
+                            city.hotels.forEach(hotel => {
+                                totalHotels = Number(totalHotels) + Number(hotel.total_price)
+                            });
+                            city.activities.forEach(activity => {
+                                totalActivities = Number(totalActivities) + Number(activity.total_price)
+                            });
+                            city.costs.forEach(cost => {
+                                totalCityCost = Number(totalCityCost) + Number(cost.total_price)
+                            });
+                        });
+
+                        let date = moment(trip.start_date).format('MM/YYYY')
+
+                        if (!yearData[date]) {
+                            yearData[date] = {
+                                'totalFlights': totalFlights,
+                                'totalHotels': totalHotels,
+                                'totalActivities': totalActivities,
+                                'totalCityCost': totalCityCost,
+                                'total': totalFlights + totalHotels + totalActivities + totalCityCost
+                            }
+                        }else{
+                            let oldtotalFlights = yearData[date].totalFlights
+                            let oldtotalHotels = yearData[date].totalHotels
+                            let oldtotalActivities = yearData[date].totalActivities
+                            let oldtotalCityCost = yearData[date].totalCityCost
+                            yearData[date] = {
+                                'totalFlights': totalFlights + oldtotalFlights,
+                                'totalHotels': totalHotels + oldtotalHotels,
+                                'totalActivities': totalActivities + oldtotalActivities,
+                                'totalCityCost': totalCityCost + oldtotalCityCost,
+                                'total': totalFlights + totalHotels + totalActivities + totalCityCost + 
+                                oldtotalFlights + oldtotalHotels + oldtotalActivities + oldtotalCityCost
+                            }
+                        }
+                    });
+                    console.log(yearData)
+                    this.setState({
+                        yearData: yearData
+                    })
+                }else{
+                    console.log("Error in Get Flights of Trip data")
                 }
             })
     }
