@@ -1,13 +1,13 @@
 from django.db import models
-from datetime import date
+from django.utils.timezone import now
 
 # Create your models here.
 
 class Trip(models.Model):
     trip_id = models.AutoField(primary_key=True)
     destination = models.CharField(max_length=250, blank=False)
-    start_date = models.DateField(default=date.today(), blank=False)
-    end_date = models.DateField(default=date.today(), blank=False)
+    start_date = models.DateField(default=now, blank=False)
+    end_date = models.DateField(default=now, blank=False)
     planning_file = models.CharField(max_length=250, blank=True)
     status = models.CharField( max_length=10, default="Active", blank=False )
     total_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0)
@@ -20,8 +20,8 @@ class Flight(models.Model):
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name='flights')
     origin = models.CharField(max_length=250, blank=False)
     destination = models.CharField(max_length=250, blank=False)
-    start_date = models.DateField(default=date.today(), blank=False)
-    end_date = models.DateField(default=date.today(), blank=False)
+    start_date = models.DateField(default=now, blank=False)
+    end_date = models.DateField(default=now, blank=False)
     airline_name = models.CharField(max_length=100, blank=True)
     flight_number = models.CharField(max_length=20, blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
@@ -44,8 +44,8 @@ class Hotel(models.Model):
     hotel_id = models.AutoField(primary_key=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='hotels')
     name = models.CharField(max_length=250, blank=False)
-    start_date = models.DateField(default=date.today(), blank=False)
-    end_date = models.DateField(default=date.today(), blank=False)
+    start_date = models.DateField(default=now, blank=False)
+    end_date = models.DateField(default=now, blank=False)
     number_beds = models.CharField(max_length=2, blank=True)
     breakfast = models.BooleanField(default=False)
     total_price = models.DecimalField(max_digits=8, decimal_places=2)
@@ -62,7 +62,7 @@ class Activity(models.Model):
     total_price = models.DecimalField(max_digits=8, decimal_places=2)
     amount_paid = models.DecimalField(max_digits=8, decimal_places=2)
     amount_not_paid = models.DecimalField(max_digits=8, decimal_places=2)
-    activity_date = models.DateField(default=date.today(), blank=False)
+    activity_date = models.DateField(default=now, blank=False)
 
     def __str__(self):
         return self.name

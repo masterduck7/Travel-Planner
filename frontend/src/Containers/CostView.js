@@ -18,7 +18,9 @@ export default class CostView extends Component {
             activities_costs: 0,
             city_costs: 0,
             totalHotels_paid : 0,
-            totalHotels_not_paid : 0
+            totalHotels_not_paid : 0,
+            totalActivities_paid : 0,
+            totalActivities_not_paid : 0
         }
     }
 
