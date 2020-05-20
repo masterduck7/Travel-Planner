@@ -60,7 +60,8 @@ export default class MapView extends Component {
                                 <Statistic.Value>
                                     <Icon name='world' /> {this.state.total_countries}
                                 </Statistic.Value>
-                                <Statistic.Label>Numero de paises visitados</Statistic.Label>
+                                <br />
+                                <Statistic.Label>Paises visitados</Statistic.Label>
                             </Statistic>
                         </Statistic.Group>
                         <br />
@@ -71,13 +72,15 @@ export default class MapView extends Component {
                                 <Statistic.Value>
                                     <Icon name='percent' /> {this.state.percentaje_world}
                                 </Statistic.Value>
-                                <Statistic.Label>Porcentaje paises visitados</Statistic.Label>
+                                <br />
+                                <Statistic.Label>Paises visitados</Statistic.Label>
                             </Statistic>
                             <Statistic>
                                 <Statistic.Value>
                                     <Icon name='list' /> {this.state.total_cities}
                                 </Statistic.Value>
-                                <Statistic.Label>Numero de ciudades visitadas</Statistic.Label>
+                                <br />
+                                <Statistic.Label>Ciudades visitadas</Statistic.Label>
                             </Statistic>
                         </Statistic.Group>
                     </Row>

@@ -88,12 +88,16 @@ export default class TripList extends Component {
                 title: 'Fecha Inicio',
                 dataIndex: 'start_date',
                 key: 'start_date',
+                sorter: (a, b) => moment(a.start_date).diff(moment(b.start_date), 'days'),
+                sortDirections: ['ascend','descend'],
                 render: start_date => <a>{start_date}</a>,
             },
             {
                 title: 'Fecha Fin',
                 dataIndex: 'end_date',
-                key: 'end_date',
+                key: "end_date",
+                sorter: (a, b) => moment(a.end_date).diff(moment(b.end_date), 'days'),
+                sortDirections: ['ascend','descend'],
                 render: end_date => <a>{end_date}</a>,
             },
             {

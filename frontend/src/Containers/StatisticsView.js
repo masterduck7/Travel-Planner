@@ -465,18 +465,21 @@ export default class StatisticsView extends Component {
                         <Statistic.Value>
                             <Icon name='plane' /> {this.state.number_flights}
                         </Statistic.Value>
+                        <br />
                         <Statistic.Label>Vuelos</Statistic.Label>
                     </Statistic>
                     <Statistic>
                         <Statistic.Value>
                             <Icon name='hotel' /> {this.state.hotelNights}
                         </Statistic.Value>
+                        <br />
                         <Statistic.Label>Noches de hotel</Statistic.Label>
                     </Statistic>
                     <Statistic>
                         <Statistic.Value>
                             <Icon name='futbol outline' /> {this.state.totalActivitiesAllTrips}
                         </Statistic.Value>
+                        <br />
                         <Statistic.Label>Actividades</Statistic.Label>
                     </Statistic>
                 </Statistic.Group>
@@ -484,26 +487,30 @@ export default class StatisticsView extends Component {
                 <Statistic.Group size={"tiny"} widths='four' color="grey" >
                     <Statistic>
                         <Statistic.Value>
-                            <Icon name='money' /> $ {this.state.avgTotalFlights}
+                            <Icon name='dollar sign' /> {this.state.avgTotalFlights}
                         </Statistic.Value>
+                        <br />
                         <Statistic.Label>Promedio vuelo</Statistic.Label>
                     </Statistic>
                     <Statistic>
                         <Statistic.Value>
-                            <Icon name='money' /> $ {this.state.avgTotalHotels}
+                            <Icon name='dollar sign' /> {this.state.avgTotalHotels}
                         </Statistic.Value>
+                        <br />
                         <Statistic.Label>Promedio noche de hotel</Statistic.Label>
                     </Statistic>
                     <Statistic>
                         <Statistic.Value>
-                            <Icon name='money' /> $ {this.state.avgTotalActivities}
+                            <Icon name='dollar sign' /> {this.state.avgTotalActivities}
                         </Statistic.Value>
+                        <br />
                         <Statistic.Label>Promedio actividad</Statistic.Label>
                     </Statistic>
                     <Statistic>
                         <Statistic.Value>
-                            <Icon name='money' /> $ {this.state.avgTotalCityCosts}
+                            <Icon name='dollar sign' /> {this.state.avgTotalCityCosts}
                         </Statistic.Value>
+                        <br />
                         <Statistic.Label>Promedio gastos ciudad</Statistic.Label>
                     </Statistic>
                 </Statistic.Group>
