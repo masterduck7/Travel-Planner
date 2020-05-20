@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Checkbox, Col, DatePicker, Divider, Form, Icon, Input, Menu, Row, Table, Tag } from 'antd';
+import { Checkbox, Col, DatePicker, Divider, Form, Icon, Input, Menu, Row, Table, Tag } from 'antd';
+import { Button } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import { Modal } from 'react-responsive-modal';
 import moment from 'moment';
@@ -307,7 +308,7 @@ export default class HotelList extends Component {
                             }} />
                         </Form.Item>
                         <Form.Item {...tailFormItemLayout}>
-                            <Button type="primary" htmlType="submit">
+                            <Button primary htmlType="submit">
                                 Agregar
                             </Button>
                         </Form.Item>
@@ -391,7 +392,7 @@ export default class HotelList extends Component {
                             }} />
                         </Form.Item>
                         <Form.Item {...tailFormItemLayout}>
-                            <Button type="primary" htmlType="submit">
+                            <Button primary htmlType="submit">
                                 Editar
                             </Button>
                         </Form.Item>
@@ -401,44 +402,29 @@ export default class HotelList extends Component {
                 <Modal open={this.state.modalRemove} onClose={this.onCloseModalRemove} classNames={{modal: 'customSmallModal'}} center>
                     <h2><center>¿ Desea eliminar el hotel seleccionado ?</center></h2>
                     <p><center>
-                        <Button type="primary" size={'large'} style={{right: 25, top: 10}} 
+                        <Button positive size={'large'} style={{right: 25, top: 10}} 
                             onClick={(e) => this.onClickRemove(e)} >
                             Si
                         </Button>
-                        <Button type="danger" size={'large'} style={{left: 25, top: 10}} onClick={this.onCloseModalRemove} >
+                        <Button negative size={'large'} style={{left: 25, top: 10}} onClick={this.onCloseModalRemove} >
                             No
                         </Button>
                     </center></p>
                 </Modal>
+                
+                <Button negative style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}}>
+                    <Icon type="left" />
+                    <Link style={{color:"white"}} to={`/trips/${this.props.data.tripID}/cities/`}>  Volver</Link>
+                </Button>
+                <h1 style={{ marginTop: -20, textAlign:"center" }}>
+                    Hoteles
+                </h1>
                 <Row>
-                <Col xs={4} sm={6} md={6} lg={86} xl={4}>
-                    <div style={{width: 200}}>
-                        <Menu
-                        defaultSelectedKeys={['1']}
-                        mode="inline"
-                        theme="dark"
-                        >
-                            <Menu.Item key="1">
-                                <Icon type="rollback" />
-                                <span>Volver</span>
-                                <Link to={`/trips/${this.props.data.tripID}/cities/`}></Link>
-                            </Menu.Item>
-                        </Menu>
-                    </div>
-                </Col>
-                <Col xs={19} sm={17} md={17} lg={17} xl={19}>
-                    <Row>
-                        <Col span={22}></Col>
-                        <Col span={2}>
-                            <Button type="primary" size={'small'} style={{top: 10}} onClick={(e)=> this.onOpenModalCreate(e)}>
-                                Agregar Hotel
-                            </Button>
-                        </Col>
-                    </Row>
-                    <br />
-                    <Table columns={columns} dataSource={this.props.data.hotels} />
-                </Col>
+                    <Button primary size={'small'} style={{ position:"absolute" ,right: "1%", top: "-22px"}} onClick={(e)=> this.onOpenModalCreate(e)}>
+                        Agregar Hotel
+                    </Button>
                 </Row>
+                <Table style={{margin: "1%"}} columns={columns} dataSource={this.props.data.hotels} />
             </div>
         )
     }

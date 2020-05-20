@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Col, Icon, Menu, Row, Button } from 'antd';
+import { Col, Icon, Menu, Row } from 'antd';
+import { Button } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import CustomLayout from '../Components/CustomLayout'
@@ -99,25 +100,12 @@ export default class CostView extends Component {
         return  (
             <div>
                 <CustomLayout data={{tab: '2'}} />
-                <Row>
-                <Col xs={4} sm={6} md={6} lg={86} xl={4}>
-                    <div style={{width: 200}}>
-                        <Menu
-                        defaultSelectedKeys={['1']}
-                        mode="inline"
-                        theme="dark"
-                        >
-                            <Menu.Item key="1">
-                                <Icon type="rollback" />
-                                <span>Volver</span>
-                                <Link to={`/trips/${this.props.match.params.tripID}`}></Link>
-                            </Menu.Item>
-                        </Menu>
-                    </div>
-                </Col>
-                <Col xs={19} sm={17} md={17} lg={17} xl={19}>
-                    <h1>Costos</h1>
-                    <p>
+                <Button negative style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}}>
+                    <Icon type="left" />
+                    <Link style={{color:"white"}} to={`/trips/${this.props.match.params.tripID}`}>  Volver</Link>
+                </Button>
+                <h1 style={{textAlign: 'center', marginTop: -20}}>Costos</h1>
+                    <p><center>
                         <a>Numero de vuelos: {this.state.number_flights}</a>
                         <br />
                         <a>Total gastado en vuelos: {this.state.flights_costs}</a>   
@@ -137,11 +125,7 @@ export default class CostView extends Component {
                         <a>Total precio actividades: {this.state.activities_costs}</a>
                         <br />
                         <a>Actividades pagado/No pagado: {this.state.totalActivities_paid}/{this.state.totalActivities_not_paid}</a>
-                    </p>
-                    <Button>Guardar costos ciudad</Button>
-                    <Button>Guardar costos totales</Button>
-                </Col>
-                </Row>
+                        </center></p>
             </div>
         )
     }

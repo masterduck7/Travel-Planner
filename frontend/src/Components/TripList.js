@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Col, DatePicker, Form, Icon, Input, Menu, Row, Select, Table, Tag } from 'antd';
+import { Col, DatePicker, Form, Icon, Input, Menu, Row, Select, Table, Tag } from 'antd';
+import { Button } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import { Modal } from 'react-responsive-modal';
 import moment from 'moment';
@@ -202,7 +203,7 @@ export default class TripList extends Component {
                             }}/>
                         </Form.Item>
                         <Form.Item {...tailFormItemLayout}>
-                            <Button type="primary" htmlType="submit">
+                            <Button primary htmlType="submit">
                                 Agregar
                             </Button>
                         </Form.Item>
@@ -211,27 +212,27 @@ export default class TripList extends Component {
                 </Modal>
                 <Row>
                     <Button.Group style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}} size={"medium"}>
-                        <Button disabled={this.props.data.tab[0]} type="primary">
-                            <Link to="/trips" >Todos</Link>
+                        <Button disabled={this.props.data.tab[0]} primary>
+                            <Link style={{color:"white"}} to="/trips" >Todos</Link>
                         </Button>
-                        <Button disabled={this.props.data.tab[1]} type="primary">
-                            <Link to="/past-trips" >Pasados</Link>
+                        <Button disabled={this.props.data.tab[1]} primary>
+                            <Link style={{color:"white"}} to="/past-trips" >Pasados</Link>
                         </Button>
-                        <Button disabled={this.props.data.tab[2]} type="primary">
-                            <Link to="/cancelled-trips" >Cancelados</Link>
+                        <Button disabled={this.props.data.tab[2]} primary>
+                            <Link style={{color:"white"}} to="/cancelled-trips" >Cancelados</Link>
                         </Button>
-                        <Button disabled={this.props.data.tab[3]} type="primary">
-                            <Link to="/active-trips" >Futuros</Link>
+                        <Button disabled={this.props.data.tab[3]} primary>
+                            <Link style={{color:"white"}} to="/active-trips" >Futuros</Link>
                         </Button>
                     </Button.Group>
                 </Row>
                 <br />
-                <h1 style={{ textAlign:"center" }}>
+                <h1 style={{ marginTop: -20, textAlign:"center" }}>
                     {this.props.data.type}
                 </h1>
                 <br />
                 <Row>
-                    <Button type="primary" size={'small'} style={{ position:"absolute" ,right: "1%", top: "-22px"}} onClick={(e)=> this.onOpenModalCreate(e)}>
+                    <Button primary size={'small'} style={{ position:"absolute" ,right: "1%", top: "-22px"}} onClick={(e)=> this.onOpenModalCreate(e)}>
                         Agregar viaje
                     </Button>
                 </Row>

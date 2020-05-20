@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Button, Col, DatePicker, Descriptions, Form, Icon, Input, Menu, Row, Select } from 'antd';
+import { Col, DatePicker, Descriptions, Form, Icon, Input, Menu, Row, Select } from 'antd';
+import { Button } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import 'react-responsive-modal/styles.css';
 import '../Assets/styles.css'
@@ -166,7 +167,7 @@ export default class TripDetail extends Component {
                             }}/>
                         </Form.Item>
                         <Form.Item {...tailFormItemLayout}>
-                            <Button type="primary" htmlType="submit">
+                            <Button primary htmlType="submit">
                                 Editar
                             </Button>
                         </Form.Item>
@@ -176,67 +177,53 @@ export default class TripDetail extends Component {
                 <Modal open={this.state.modalRemove} onClose={this.onCloseModalRemove} classNames={{modal: 'customSmallModal'}} center>
                     <h2><center>¿ Desea eliminar el viaje seleccionado ?</center></h2>
                     <p><center>
-                        <Button type="primary" size={'large'} style={{right: 25, top: 10}} onClick={this.onClickRemove} >
+                        <Button positive size={'large'} style={{right: 25, top: 10}} onClick={this.onClickRemove} >
                             Si
                         </Button>
-                        <Button type="danger" size={'large'} style={{left: 25, top: 10}} onClick={this.onCloseModalRemove} >
+                        <Button negative size={'large'} style={{left: 25, top: 10}} onClick={this.onCloseModalRemove} >
                             No
                         </Button>
                     </center></p>
                 </Modal>
-                <Row>
-                <Col xs={4} sm={6} md={6} lg={86} xl={4}>
-                    <div style={{width: 200}}>
-                        <Menu
-                        defaultSelectedKeys={['1']}
-                        mode="inline"
-                        theme="dark"
-                        >
-                            <Menu.Item key="1">
-                                <Icon type="rollback" />
-                                <span>Volver</span>
-                                <Link to="/trips"></Link>
-                            </Menu.Item>
-                            <Menu.Item key="2">
-                                <Icon type="global" />
-                                <span>Vuelos</span>
-                                <Link to={{ pathname:`/trips/${this.props.trip.trip_id}/flights` }}></Link>
-                            </Menu.Item>
-                            <Menu.Item key="3">
-                                <Icon type="environment" />
-                                <span>Ciudades</span>
-                                <Link to={{ pathname:`/trips/${this.props.trip.trip_id}/cities` }}></Link>
-                            </Menu.Item>
-                            <Menu.Item key="4">
-                                <Icon type="bank" />
-                                <span>Costos</span>
-                                <Link to={{ pathname:`/trips/${this.props.trip.trip_id}/costs` }} ></Link>
-                            </Menu.Item>
-                        </Menu>
-                    </div>
-                </Col>
-                <Col xs={19} sm={17} md={17} lg={17} xl={19}>
-                    <Row>
-                        <Col span={19}></Col>
-                        <Col span={5}>
-                            <Button type="primary" size={'small'} style={{top: 10}} onClick={this.onOpenModalEdit} >
-                                Editar
-                            </Button>
-                            <Button type="danger" size={'small'} style={{left: 5, top: 10}} onClick={this.onOpenModalRemove} >
-                                Eliminar
-                            </Button>
-                        </Col>
-                    </Row>
-                    <br />
-                    <Descriptions size= "small" layout="vertical" bordered >
-                        <Descriptions.Item label="Destino" span={1}>{this.props.trip.destination}</Descriptions.Item>
-                        <Descriptions.Item label="Fecha Inicio"span={1}>{this.props.trip.start_date}</Descriptions.Item>
-                        <Descriptions.Item label="Fecha Fin"span={1}>{this.props.trip.end_date}</Descriptions.Item>
-                        <Descriptions.Item label="Estado" span={1}>{this.props.trip.status}</Descriptions.Item>
-                        <Descriptions.Item label="Archivo Planificación" span={1}>{this.props.trip.planning_file}</Descriptions.Item>
-                    </Descriptions>
-                </Col>
+                <Button.Group style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}} size={"medium"}>
+                    <Button negative>
+                        <Icon type="left" />
+                        <Link style={{color:"white"}} to={`/trips`}>  Volver</Link>
+                    </Button>
+                </Button.Group>
+
+                <Button primary style={{marginLeft: "0.5%", marginTop: "1%", marginBottom: "1%"}}>
+                    <Icon type='global' />
+                    <Link style={{color:"white"}} to={`/trips/${this.props.trip.trip_id}/flights`}>  Vuelos</Link>
+                </Button>
+                <Button primary style={{marginLeft: "0.2%", marginTop: "1%", marginBottom: "1%"}}>
+                    <Icon type="environment" />
+                    <Link style={{color:"white"}} to={`/trips/${this.props.trip.trip_id}/cities`}>  Ciudades</Link>
+                </Button>
+                <Button primary style={{marginLeft: "0.2%", marginTop: "1%", marginBottom: "1%"}}>
+                    <Icon type="bank" />
+                    <Link style={{color:"white"}} to={`/trips/${this.props.trip.trip_id}/costs`}>  Costos</Link>
+                </Button>
+                
+                <Row style={{position: "absolute", marginTop:"10px", right: "1%"}}>
+                    <Button primary size={'small'} style={{right:"7%"}} onClick={this.onOpenModalEdit} >
+                        Editar
+                    </Button>
+                    <Button negative size={'small'} style={{right:"1%"}} onClick={this.onOpenModalRemove} >
+                        Eliminar
+                    </Button>
                 </Row>
+                <h1 style={{ marginTop: -20, textAlign:"center" }}>
+                    Detalles Viaje
+                </h1>
+                <br />
+                <Descriptions style={{margin:"1%"}} size= "small" layout="vertical" bordered >
+                    <Descriptions.Item label="Destino" span={1}>{this.props.trip.destination}</Descriptions.Item>
+                    <Descriptions.Item label="Fecha Inicio"span={1}>{this.props.trip.start_date}</Descriptions.Item>
+                    <Descriptions.Item label="Fecha Fin"span={1}>{this.props.trip.end_date}</Descriptions.Item>
+                    <Descriptions.Item label="Estado" span={1}>{this.props.trip.status}</Descriptions.Item>
+                    <Descriptions.Item label="Archivo Planificación" span={1}>{this.props.trip.planning_file}</Descriptions.Item>
+                </Descriptions>
             </div>
         )
     }
