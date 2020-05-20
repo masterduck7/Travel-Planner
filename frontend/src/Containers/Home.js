@@ -42,7 +42,7 @@ export default class Home extends Component {
                     let total_hotels = 0
                     let total_flights = 0
                     res.data.forEach(trip => {
-                        if ((moment(trip.start_date).fromNow()).includes("in") && nextTrips.length < 7 ) {
+                        if ((moment(trip.start_date).fromNow()).includes("in") && nextTrips.length < 7  && trip.status === "Active") {
                             nextTrips.push(
                                 {
                                     'destination': trip.destination,
@@ -110,7 +110,7 @@ export default class Home extends Component {
                 title: <b>Fecha Inicio</b>,
                 dataIndex: 'start_date',
                 key: "start_date",
-                defaultSortOrder: 'ascend' ,
+                defaultSortOrder: 'ascend',
                 render: start_date => moment(start_date).format("DD-MM-YYYY")
             },
             {
@@ -120,7 +120,7 @@ export default class Home extends Component {
                 render: end_date => moment(end_date).format("DD-MM-YYYY"),
             },
             {
-                title: <b>Info</b>,
+                title: <b>Informacion</b>,
                 dataIndex: 'trip_id',
                 key: "trip_id",
                 render: trip_id => <Link to = {`/trips/${trip_id}`}>Ir a detalles</Link>,

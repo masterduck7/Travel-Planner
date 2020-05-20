@@ -43,7 +43,7 @@ export default class StatisticsView extends Component {
                         let flighData = {
                             'origin': flight.origin,
                             'destination': flight.destination,
-                            'date': moment(flight.start_date).format('MM/YYYY'),
+                            'date': moment(flight.start_date).format('YYYY/MM')+"/01",
                             'airline': flight.airline_name,
                             'price': flight.price
                         }
@@ -197,7 +197,7 @@ export default class StatisticsView extends Component {
                             });
                         });
 
-                        let date = moment(trip.start_date).format('MM/YYYY')
+                        let date = moment(trip.start_date).format('YYYY/MM')+"/01"
 
                         if (!yearData[date]) {
                             yearData[date] = {
@@ -243,187 +243,186 @@ export default class StatisticsView extends Component {
 
         const columnsYearData = [
             {
-                title: 'Fecha',
+                title: <b>Fecha</b>,
                 dataIndex: 'date',
-                render: date => <a>{date}</a>,
+                defaultSortOrder: 'ascend',
+                sorter: (a, b) => moment(a.date).diff(moment(b.date), 'days'),
+                sortDirections: ['ascend','descend'],
+                render: date => moment(date).format("MM/YYYY")
             },
             {
-                title: 'Total Vuelos',
+                title: <b>Total Vuelos</b>,
                 dataIndex: 'totalFlights',
+                key: 'totalFlights',
                 sorter: (a, b) => a.totalFlights - b.totalFlights,
-                sortDirections: ['ascend','descend'],
-                render: totalFlights => <a>{totalFlights}</a>,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Total hoteles',
+                title: <b>Total hoteles</b>,
                 dataIndex: 'totalHotels',
+                key: 'totalHotels',
                 sorter: (a, b) => a.totalHotels - b.totalHotels,
-                sortDirections: ['ascend','descend'],
-                render: totalHotels => <a>{totalHotels}</a>,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Total actividades',
+                title: <b>Total actividades</b>,
                 dataIndex: 'totalActivities',
+                key: 'totalActivities',
                 sorter: (a, b) => a.totalActivities - b.totalActivities,
-                sortDirections: ['ascend','descend'],
-                render: totalActivities => <a>{totalActivities}</a>,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Total costos ciudad',
+                title: <b>Total costos ciudad</b>,
                 dataIndex: 'totalCityCost',
+                key: 'totalCityCost',
                 sorter: (a, b) => a.totalCityCost - b.totalCityCost,
-                sortDirections: ['ascend','descend'],
-                render: totalCityCost => <a>{totalCityCost}</a>,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Total',
+                title: <b>Total</b>,
                 dataIndex: 'total',
+                key: 'total',
                 sorter: (a, b) => a.total - b.total,
-                sortDirections: ['ascend','descend'],
-                render: total => <a>{total}</a>,
+                sortDirections: ['ascend','descend']
             }
         ]
 
         const columnsAvgCountry = [
             {
-                title: 'Pais',
+                title: <b>Pais</b>,
                 dataIndex: 'country',
                 key: 'country',
                 sorter: (a, b) => a.country.length - b.country.length,
-                sortDirections: ['ascend','descend'],
-                render: country => {
-                    return(
-                        <a>{country}</a>    
-                    )
-                },
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Promedio $ Hotel',
+                title: <b>Promedio $ Hotel</b>,
                 dataIndex: 'avgHotels',
+                key: 'avgHotels',
                 sorter: (a, b) => a.avgHotels - b.avgHotels,
-                sortDirections: ['ascend','descend'],
-                render: avgHotels => <a>{avgHotels}</a>,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Promedio $ Actividad',
+                title: <b>Promedio $ Actividad</b>,
                 dataIndex: 'avgActivities',
+                key: 'avgActivities',
                 sorter: (a, b) => a.avgActivities - b.avgActivities,
-                sortDirections: ['ascend','descend'],
-                render: avgActivities => <a>{avgActivities}</a>,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Promedio $ Costos ciudad',
+                title: <b>Promedio $ Costos ciudad</b>,
                 dataIndex: 'city_cost',
+                key: 'city_cost',
                 sorter: (a, b) => a.city_cost - b.city_cost,
-                sortDirections: ['ascend','descend'],
-                render: city_cost => <a>{city_cost}</a>,
+                sortDirections: ['ascend','descend']
             },
         ]
 
         const columnsFlights = [
             {
-                title: 'Fecha',
+                title: <b>Fecha</b>,
                 dataIndex: 'date',
-                render: date => <a>{date}</a>,
+                defaultSortOrder: 'ascend',
+                sorter: (a, b) => moment(a.date).diff(moment(b.date), 'days'),
+                sortDirections: ['ascend','descend'],
+                render: date => moment(date).format("MM/YYYY")
             },
             {
-                title: 'Origen',
+                title: <b>Origen</b>,
                 dataIndex: 'origin',
+                key: 'origin',
                 sorter: (a, b) => a.origin.length - b.origin.length,
-                sortDirections: ['ascend','descend'],
-                render: origin => <a>{origin}</a>,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Destino',
+                title: <b>Destino</b>,
                 dataIndex: 'destination',
+                key: 'destination',
                 sorter: (a, b) => a.destination.length - b.destination.length,
-                sortDirections: ['ascend','descend'],
-                render: destination => <a>{destination}</a>,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Aerolinea',
+                title: <b>Aerolinea</b>,
                 dataIndex: 'airline',
+                key: 'airline',
                 sorter: (a, b) => a.airline.length - b.airline.length,
-                sortDirections: ['ascend','descend'],
-                render: airline => <a>{airline}</a>,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Precio',
+                title: <b>Precio</b>,
                 dataIndex: 'price',
+                key: 'price',
                 sorter: (a, b) => a.price - b.price,
-                sortDirections: ['ascend','descend'],
-                render: price => <a>{price}</a>,
+                sortDirections: ['ascend','descend']
             },
         ]
 
         const columnsCityData = [
             {
-                title: 'Pais',
+                title: <b>Pais</b>,
                 dataIndex: 'country',
                 key: 'country',
                 sorter: (a, b) => a.country.length - b.country.length,
-                sortDirections: ['ascend','descend'],
-                render: country => <a>{country}</a>,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Ciudad',
+                title: <b>Ciudad</b>,
                 dataIndex: 'name',
                 key: 'name',
                 sorter: (a, b) => a.name.length - b.name.length,
-                sortDirections: ['ascend','descend'],
-                render: name => <a>{name}</a>,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Nº Hoteles',
+                title: <b>Nº Hoteles</b>,
                 dataIndex: 'number_hotels',
+                key: 'number_hotels',
                 sorter: (a, b) => a.number_hotels - b.number_hotels,
-                sortDirections: ['ascend','descend'],
-                render: number_hotels => <a>{number_hotels}</a>,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: '$ Gastado en Hoteles',
+                title: <b>$ Gastado en Hoteles</b>,
                 dataIndex: 'price_hotels',
+                key: 'price_hotels',
                 sorter: (a, b) => a.price_hotels - b.price_hotels,
-                sortDirections: ['ascend','descend'],
-                render: price_hotels => <a>{price_hotels}</a>,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Nº Actividades',
+                title: <b>Nº Actividades</b>,
                 dataIndex: 'number_activities',
+                key: 'number_activities',
                 sorter: (a, b) => a.number_activities - b.number_activities,
-                sortDirections: ['ascend','descend'],
-                render: number_activities => <a>{number_activities}</a>,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: '$ Gastado en Actividades',
+                title: <b>$ Gastado en Actividades</b>,
                 dataIndex: 'price_activities',
+                key: 'price_activities',
                 sorter: (a, b) => a.price_activities - b.price_activities,
-                sortDirections: ['ascend','descend'],
-                render: price_activities => <a>{price_activities}</a>,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Total Costos ciudad',
+                title: <b>Total Costos ciudad</b>,
                 dataIndex: 'city_cost',
+                key: 'city_cost',
                 sorter: (a, b) => a.city_cost - b.city_cost,
-                sortDirections: ['ascend','descend'],
-                render: city_cost => <a>{city_cost}</a>,
+                sortDirections: ['ascend','descend']
             },
         ]
 
         const columnsMostVisitedCities = [
             {
-                title: 'Ciudad',
+                title: <b>Ciudad</b>,
                 dataIndex: 'name',
+                key: 'name',
                 sorter: (a, b) => a.name.length - b.name.length,
-                sortDirections: ['ascend','descend'],
-                render: name => <a>{name}</a>,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Visitas',
+                title: <b>Visitas</b>,
                 dataIndex: 'visits',
+                key: 'visits',
                 sorter: (a, b) => a.visits.length - b.visits.length,
-                sortDirections: ['ascend','descend'],
-                render: visits => <a>{visits}</a>,
+                sortDirections: ['ascend','descend']
             },
         ]
 

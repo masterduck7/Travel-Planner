@@ -79,31 +79,35 @@ export default class TripList extends Component {
 
         const columns = [
             {
-                title: 'Destino',
+                title: <b>Destino</b>,
                 dataIndex: 'destination',
                 key: 'destination',
-                render: destination => <a>{destination}</a>,
+                sorter: (a, b) => a.destination.length - b.destination.length,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Fecha Inicio',
+                title: <b>Fecha Inicio</b>,
                 dataIndex: 'start_date',
                 key: 'start_date',
+                defaultSortOrder: 'ascend',
                 sorter: (a, b) => moment(a.start_date).diff(moment(b.start_date), 'days'),
                 sortDirections: ['ascend','descend'],
-                render: start_date => <a>{start_date}</a>,
+                render: start_date => moment(start_date).format("DD-MM-YYYY")
             },
             {
-                title: 'Fecha Fin',
+                title: <b>Fecha Fin</b>,
                 dataIndex: 'end_date',
                 key: "end_date",
                 sorter: (a, b) => moment(a.end_date).diff(moment(b.end_date), 'days'),
                 sortDirections: ['ascend','descend'],
-                render: end_date => <a>{end_date}</a>,
+                render: end_date => moment(end_date).format("DD-MM-YYYY")
             },
             {
-                title: 'Estado',
+                title: <b>Estado</b>,
                 dataIndex: 'status',
                 key: 'status',
+                sorter: (a, b) => a.status.length - b.status.length,
+                sortDirections: ['ascend','descend'],
                 render: status => {
                     if (status === "Active") {
                         return (
@@ -129,17 +133,18 @@ export default class TripList extends Component {
                 }                    
             },
             {
-                title: 'Archivo planificación',
+                title: <b>Archivo planificación</b>,
                 dataIndex: 'planning_file',
                 key: 'planning_file',
-                render: planning_file => <a>{planning_file}</a>,
+                sorter: (a, b) => a.planning_file.length - b.planning_file.length,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Detalles',
+                title: <b>Informacion</b>,
                 key: 'action',
                 render: (text, item) => (
                   <span>
-                    <Link to={`/trips/${item.trip_id}/`}><a>Ir a {item.destination} </a></Link>
+                    <Link to={`/trips/${item.trip_id}/`}>Ir a detalles</Link>
                   </span>
                 ),
             }
