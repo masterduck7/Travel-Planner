@@ -153,49 +153,59 @@ export default class FlightList extends Component {
 
         const columns = [
             {
-                title: 'Origen',
+                title: <b>Origen</b>,
                 dataIndex: 'origin',
                 key: 'origin',
-                render: origin => <a>{origin}</a>,
+                sorter: (a, b) => a.origin.length - b.origin.length,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Destino',
+                title: <b>Destino</b>,
                 dataIndex: 'destination',
                 key: 'destination',
-                render: destination => <a>{destination}</a>,
+                sorter: (a, b) => a.destination.length - b.destination.length,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Fecha Inicio',
+                title: <b>Fecha Inicio</b>,
                 dataIndex: 'start_date',
                 key: 'start_date',
-                render: start_date => <a>{start_date}</a>,
+                defaultSortOrder: 'ascend',
+                sorter: (a, b) => moment(a.start_date).diff(moment(b.start_date), 'days'),
+                sortDirections: ['ascend','descend'],
+                render: start_date => moment(start_date).format("DD/MM/YYYY")
             },
             {
-                title: 'Fecha Fin',
+                title: <b>Fecha Fin</b>,
                 dataIndex: 'end_date',
                 key: 'end_date',
-                render: end_date => <a>{end_date}</a>,
+                sorter: (a, b) => moment(a.end_date).diff(moment(b.end_date), 'days'),
+                sortDirections: ['ascend','descend'],
+                render: end_date => moment(end_date).format("DD/MM/YYYY")
             },
             {
-                title: 'Aerolinea',
+                title: <b>Aerolinea</b>,
                 dataIndex: 'airline_name',
                 key: 'airline_name',
-                render: airline_name => <a>{airline_name}</a>,
+                sorter: (a, b) => a.airline.length - b.airline.length,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Número de vuelo',
+                title: <b>Nº de vuelo</b>,
                 dataIndex: 'flight_number',
                 key: 'flight_number',
-                render: flight_number => <a>{flight_number}</a>,
+                sorter: (a, b) => a.flight_number - b.flight_number,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Precio',
+                title: <b>Precio</b>,
                 dataIndex: 'price',
                 key: 'price',
-                render: price => <a>{price}</a>,
+                sorter: (a, b) => a.price - b.price,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Acción',
+                title: <b>Acción</b>,
                 key: 'action',
                 render: (text, item) => (
                     <span>

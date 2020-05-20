@@ -157,31 +157,38 @@ export default class HotelList extends Component {
 
         const columns = [
             {
-                title: 'Nombre',
+                title: <b>Nombre</b>,
                 dataIndex: 'name',
                 key: 'name',
-                render: name => <a>{name}</a>,
+                sorter: (a, b) => a.name.length - b.name.length,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Fecha Inicio',
+                title: <b>Fecha Inicio</b>,
                 dataIndex: 'start_date',
                 key: 'start_date',
-                render: start_date => <a>{start_date}</a>,
+                defaultSortOrder: 'ascend',
+                sorter: (a, b) => moment(a.start_date).diff(moment(b.start_date), 'days'),
+                sortDirections: ['ascend','descend'],
+                render: start_date => moment(start_date).format("DD/MM/YYYY")
             },
             {
-                title: 'Fecha Fin',
+                title: <b>Fecha Fin</b>,
                 dataIndex: 'end_date',
                 key: 'end_date',
-                render: end_date => <a>{end_date}</a>,
+                sorter: (a, b) => moment(a.end_date).diff(moment(b.end_date), 'days'),
+                sortDirections: ['ascend','descend'],
+                render: end_date => moment(end_date).format("DD/MM/YYYY")
             },
             {
-                title: 'Número de camas',
+                title: <b>Número de camas</b>,
                 dataIndex: 'number_beds',
                 key: 'number_beds',
-                render: number_beds => <a>{number_beds}</a>,
+                sorter: (a, b) => a.number_beds - b.number_beds,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Desayuno',
+                title: <b>Desayuno</b>,
                 dataIndex: 'breakfast',
                 key: 'breakfast',
                 render: breakfast => {
@@ -202,25 +209,28 @@ export default class HotelList extends Component {
                 }  
             },
             {
-                title: 'Precio',
+                title: <b>Precio</b>,
                 dataIndex: 'total_price',
                 key: 'total_price',
-                render: total_price => <a>{total_price}</a>,
+                sorter: (a, b) => a.total_price - b.total_price,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Precio pagado',
+                title: <b>Precio pagado</b>,
                 dataIndex: 'amount_paid',
                 key: 'amount_paid',
-                render: amount_paid => <a>{amount_paid}</a>,
+                sorter: (a, b) => a.amount_paid - b.amount_paid,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Precio por pagar',
+                title: <b>Precio por pagar</b>,
                 dataIndex: 'amount_not_paid',
                 key: 'amount_not_paid',
-                render: amount_not_paid => <a>{amount_not_paid}</a>,
+                sorter: (a, b) => a.amount_not_paid - b.amount_not_paid,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Acción',
+                title: <b>Accion</b>,
                 key: 'action',
                 render: (text, item) => (
                     <span>

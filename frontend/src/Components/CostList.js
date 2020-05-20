@@ -133,19 +133,22 @@ export default class CostList extends Component {
 
         const columns = [
             {
-                title: 'Nombre',
+                title: <b>Nombre</b>,
                 dataIndex: 'name',
                 key: 'name',
-                render: name => <a>{name}</a>,
+                sorter: (a, b) => a.name.length - b.name.length,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Precio',
+                title: <b>Precio</b>,
                 dataIndex: 'total_price',
                 key: 'total_price',
-                render: total_price => <a>{total_price}</a>,
+                defaultSortOrder: 'descend',
+                sorter: (a, b) => a.total_price - b.total_price,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Acción',
+                title: <b>Accion</b>,
                 key: 'action',
                 render: (text, item) => (
                     <span>

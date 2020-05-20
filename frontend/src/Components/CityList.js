@@ -148,31 +148,33 @@ export default class CityList extends Component {
 
         const columns = [
             {
-                title: 'Nombre',
+                title: <b>Nombre</b>,
                 dataIndex: 'name',
                 key: 'name',
-                render: name => <a>{name}</a>,
+                sorter: (a, b) => a.name.length - b.name.length,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Pais',
+                title: <b>Pais</b>,
                 dataIndex: 'country',
                 key: 'country',
                 render: country => {
                     let countryName = Object.keys(this.state.country_list).find(key => this.state.country_list[key] === country)
                     let countryNameCapitalized = this.capitalizeFirstLetter(countryName)
                     return(
-                        <a>{countryNameCapitalized}</a>
+                        countryNameCapitalized
                     )
                 }
             },
             {
-                title: 'Mapa',
+                title: <b>Mapa</b>,
                 dataIndex: 'map_link',
                 key: 'map_link',
-                render: map_link => <a>{map_link}</a>,
+                sorter: (a, b) => a.map_link.length - b.map_link.length,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Detalles',
+                title: <b>Detalles</b>,
                 dataIndex: 'city_id',
                 key: 'city_id',
                 render: city_id => (
@@ -198,7 +200,7 @@ export default class CityList extends Component {
                 ),
             },
             {
-                title: 'Acción',
+                title: <b>Accion</b>,
                 key: 'action',
                 render: (text, item) => (
                     <span>

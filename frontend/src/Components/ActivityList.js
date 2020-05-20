@@ -145,37 +145,44 @@ export default class ActivityList extends Component {
 
         const columns = [
             {
-                title: 'Nombre',
+                title: <b>Nombre</b>,
                 dataIndex: 'name',
                 key: 'name',
-                render: name => <a>{name}</a>,
+                sorter: (a, b) => a.name.length - b.name.length,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Fecha',
+                title: <b>Fecha</b>,
                 dataIndex: 'activity_date',
                 key: 'activity_date',
-                render: activity_date => <a>{activity_date}</a>,
+                defaultSortOrder: 'ascend',
+                sorter: (a, b) => moment(a.activity_date).diff(moment(b.activity_date), 'days'),
+                sortDirections: ['ascend','descend'],
+                render: activity_date => moment(activity_date).format("DD/MM/YYYY")
             },
             {
-                title: 'Precio',
+                title: <b>Precio</b>,
                 dataIndex: 'total_price',
                 key: 'total_price',
-                render: total_price => <a>{total_price}</a>,
+                sorter: (a, b) => a.total_price - b.total_price,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Precio pagado',
+                title: <b>Precio pagado</b>,
                 dataIndex: 'amount_paid',
                 key: 'amount_paid',
-                render: amount_paid => <a>{amount_paid}</a>,
+                sorter: (a, b) => a.amount_paid - b.amount_paid,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Precio por pagar',
+                title: <b>Precio por pagar</b>,
                 dataIndex: 'amount_not_paid',
                 key: 'amount_not_paid',
-                render: amount_not_paid => <a>{amount_not_paid}</a>,
+                sorter: (a, b) => a.amount_not_paid - b.amount_not_paid,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Acción',
+                title: <b>Accion</b>,
                 key: 'action',
                 render: (text, item) => (
                     <span>
