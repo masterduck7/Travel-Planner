@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import CustomLayout from '../Components/CustomLayout'
 import { VectorMap } from "react-jvectormap"
-import { Col } from 'antd';
+import { Col, Row } from 'antd';
 import axios from 'axios';
+import { Icon, Statistic, Tab } from 'semantic-ui-react'
 
 export default class MapView extends Component {
 
@@ -52,12 +53,34 @@ export default class MapView extends Component {
         return  (
             <div>
                 <CustomLayout data={{tab: '4'}} />
-                <h1 style={{textAlign: 'center', marginTop: 20}}>Paises visitados</h1>
                 <Col xs={24} sm={12} md={12} lg={86} xl={12}>
-                    <h2 style={{textAlign: 'center', marginTop: 20}}>Cantidad</h2>
-                    <h3 style={{textAlign: 'center', marginTop: 20}}>Numero de paises visitados: {this.state.total_countries}</h3>
-                    <h3 style={{textAlign: 'center', marginTop: 20}}>Porcentaje paises visitados: {this.state.percentaje_world} % </h3>
-                    <h3 style={{textAlign: 'center', marginTop: 20}}>Numero de ciudades visitadas: {this.state.total_cities}</h3>
+                    <Row style={{marginTop: "20%"}}>
+                        <Statistic.Group size={"large"} widths='1' color="grey" >
+                            <Statistic>
+                                <Statistic.Value>
+                                    <Icon name='world' /> {this.state.total_countries}
+                                </Statistic.Value>
+                                <Statistic.Label>Numero de paises visitados</Statistic.Label>
+                            </Statistic>
+                        </Statistic.Group>
+                        <br />
+                        <br />
+                        <br />
+                        <Statistic.Group size={"small"} widths='2' color="grey" >
+                            <Statistic>
+                                <Statistic.Value>
+                                    <Icon name='percent' /> {this.state.percentaje_world}
+                                </Statistic.Value>
+                                <Statistic.Label>Porcentaje paises visitados</Statistic.Label>
+                            </Statistic>
+                            <Statistic>
+                                <Statistic.Value>
+                                    <Icon name='list' /> {this.state.total_cities}
+                                </Statistic.Value>
+                                <Statistic.Label>Numero de ciudades visitadas</Statistic.Label>
+                            </Statistic>
+                        </Statistic.Group>
+                    </Row>
                 </Col>
                 <Col xs={24} sm={12} md={12} lg={86} xl={12}>
                     <div style={{width: 500, height: 500, maxWidth: (window.innerWidth-30)+'px'}}>
@@ -89,7 +112,7 @@ export default class MapView extends Component {
                                 regions: [
                                     {
                                         values: this.state.countries, //this is your data
-                                        scale: ["#ff0000", "#146804"], //your color game's here
+                                        scale: ["#011528", "#2594fc"], //your color game's here
                                         normalizeFunction: "polynomial"
                                     }
                                 ]
