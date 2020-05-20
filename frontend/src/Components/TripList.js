@@ -104,7 +104,7 @@ export default class TripList extends Component {
                     if (status === "Active") {
                         return (
                             <Tag color={'green'} key={status}>
-                                ACTIVO
+                                FUTURO
                             </Tag>
                         )
                     } 
@@ -131,11 +131,11 @@ export default class TripList extends Component {
                 render: planning_file => <a>{planning_file}</a>,
             },
             {
-                title: 'Acción',
+                title: 'Detalles',
                 key: 'action',
                 render: (text, item) => (
                   <span>
-                    <Link to={`/trips/${item.trip_id}/`}><a>Detalles</a></Link>
+                    <Link to={`/trips/${item.trip_id}/`}><a>Ir a {item.destination} </a></Link>
                   </span>
                 ),
             }
@@ -201,49 +201,32 @@ export default class TripList extends Component {
                     </p>
                 </Modal>
                 <Row>
-                <Col xs={4} sm={6} md={6} lg={86} xl={4}>
-                    <div style={{width: 200}}>
-                        <Menu
-                        defaultSelectedKeys={[this.props.data.tab]}
-                        mode="inline"
-                        theme="dark"
-                        >
-                            <Menu.Item key="0">
-                                <Icon type="cloud" />
-                                <span>Todos</span>
-                                <Link to="/trips"></Link>
-                            </Menu.Item>
-                            <Menu.Item key="1">
-                                <Icon type="history" />
-                                <span>Anteriores</span>
-                                <Link to="/past-trips"></Link>
-                            </Menu.Item>
-                            <Menu.Item key="2">
-                                <Icon type="environment" />
-                                <span>Futuros</span>
-                                <Link to="/active-trips"></Link>
-                            </Menu.Item>
-                            <Menu.Item key="3">
-                                <Icon type="stop" />
-                                <span>Cancelados</span>
-                                <Link to="/cancelled-trips"></Link>
-                            </Menu.Item>
-                        </Menu>
-                    </div>
-                </Col>
-                <Col xs={19} sm={17} md={17} lg={17} xl={19}>
-                    <Row>
-                        <Col span={22}></Col>
-                        <Col span={2}>
-                            <Button type="primary" size={'small'} style={{top: 10}} onClick={(e)=> this.onOpenModalCreate(e)}>
-                                Agregar viaje
-                            </Button>
-                        </Col>
-                    </Row>
-                    <br />
-                    <Table columns={columns} dataSource={this.props.data.trips} />
-                </Col>
+                    <Button.Group style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}} size={"medium"}>
+                        <Button disabled={this.props.data.tab[0]} type="primary">
+                            <Link to="/trips" >Todos</Link>
+                        </Button>
+                        <Button disabled={this.props.data.tab[1]} type="primary">
+                            <Link to="/past-trips" >Pasados</Link>
+                        </Button>
+                        <Button disabled={this.props.data.tab[2]} type="primary">
+                            <Link to="/cancelled-trips" >Cancelados</Link>
+                        </Button>
+                        <Button disabled={this.props.data.tab[3]} type="primary">
+                            <Link to="/active-trips" >Futuros</Link>
+                        </Button>
+                    </Button.Group>
                 </Row>
+                <br />
+                <h1 style={{ textAlign:"center" }}>
+                    {this.props.data.type}
+                </h1>
+                <br />
+                <Row>
+                    <Button type="primary" size={'small'} style={{ position:"absolute" ,right: "1%", top: "-22px"}} onClick={(e)=> this.onOpenModalCreate(e)}>
+                        Agregar viaje
+                    </Button>
+                </Row>
+                <Table style={{margin: "1%"}} columns={columns} dataSource={this.props.data.trips} />
             </div>
         )
     }

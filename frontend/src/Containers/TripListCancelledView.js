@@ -35,7 +35,7 @@ export default class TripListPastView extends Component {
         return  (
             <div>
                 <CustomLayout data={{tab: '2'}} />
-                <TripList data={{trips: this.state.trips, tab: '3'}}/>
+                <TripList data={{trips: this.state.trips, tab: [false, false, true, false], type: 'Viajes cancelados'}}/>
             </div>
         )
     }
