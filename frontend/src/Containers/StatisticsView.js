@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import axios from 'axios';
 import moment from 'moment';
 import CustomLayout from '../Components/CustomLayout'
-import { Table } from 'antd';
+import { Col, Row, Statistic, Table, Tabs } from 'antd';
+
+const { TabPane } = Tabs;
 
 const { getNameList } = require('country-list');
 
@@ -12,6 +14,11 @@ export default class StatisticsView extends Component {
         super(props)
         this.state = {
             country_list: getNameList(),
+            totalActivitiesAllTrips : 0,
+            avgTotalFlights: 0,
+            avgTotalHotels: 0,
+            avgTotalActivities: 0,
+            avgTotalCityCosts: 0,
             flights: [],       //First view
             cityData: [],      //Second view
             avgCountryData : [], //Third view
@@ -32,20 +39,22 @@ export default class StatisticsView extends Component {
             .then(res => {
                 if (!res.data["Error"]) {
                     let flights = []
+                    let total_price_flights = 0
                     res.data.forEach(flight => {
                         let flighData = {
                             'origin': flight.origin,
                             'destination': flight.destination,
-                            'date': flight.start_date,
+                            'date': moment(flight.start_date).format('MM/YYYY'),
                             'airline': flight.airline_name,
                             'price': flight.price
                         }
+                        total_price_flights = Number(total_price_flights) + Number(flight.price)
                         flights.push(flighData)
                     });
-                    console.log(flights)
                     this.setState({
                         flights: flights,
-                        number_flights: flights.length
+                        number_flights: flights.length,
+                        avgTotalFlights: Number(total_price_flights/flights.length).toFixed(2)
                     })
                 }else{
                     console.log("Error in Get Flights of Trip data")
@@ -57,14 +66,12 @@ export default class StatisticsView extends Component {
                 if (!res.data["Error"]) {
                     let cityData = []
                     let TotalHotelNights = 0
+                    let TotalHotelNightsCost = 0
+                    let TotalActivitiesAllTrips = 0
+                    let TotalActivitiesAllTripsCost = 0
+                    let TotalCityCostsAllTrips = 0
                     let cities = {}
                     let avgCountryData = {}
-
-                    let CountrySelectedHotels = 0
-                    let CountryTotalHotels = 0
-                    let CountrySelectedActivities = 0
-                    let CountryTotalActivities = 0
-                    let CountryTotalCityCost = 0
                     res.data.forEach(city => {
 
                         if (!cities[city.name]) {
@@ -107,6 +114,10 @@ export default class StatisticsView extends Component {
                         }
 
                         TotalHotelNights = Number(TotalHotelNights) + Number(hotelNights)
+                        TotalActivitiesAllTrips = Number(TotalActivitiesAllTrips) + Number(selectedActivities)
+                        TotalHotelNightsCost = Number(TotalHotelNightsCost) + Number(totalHotels)
+                        TotalActivitiesAllTripsCost = Number(TotalActivitiesAllTripsCost) + Number(totalActivities)
+                        TotalCityCostsAllTrips = Number(TotalCityCostsAllTrips) + Number(totalCityCost)
 
                         if (!avgCountryData[countryNameCapitalized]) {
                             avgCountryData[countryNameCapitalized] = { 'country': countryNameCapitalized,
@@ -131,41 +142,32 @@ export default class StatisticsView extends Component {
                             }
                         }
 
-                        CountrySelectedHotels = Number(CountrySelectedHotels) + selectedHotels
-                        CountryTotalHotels = Number(CountryTotalHotels) + Number(totalHotels)
-                        CountrySelectedActivities = Number(CountrySelectedActivities) + selectedActivities
-                        CountryTotalActivities = Number(CountryTotalActivities) + Number(totalActivities)
-                        CountryTotalCityCost = Number(CountryTotalCityCost) + Number(totalCityCost)
-                        
-
-                        let selectedCity = {'country': countryNameCapitalized, 'trip_id': city.trip, 'number_hotels': selectedHotels, 
-                        'price_hotels': totalHotels, 'avgHotels': avgHotels, 'number_activities': selectedActivities, 'price_activites': totalActivities, 
+                        let selectedCity = {'country': countryNameCapitalized, 'name': city.name, 'trip_id': city.trip, 'number_hotels': selectedHotels, 
+                        'price_hotels': totalHotels, 'avgHotels': avgHotels, 'number_activities': selectedActivities, 'price_activities': totalActivities, 
                         'avgActivities': avgActivities, 'city_cost': totalCityCost }
                         
                         cityData.push(selectedCity)
                     });
 
                     let arrayAvgCountryData = []
-
                     for (let obj in avgCountryData){
                         arrayAvgCountryData.push(avgCountryData[obj])
                     }
 
                     let arrayCities = []
-
                     for (let obj in cities){
                         arrayCities.push(cities[obj])
                     }
 
-                    console.log(cityData)
-                    console.log(TotalHotelNights)
-                    console.log(arrayCities)
-                    console.log(arrayAvgCountryData)
                     this.setState({
                         cityData: cityData,
                         hotelNights: TotalHotelNights,
+                        totalActivitiesAllTrips: TotalActivitiesAllTrips,
                         cities_most_visited: arrayCities,
-                        avgCountryData: arrayAvgCountryData
+                        avgCountryData: arrayAvgCountryData,
+                        avgTotalHotels: Number(TotalHotelNightsCost/TotalHotelNights).toFixed(2),
+                        avgTotalActivities: Number(TotalActivitiesAllTripsCost/TotalActivitiesAllTrips).toFixed(2),
+                        avgTotalCityCosts: Number(TotalCityCostsAllTrips/Object.keys(cities).length).toFixed(2),
                     })    
                 }else{
                     console.log("Error in Get Cost City data")
@@ -225,30 +227,20 @@ export default class StatisticsView extends Component {
                     });
 
                     let arrayYearData = []
-
                     for (let obj in yearData){
                         arrayYearData.push(yearData[obj])
                     }
 
-                    console.log(arrayYearData)
                     this.setState({
                         yearData: arrayYearData
                     })
                 }else{
-                    console.log("Error in Get Flights of Trip data")
+                    console.log("Error in Get All Trip data")
                 }
             })
     }
 
     render() {
-
-        function onChange(pagination, filters, sorter, extra) {
-            console.log('params', pagination, filters, sorter, extra);
-        }
-
-        function onChangeAvgCountry(pagination, filters, sorter, extra) {
-            console.log('params', pagination, filters, sorter, extra);
-        }
 
         const columnsYearData = [
             {
@@ -324,19 +316,159 @@ export default class StatisticsView extends Component {
             },
         ]
 
+        const columnsFlights = [
+            {
+                title: 'Fecha',
+                dataIndex: 'date',
+                render: date => <a>{date}</a>,
+            },
+            {
+                title: 'Origen',
+                dataIndex: 'origin',
+                sorter: (a, b) => a.origin - b.origin,
+                sortDirections: ['ascend'],
+                render: origin => <a>{origin}</a>,
+            },
+            {
+                title: 'Destino',
+                dataIndex: 'destination',
+                sorter: (a, b) => a.destination - b.destination,
+                sortDirections: ['ascend','descend'],
+                render: destination => <a>{destination}</a>,
+            },
+            {
+                title: 'Aerolinea',
+                dataIndex: 'airline',
+                sorter: (a, b) => a.airline - b.airline,
+                sortDirections: ['ascend','descend'],
+                render: airline => <a>{airline}</a>,
+            },
+            {
+                title: 'Precio',
+                dataIndex: 'price',
+                sorter: (a, b) => a.price - b.price,
+                sortDirections: ['ascend','descend'],
+                render: price => <a>{price}</a>,
+            },
+        ]
+
+        const columnsCityData = [
+            {
+                title: 'Pais',
+                dataIndex: 'country',
+                render: country => <a>{country}</a>,
+            },
+            {
+                title: 'Ciudad',
+                dataIndex: 'name',
+                sorter: (a, b) => a.name - b.name,
+                sortDirections: ['ascend'],
+                render: name => <a>{name}</a>,
+            },
+            {
+                title: 'Nº Hoteles',
+                dataIndex: 'number_hotels',
+                sorter: (a, b) => a.number_hotels - b.number_hotels,
+                sortDirections: ['ascend','descend'],
+                render: number_hotels => <a>{number_hotels}</a>,
+            },
+            {
+                title: '$ Gastado en Hoteles',
+                dataIndex: 'price_hotels',
+                sorter: (a, b) => a.price_hotels - b.price_hotels,
+                sortDirections: ['ascend','descend'],
+                render: price_hotels => <a>{price_hotels}</a>,
+            },
+            {
+                title: 'Nº Actividades',
+                dataIndex: 'number_activities',
+                sorter: (a, b) => a.number_activities - b.number_activities,
+                sortDirections: ['ascend','descend'],
+                render: number_activities => <a>{number_activities}</a>,
+            },
+            {
+                title: '$ Gastado en Actividades',
+                dataIndex: 'price_activities',
+                sorter: (a, b) => a.price_activities - b.price_activities,
+                sortDirections: ['ascend','descend'],
+                render: price_activities => <a>{price_activities}</a>,
+            },
+            {
+                title: 'Total Costos ciudad',
+                dataIndex: 'city_cost',
+                sorter: (a, b) => a.city_cost - b.city_cost,
+                sortDirections: ['ascend','descend'],
+                render: city_cost => <a>{city_cost}</a>,
+            },
+        ]
+
+        const columnsMostVisitedCities = [
+            {
+                title: 'Ciudad',
+                dataIndex: 'name',
+                render: name => <a>{name}</a>,
+            },
+            {
+                title: 'Visitas',
+                dataIndex: 'visits',
+                sortDirections: ['descend'],
+                render: visits => <a>{visits}</a>,
+            },
+        ]
+
         return  (
             <div>
                 <CustomLayout data={{tab: '3'}} />
-                <h1>Estadisticas</h1>
-                <a>Cantidad total de vuelos: {this.state.number_flights}</a>
+                <h1 style={{textAlign: 'center', marginTop: 20}}>Estadisticas</h1>
                 <br />
-                <a>Cantidad total de noches de hotel: {this.state.hotelNights}</a>
+                <Row gutter={8}>
+                    <Col span={4} offset={6}>
+                        <Statistic title="Nº total de vuelos" style={{textAlign: "center"}} value={this.state.number_flights} />
+                    </Col>
+                    <Col span={4}>
+                        <Statistic title="Nº de noches de hotel" style={{textAlign: "center"}} value={this.state.hotelNights} />
+                    </Col>
+                    
+                    <Col span={4}>
+                        <Statistic title="Nº de actividades realizadas" style={{textAlign: "center"}} value={this.state.totalActivitiesAllTrips} />
+                    </Col>
+                </Row>
+                <br />
+                <Row gutter={8}>
+                    <Col span={4} offset={4}>
+                        <Statistic title="$ Promedio vuelo" style={{textAlign: "center"}} value={this.state.avgTotalFlights} />
+                    </Col>
+                    <Col span={4}>
+                        <Statistic title="$ Promedio Noche Hotel" style={{textAlign: "center"}} value={this.state.avgTotalHotels} />
+                    </Col>
+                    <Col span={4}>
+                        <Statistic title="$ Promedio Actividad" style={{textAlign: "center"}} value={this.state.avgTotalActivities} />
+                    </Col>
+                    <Col span={4}>
+                        <Statistic title="$ Promedio Costo Ciudad" style={{textAlign: "center"}} value={this.state.avgTotalCityCosts} />
+                    </Col>
+                </Row>
                 <br />
                 <br />
-                <h1>Total gastado por Mes/Año</h1>
-                <Table columns={columnsYearData} dataSource={this.state.yearData} onChange={onChange} />
-                <h1>Promedio gastado por Pais</h1>
-                <Table columns={columnsAvgCountry} dataSource={this.state.avgCountryData} onChange={onChangeAvgCountry} />
+                <Tabs style={{marginLeft: "1%", marginRight: "1%"}} defaultActiveKey="1">
+                    <TabPane tab="$ Gastado por Mes/Año" key="1">
+                        <Table style={{margin: "1%"}} columns={columnsYearData} dataSource={this.state.yearData} />
+                    </TabPane>
+                    <TabPane tab="$ Promedio gastado por pais" key="2">
+                        <Table style={{margin: "1%"}} columns={columnsAvgCountry} dataSource={this.state.avgCountryData} />
+                    </TabPane>
+                    <TabPane tab="Detalle vuelos Mes/Año" key="3">
+                        <Table style={{margin: "1%"}} columns={columnsFlights} dataSource={this.state.flights} />
+                    </TabPane>
+                    <TabPane tab="Detalle gastos Pais/Mes/Año" key="4">
+                        <Table style={{margin: "1%"}} columns={columnsCityData} dataSource={this.state.cityData} />
+                    </TabPane>
+                    <TabPane tab="Ciudades mas visitadas" key="5">
+                        <Table style={{marginTop: "1%"}} columns={columnsMostVisitedCities} dataSource={this.state.cities_most_visited} />
+                    </TabPane>
+                </Tabs>
+                
+                
             </div>
         )
     }
