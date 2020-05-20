@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import moment from 'moment';
 import CustomLayout from '../Components/CustomLayout'
+import { Table } from 'antd';
 
 const { getNameList } = require('country-list');
 
@@ -11,11 +12,11 @@ export default class StatisticsView extends Component {
         super(props)
         this.state = {
             country_list: getNameList(),
-            flights: {},       //First view
-            cityData: {},      //Second view
-            avgCountryData : null, //Third view
-            yearData: {},      //Fourth view
-            number_cities : 0, //Last View
+            flights: [],       //First view
+            cityData: [],      //Second view
+            avgCountryData : [], //Third view
+            yearData: [],      //Fourth view
+            cities_most_visited : 0, //Last View
             number_flights: 0, //Last View
             hotelNights: 0,    //Last View
         }
@@ -67,7 +68,9 @@ export default class StatisticsView extends Component {
                     res.data.forEach(city => {
 
                         if (!cities[city.name]) {
-                            cities[city.name] = city.country
+                            cities[city.name] = {'name': city.name, visits: 1 }
+                        }else{
+                            cities[city.name] = {'name': city.name, visits: Number(cities[city.name].visits) + 1 }
                         }
 
                         let selectedHotels = 0
@@ -106,7 +109,7 @@ export default class StatisticsView extends Component {
                         TotalHotelNights = Number(TotalHotelNights) + Number(hotelNights)
 
                         if (!avgCountryData[countryNameCapitalized]) {
-                            avgCountryData[countryNameCapitalized] = {
+                            avgCountryData[countryNameCapitalized] = { 'country': countryNameCapitalized,
                                 'number_hotels': selectedHotels, 'hotelNights': hotelNights, 'price_hotels': totalHotels, 'avgHotels': avgHotels, 
                                 'number_activities': selectedActivities, 'price_activites': totalActivities, 'avgActivities': avgActivities, 
                                 'city_cost': totalCityCost 
@@ -118,7 +121,7 @@ export default class StatisticsView extends Component {
                             let oldSelectedActivities = avgCountryData[countryNameCapitalized].number_activities
                             let oldTotalActivities = avgCountryData[countryNameCapitalized].price_activites
                             let oldTotalCityCost = avgCountryData[countryNameCapitalized].city_cost
-                            avgCountryData[countryNameCapitalized] = {
+                            avgCountryData[countryNameCapitalized] = { 'country': countryNameCapitalized,
                                 'number_hotels': selectedHotels + oldSelectedHotels, 'price_hotels': totalHotels + oldTotalHotels, 
                                 'hotelNights': oldHotelNights + hotelNights,
                                 'avgHotels': Number((totalHotels + oldTotalHotels)/(hotelNights + oldHotelNights)).toFixed(2), 
@@ -141,15 +144,28 @@ export default class StatisticsView extends Component {
                         
                         cityData.push(selectedCity)
                     });
+
+                    let arrayAvgCountryData = []
+
+                    for (let obj in avgCountryData){
+                        arrayAvgCountryData.push(avgCountryData[obj])
+                    }
+
+                    let arrayCities = []
+
+                    for (let obj in cities){
+                        arrayCities.push(cities[obj])
+                    }
+
                     console.log(cityData)
                     console.log(TotalHotelNights)
-                    console.log(Object.keys(cities).length)
-                    console.log(avgCountryData)
+                    console.log(arrayCities)
+                    console.log(arrayAvgCountryData)
                     this.setState({
                         cityData: cityData,
                         hotelNights: TotalHotelNights,
-                        number_cities: Object.keys(cities).length,
-                        avgCountryData: avgCountryData
+                        cities_most_visited: arrayCities,
+                        avgCountryData: arrayAvgCountryData
                     })    
                 }else{
                     console.log("Error in Get Cost City data")
@@ -184,6 +200,7 @@ export default class StatisticsView extends Component {
 
                         if (!yearData[date]) {
                             yearData[date] = {
+                                'date': date,
                                 'totalFlights': totalFlights,
                                 'totalHotels': totalHotels,
                                 'totalActivities': totalActivities,
@@ -196,6 +213,7 @@ export default class StatisticsView extends Component {
                             let oldtotalActivities = yearData[date].totalActivities
                             let oldtotalCityCost = yearData[date].totalCityCost
                             yearData[date] = {
+                                'date': date,
                                 'totalFlights': totalFlights + oldtotalFlights,
                                 'totalHotels': totalHotels + oldtotalHotels,
                                 'totalActivities': totalActivities + oldtotalActivities,
@@ -205,9 +223,16 @@ export default class StatisticsView extends Component {
                             }
                         }
                     });
-                    console.log(yearData)
+
+                    let arrayYearData = []
+
+                    for (let obj in yearData){
+                        arrayYearData.push(yearData[obj])
+                    }
+
+                    console.log(arrayYearData)
                     this.setState({
-                        yearData: yearData
+                        yearData: arrayYearData
                     })
                 }else{
                     console.log("Error in Get Flights of Trip data")
@@ -216,10 +241,102 @@ export default class StatisticsView extends Component {
     }
 
     render() {
+
+        function onChange(pagination, filters, sorter, extra) {
+            console.log('params', pagination, filters, sorter, extra);
+        }
+
+        function onChangeAvgCountry(pagination, filters, sorter, extra) {
+            console.log('params', pagination, filters, sorter, extra);
+        }
+
+        const columnsYearData = [
+            {
+                title: 'Fecha',
+                dataIndex: 'date',
+                render: date => <a>{date}</a>,
+            },
+            {
+                title: 'Total Vuelos',
+                dataIndex: 'totalFlights',
+                sorter: (a, b) => a.totalFlights - b.totalFlights,
+                sortDirections: ['ascend','descend'],
+                render: totalFlights => <a>{totalFlights}</a>,
+            },
+            {
+                title: 'Total hoteles',
+                dataIndex: 'totalHotels',
+                sorter: (a, b) => a.totalHotels - b.totalHotels,
+                sortDirections: ['ascend','descend'],
+                render: totalHotels => <a>{totalHotels}</a>,
+            },
+            {
+                title: 'Total actividades',
+                dataIndex: 'totalActivities',
+                sorter: (a, b) => a.totalActivities - b.totalActivities,
+                sortDirections: ['ascend','descend'],
+                render: totalActivities => <a>{totalActivities}</a>,
+            },
+            {
+                title: 'Total costos ciudad',
+                dataIndex: 'totalCityCost',
+                sorter: (a, b) => a.totalCityCost - b.totalCityCost,
+                sortDirections: ['ascend','descend'],
+                render: totalCityCost => <a>{totalCityCost}</a>,
+            },
+            {
+                title: 'Total',
+                dataIndex: 'total',
+                sorter: (a, b) => a.total - b.total,
+                sortDirections: ['ascend','descend'],
+                render: total => <a>{total}</a>,
+            }
+        ]
+
+        const columnsAvgCountry = [
+            {
+                title: 'Pais',
+                dataIndex: 'country',
+                sorter: (a, b) => a.country - b.country,
+                sortDirections: ['ascend'],
+                render: country => <a>{country}</a>,
+            },
+            {
+                title: 'Promedio $ Hotel',
+                dataIndex: 'avgHotels',
+                sorter: (a, b) => a.avgHotels - b.avgHotels,
+                sortDirections: ['ascend','descend'],
+                render: avgHotels => <a>{avgHotels}</a>,
+            },
+            {
+                title: 'Promedio $ Actividad',
+                dataIndex: 'avgActivities',
+                sorter: (a, b) => a.avgActivities - b.avgActivities,
+                sortDirections: ['ascend','descend'],
+                render: avgActivities => <a>{avgActivities}</a>,
+            },
+            {
+                title: 'Promedio $ Costos ciudad',
+                dataIndex: 'city_cost',
+                sorter: (a, b) => a.city_cost - b.city_cost,
+                sortDirections: ['ascend','descend'],
+                render: city_cost => <a>{city_cost}</a>,
+            },
+        ]
+
         return  (
             <div>
                 <CustomLayout data={{tab: '3'}} />
                 <h1>Estadisticas</h1>
+                <a>Cantidad total de vuelos: {this.state.number_flights}</a>
+                <br />
+                <a>Cantidad total de noches de hotel: {this.state.hotelNights}</a>
+                <br />
+                <br />
+                <h1>Total gastado por Mes/Año</h1>
+                <Table columns={columnsYearData} dataSource={this.state.yearData} onChange={onChange} />
+                <h1>Promedio gastado por Pais</h1>
+                <Table columns={columnsAvgCountry} dataSource={this.state.avgCountryData} onChange={onChangeAvgCountry} />
             </div>
         )
     }

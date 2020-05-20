@@ -11,6 +11,7 @@ export default class MapView extends Component {
         this.state = {
             countries : {},
             total_countries: 1,
+            total_cities: 0,
             percentaje_world: 0
         }
     }
@@ -20,8 +21,12 @@ export default class MapView extends Component {
             .then(res => {
                 if (!res.data["Error"]) {
                     let visited_countries = {CL: 0}
+                    let visited_cities = {}
                     let total_countries = 1
                     res.data.forEach(city => {
+                        if (!visited_cities[city.name]) {
+                            visited_cities[city.name] = city.country
+                        }
                         if (city.country) {
                             if (!visited_countries[city.country]) {
                                 visited_countries[city.country] = 10
@@ -33,6 +38,7 @@ export default class MapView extends Component {
                     this.setState({
                         countries: visited_countries,
                         total_countries: total_countries,
+                        total_cities: Object.keys(visited_cities).length,
                         percentaje_world: Number((total_countries/250).toFixed(2))
                     })   
                 }else{
@@ -51,6 +57,7 @@ export default class MapView extends Component {
                     <h2 style={{textAlign: 'center', marginTop: 20}}>Cantidad</h2>
                     <h3 style={{textAlign: 'center', marginTop: 20}}>Numero de paises visitados: {this.state.total_countries}</h3>
                     <h3 style={{textAlign: 'center', marginTop: 20}}>Porcentaje paises visitados: {this.state.percentaje_world} % </h3>
+                    <h3 style={{textAlign: 'center', marginTop: 20}}>Numero de ciudades visitadas: {this.state.total_cities}</h3>
                 </Col>
                 <Col xs={24} sm={12} md={12} lg={86} xl={12}>
                     <div style={{width: 500, height: 500, maxWidth: (window.innerWidth-30)+'px'}}>
