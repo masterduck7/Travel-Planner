@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Col, Icon, Menu, Row } from 'antd';
-import { Button } from 'semantic-ui-react'
+import { Button, Grid, Icon, Statistic } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import CustomLayout from '../Components/CustomLayout'
@@ -105,27 +104,100 @@ export default class CostView extends Component {
                     <Link style={{color:"white"}} to={`/trips/${this.props.match.params.tripID}`}>  Volver</Link>
                 </Button>
                 <h1 style={{textAlign: 'center', marginTop: -20}}>Costos</h1>
-                    <p><center>
-                        <a>Numero de vuelos: {this.state.number_flights}</a>
+
+                <Grid style={{margin: "1%"}} columns={2} divided >
+                    <Grid.Row>
+                        <Grid.Column mobile={16} tablet={8} computer={8}>
+                        <h1 style={{textAlign: 'center', marginTop: 20}}>Gastos</h1>
                         <br />
-                        <a>Total gastado en vuelos: {this.state.flights_costs}</a>   
-                        <br />
-                        <a>Numero de ciudades: {this.state.number_cities}</a>
-                        <br />
-                        <a>Gastos extras en ciudades: {this.state.city_costs}</a>                        
-                        <br />
-                        <a>Numero de hoteles: {this.state.number_hotels}</a>
-                        <br />
-                        <a>Total precio hoteles: {this.state.hotels_costs}</a>
-                        <br />
-                        <a>Hotel pagado/No pagado: {this.state.totalHotels_paid}/{this.state.totalHotels_not_paid}</a>
-                        <br />
-                        <a>Numero de actividades: {this.state.number_activities}</a>
-                        <br />
-                        <a>Total precio actividades: {this.state.activities_costs}</a>
-                        <br />
-                        <a>Actividades pagado/No pagado: {this.state.totalActivities_paid}/{this.state.totalActivities_not_paid}</a>
-                        </center></p>
+                        <Statistic.Group size={"tiny"} widths='2' color="grey" >
+                            <Statistic>
+                                <Statistic.Value>
+                                    <Icon name='plane' /> {this.state.number_flights}
+                                </Statistic.Value>
+                                <br />
+                                <Statistic.Label>Vuelos</Statistic.Label>
+                            </Statistic>
+                            <Statistic>
+                                <Statistic.Value>
+                                    <Icon name='dollar sign' /> {this.state.flights_costs}
+                                </Statistic.Value>
+                                <br />
+                                <Statistic.Label>Gastos en vuelos</Statistic.Label>
+                            </Statistic>
+                        </Statistic.Group>
+                        <br /><br />
+                        <Statistic.Group size={"tiny"} widths='2' color="grey" >
+                            <Statistic>
+                                <Statistic.Value>
+                                    <Icon name='hotel' /> {this.state.number_hotels}
+                                </Statistic.Value>
+                                <br />
+                                <Statistic.Label>Hoteles</Statistic.Label>
+                            </Statistic>
+                            <Statistic>
+                                <Statistic.Value>
+                                    <Icon name='dollar sign' /> {this.state.hotels_costs}
+                                </Statistic.Value>
+                                <br />
+                                <Statistic.Label>Gastos en hotel</Statistic.Label>
+                            </Statistic>
+                        </Statistic.Group>
+                        <br /><br />
+                        <Statistic.Group size={"tiny"} widths='2' color="grey" >
+                            <Statistic>
+                                <Statistic.Value>
+                                    <Icon name='futbol' /> {this.state.number_activities}
+                                </Statistic.Value>
+                                <br />
+                                <Statistic.Label>Actividades</Statistic.Label>
+                            </Statistic>
+                            <Statistic>
+                                <Statistic.Value>
+                                    <Icon name='dollar sign' /> {this.state.activities_costs}
+                                </Statistic.Value>
+                                <br />
+                                <Statistic.Label>Gastos en actividades</Statistic.Label>
+                            </Statistic>
+                        </Statistic.Group>
+                        <br /><br />
+                        <Statistic.Group size={"tiny"} widths='2' color="grey" >
+                            <Statistic>
+                            </Statistic>
+                            <Statistic>
+                                <Statistic.Value>
+                                    <Icon name='dollar sign' /> {this.state.city_costs}
+                                </Statistic.Value>
+                                <br />
+                                <Statistic.Label>Gastos extras</Statistic.Label>
+                            </Statistic>
+                        </Statistic.Group>
+                        </Grid.Column>
+                        <Grid.Column mobile={16} tablet={8} computer={8}>
+                            <h1 style={{textAlign: 'center', marginTop: 20}}>Por pagar</h1>
+                            <br /><br />
+                            <Statistic.Group size={"tiny"} widths='1' color="grey" >
+                                <Statistic>
+                                    <Statistic.Value>
+                                        <Icon name='money' /> {this.state.totalHotels_not_paid}
+                                    </Statistic.Value>
+                                    <br />
+                                    <Statistic.Label>Hotel Por pagar</Statistic.Label>
+                                </Statistic>
+                            </Statistic.Group>
+                            <br /><br /><br />
+                            <Statistic.Group size={"tiny"} widths='1' color="grey" >
+                                <Statistic>
+                                    <Statistic.Value>
+                                        <Icon name='money' /> {this.state.totalActivities_not_paid}
+                                    </Statistic.Value>
+                                    <br />
+                                    <Statistic.Label>Actividades Por pagar</Statistic.Label>
+                                </Statistic>
+                            </Statistic.Group>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
             </div>
         )
     }
