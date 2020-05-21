@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Col, DatePicker, Descriptions, Form, Icon, Input, Menu, Row, Select } from 'antd';
-import { Button } from 'semantic-ui-react'
+import { Col, DatePicker, Descriptions, Form, Input, Menu, Row, Select } from 'antd';
+import { Button, Icon } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import 'react-responsive-modal/styles.css';
 import '../Assets/styles.css'
@@ -187,22 +187,22 @@ export default class TripDetail extends Component {
                 </Modal>
                 <Button.Group style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}} size={"medium"}>
                     <Button negative>
-                        <Icon type="left" />
-                        <Link style={{color:"white"}} to={`/trips`}>  Volver</Link>
+                        <Icon name="angle left" />
+                        <Link style={{color:"white"}} to={`/trips`}>Volver</Link>
                     </Button>
                 </Button.Group>
 
                 <Button primary style={{marginLeft: "0.5%", marginTop: "1%", marginBottom: "1%"}}>
-                    <Icon type='global' />
-                    <Link style={{color:"white"}} to={`/trips/${this.props.trip.trip_id}/flights`}>  Vuelos</Link>
+                    <Icon name='plane' />
+                    <Link style={{color:"white"}} to={`/trips/${this.props.trip.trip_id}/flights`}>Vuelos</Link>
                 </Button>
                 <Button primary style={{marginLeft: "0.2%", marginTop: "1%", marginBottom: "1%"}}>
-                    <Icon type="environment" />
-                    <Link style={{color:"white"}} to={`/trips/${this.props.trip.trip_id}/cities`}>  Ciudades</Link>
+                    <Icon name="building" />
+                    <Link style={{color:"white"}} to={`/trips/${this.props.trip.trip_id}/cities`}>Ciudades</Link>
                 </Button>
                 <Button primary style={{marginLeft: "0.2%", marginTop: "1%", marginBottom: "1%"}}>
-                    <Icon type="bank" />
-                    <Link style={{color:"white"}} to={`/trips/${this.props.trip.trip_id}/costs`}>  Costos</Link>
+                    <Icon name="dollar sign" />
+                    <Link style={{color:"white"}} to={`/trips/${this.props.trip.trip_id}/costs`}>Costos</Link>
                 </Button>
                 
                 <Row style={{position: "absolute", marginTop:"10px", right: "1%"}}>

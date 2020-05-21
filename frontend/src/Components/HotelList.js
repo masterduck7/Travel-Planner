@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Checkbox, Col, DatePicker, Divider, Form, Icon, Input, Menu, Row, Table, Tag } from 'antd';
-import { Button } from 'semantic-ui-react'
+import { Checkbox, DatePicker, Divider, Form, Input, Row, Table, Tag } from 'antd';
+import { Button, Icon } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import { Modal } from 'react-responsive-modal';
 import moment from 'moment';
@@ -423,8 +423,8 @@ export default class HotelList extends Component {
                 </Modal>
                 
                 <Button negative style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}}>
-                    <Icon type="left" />
-                    <Link style={{color:"white"}} to={`/trips/${this.props.data.tripID}/cities/`}>  Volver</Link>
+                    <Icon name="angle left" />
+                    <Link style={{color:"white"}} to={`/trips/${this.props.data.tripID}/cities/`}>Volver</Link>
                 </Button>
                 <h1 style={{ marginTop: -20, textAlign:"center" }}>
                     Hoteles

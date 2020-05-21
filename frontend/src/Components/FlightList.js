@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Col, DatePicker, Divider, Form, Icon, Input, Menu, Row, Table } from 'antd';
-import { Button } from 'semantic-ui-react'
+import { DatePicker, Divider, Form, Input, Row, Table } from 'antd';
+import { Button, Icon } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import { Modal } from 'react-responsive-modal';
 import moment from 'moment';
@@ -375,8 +375,8 @@ export default class FlightList extends Component {
                     </center></p>
                 </Modal>
                 <Button negative style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}}>
-                    <Icon type="left" />
-                    <Link style={{color:"white"}} to={`/trips/${this.props.data.tripID}`}>  Volver</Link>
+                    <Icon name="angle left" />
+                    <Link style={{color:"white"}} to={`/trips/${this.props.data.tripID}`}>Volver</Link>
                 </Button>
                 <h1 style={{ marginTop: -20, textAlign:"center" }}>
                     Vuelos

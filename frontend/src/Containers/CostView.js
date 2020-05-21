@@ -100,8 +100,8 @@ export default class CostView extends Component {
             <div>
                 <CustomLayout data={{tab: '2'}} />
                 <Button negative style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}}>
-                    <Icon type="left" />
-                    <Link style={{color:"white"}} to={`/trips/${this.props.match.params.tripID}`}>  Volver</Link>
+                    <Icon name="angle left" />
+                    <Link style={{color:"white"}} to={`/trips/${this.props.match.params.tripID}`}>Volver</Link>
                 </Button>
                 <h1 style={{textAlign: 'center', marginTop: -20}}>Costos</h1>
 

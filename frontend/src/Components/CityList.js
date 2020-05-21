@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Col, Divider, Form, Icon, Input, Menu, Row, Select, Table } from 'antd';
-import { Button } from 'semantic-ui-react'
+import { Col, Divider, Form, Input, Menu, Row, Select, Table } from 'antd';
+import { Button, Icon } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import { Modal } from 'react-responsive-modal';
 import axios from 'axios';
@@ -312,8 +312,8 @@ export default class CityList extends Component {
                     </center></p>
                 </Modal>
                 <Button negative style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}}>
-                    <Icon type="left" />
-                    <Link style={{color:"white"}} to={`/trips/${this.props.data.tripID}`}>  Volver</Link>
+                    <Icon name="angle left" />
+                    <Link style={{color:"white"}} to={`/trips/${this.props.data.tripID}`}>Volver</Link>
                 </Button>
                 <h1 style={{ marginTop: -20, textAlign:"center" }}>
                     Ciudades
