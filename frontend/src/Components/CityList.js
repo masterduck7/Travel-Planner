@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Col, Divider, Form, Icon, Input, Menu, Row, Select, Table } from 'antd';
+import { Col, Divider, Form, Input, Menu, Row, Select, Table } from 'antd';
+import { Button, Icon } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import { Modal } from 'react-responsive-modal';
 import axios from 'axios';
@@ -147,31 +148,33 @@ export default class CityList extends Component {
 
         const columns = [
             {
-                title: 'Nombre',
+                title: <b>Nombre</b>,
                 dataIndex: 'name',
                 key: 'name',
-                render: name => <a>{name}</a>,
+                sorter: (a, b) => a.name.length - b.name.length,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Pais',
+                title: <b>Pais</b>,
                 dataIndex: 'country',
                 key: 'country',
                 render: country => {
                     let countryName = Object.keys(this.state.country_list).find(key => this.state.country_list[key] === country)
                     let countryNameCapitalized = this.capitalizeFirstLetter(countryName)
                     return(
-                        <a>{countryNameCapitalized}</a>
+                        countryNameCapitalized
                     )
                 }
             },
             {
-                title: 'Mapa',
+                title: <b>Mapa</b>,
                 dataIndex: 'map_link',
                 key: 'map_link',
-                render: map_link => <a>{map_link}</a>,
+                sorter: (a, b) => a.map_link.length - b.map_link.length,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Detalles',
+                title: <b>Detalles</b>,
                 dataIndex: 'city_id',
                 key: 'city_id',
                 render: city_id => (
@@ -190,14 +193,14 @@ export default class CityList extends Component {
                         <Divider type="vertical" />
                         <Button>
                             <Link to={{ pathname:`/trips/${this.props.data.tripID}/cities/${city_id}/city-costs` }}>
-                                Costos
+                                Gastos
                             </Link>
                         </Button>
                     </span>
                 ),
             },
             {
-                title: 'Acción',
+                title: <b>Accion</b>,
                 key: 'action',
                 render: (text, item) => (
                     <span>
@@ -250,7 +253,7 @@ export default class CityList extends Component {
                             }}/>
                         </Form.Item>
                         <Form.Item {...tailFormItemLayout}>
-                            <Button type="primary" htmlType="submit">
+                            <Button primary htmlType="submit">
                                 Agregar
                             </Button>
                         </Form.Item>
@@ -289,7 +292,7 @@ export default class CityList extends Component {
                             }}/>
                         </Form.Item>
                         <Form.Item {...tailFormItemLayout}>
-                            <Button type="primary" htmlType="submit">
+                            <Button primary htmlType="submit">
                                 Editar
                             </Button>
                         </Form.Item>
@@ -299,45 +302,28 @@ export default class CityList extends Component {
                 <Modal open={this.state.modalRemove} onClose={this.onCloseModalRemove} classNames={{modal: 'customSmallModal'}} center>
                     <h2><center>¿ Desea eliminar la ciudad seleccionada ?</center></h2>
                     <p><center>
-                        <Button type="primary" size={'large'} style={{right: 25, top: 10}} 
+                        <Button positive size={'large'} style={{right: 25, top: 10}} 
                             onClick={(e) => this.onClickRemove(e)} >
                             Si
                         </Button>
-                        <Button type="danger" size={'large'} style={{left: 25, top: 10}} onClick={this.onCloseModalRemove} >
+                        <Button negative size={'large'} style={{left: 25, top: 10}} onClick={this.onCloseModalRemove} >
                             No
                         </Button>
                     </center></p>
                 </Modal>
+                <Button negative style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}}>
+                    <Icon name="angle left" />
+                    <Link style={{color:"white"}} to={`/trips/${this.props.data.tripID}`}>Volver</Link>
+                </Button>
+                <h1 style={{ marginTop: -20, textAlign:"center" }}>
+                    Ciudades
+                </h1>
                 <Row>
-                <Col xs={4} sm={6} md={6} lg={86} xl={4}>
-                    <div style={{width: 200}}>
-                        <Menu
-                        defaultSelectedKeys={['1']}
-                        mode="inline"
-                        theme="dark"
-                        >
-                            <Menu.Item key="1">
-                                <Icon type="rollback" />
-                                <span>Volver</span>
-                                <Link to={`/trips/${this.props.data.tripID}`}></Link>
-                            </Menu.Item>
-                        </Menu>
-                    </div>
-                </Col>
-                <Col xs={19} sm={17} md={17} lg={17} xl={19}>
-                    <Row>
-                        <Col span={21}></Col>
-                        <Col span={2}>
-                            <Button type="primary" size={'small'} style={{top: 10}} 
-                                onClick={(e) => this.onOpenModalCreate(e)}>
-                                Agregar Ciudad
-                            </Button>
-                        </Col>
-                    </Row>
-                    <br />
-                    <Table columns={columns} dataSource={this.props.data.cities} />
-                </Col>
+                    <Button primary size={'small'} style={{ position:"absolute" ,right: "1%", top: "-22px"}} onClick={(e)=> this.onOpenModalCreate(e)}>
+                        Agregar Ciudad
+                    </Button>
                 </Row>
+                <Table style={{margin: "1%"}} columns={columns} dataSource={this.props.data.cities} />
             </div>
         )
     }

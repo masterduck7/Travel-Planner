@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Checkbox, Col, DatePicker, Divider, Form, Icon, Input, Menu, Row, Table, Tag } from 'antd';
+import { Divider, Form, Input, Row, Table } from 'antd';
+import { Button, Icon } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import { Modal } from 'react-responsive-modal';
-import moment from 'moment';
 import axios from 'axios';
 import 'react-responsive-modal/styles.css';
 import '../Assets/styles.css'
@@ -132,19 +132,22 @@ export default class CostList extends Component {
 
         const columns = [
             {
-                title: 'Nombre',
+                title: <b>Nombre</b>,
                 dataIndex: 'name',
                 key: 'name',
-                render: name => <a>{name}</a>,
+                sorter: (a, b) => a.name.length - b.name.length,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Precio',
+                title: <b>Precio</b>,
                 dataIndex: 'total_price',
                 key: 'total_price',
-                render: total_price => <a>{total_price}</a>,
+                defaultSortOrder: 'descend',
+                sorter: (a, b) => a.total_price - b.total_price,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Acción',
+                title: <b>Accion</b>,
                 key: 'action',
                 render: (text, item) => (
                     <span>
@@ -182,7 +185,7 @@ export default class CostList extends Component {
                             }} />
                         </Form.Item>
                         <Form.Item {...tailFormItemLayout}>
-                            <Button type="primary" htmlType="submit">
+                            <Button primary htmlType="submit">
                                 Agregar
                             </Button>
                         </Form.Item>
@@ -212,7 +215,7 @@ export default class CostList extends Component {
                             }} />
                         </Form.Item>
                         <Form.Item {...tailFormItemLayout}>
-                            <Button type="primary" htmlType="submit">
+                            <Button primary htmlType="submit">
                                 Editar
                             </Button>
                         </Form.Item>
@@ -222,44 +225,29 @@ export default class CostList extends Component {
                 <Modal open={this.state.modalRemove} onClose={this.onCloseModalRemove} classNames={{modal: 'customSmallModal'}} center>
                     <h2><center>¿ Desea eliminar el gasto seleccionado ?</center></h2>
                     <p><center>
-                        <Button type="primary" size={'large'} style={{right: 25, top: 10}} 
+                        <Button positive size={'large'} style={{right: 25, top: 10}} 
                             onClick={(e) => this.onClickRemove(e)} >
                             Si
                         </Button>
-                        <Button type="danger" size={'large'} style={{left: 25, top: 10}} onClick={this.onCloseModalRemove} >
+                        <Button negative size={'large'} style={{left: 25, top: 10}} onClick={this.onCloseModalRemove} >
                             No
                         </Button>
                     </center></p>
                 </Modal>
+                
+                <Button negative style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}}>
+                    <Icon name="angle left" />
+                    <Link style={{color:"white"}} to={`/trips/${this.props.data.tripID}/cities/`}>Volver</Link>
+                </Button>
+                <h1 style={{ marginTop: -20, textAlign:"center" }}>
+                    Gastos
+                </h1>
                 <Row>
-                <Col xs={4} sm={6} md={6} lg={86} xl={4}>
-                    <div style={{width: 200}}>
-                        <Menu
-                        defaultSelectedKeys={['1']}
-                        mode="inline"
-                        theme="dark"
-                        >
-                            <Menu.Item key="1">
-                                <Icon type="rollback" />
-                                <span>Volver</span>
-                                <Link to={{ pathname:`/trips/${this.props.data.tripID}/cities/` }}></Link>
-                            </Menu.Item>
-                        </Menu>
-                    </div>
-                </Col>
-                <Col xs={19} sm={17} md={17} lg={17} xl={19}>
-                    <Row>
-                        <Col span={22}></Col>
-                        <Col span={2}>
-                            <Button type="primary" size={'small'} style={{top: 10}} onClick={(e)=> this.onOpenModalCreate(e)}>
-                                Agregar gasto
-                            </Button>
-                        </Col>
-                    </Row>
-                    <br />
-                    <Table columns={columns} dataSource={this.props.data.costs} />
-                </Col>
+                    <Button primary size={'small'} style={{ position:"absolute" ,right: "1%", top: "-22px"}} onClick={(e)=> this.onOpenModalCreate(e)}>
+                        Agregar Gasto
+                    </Button>
                 </Row>
+                <Table style={{margin: "1%"}} columns={columns} dataSource={this.props.data.costs} />
             </div>
         )
     }

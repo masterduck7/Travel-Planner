@@ -28,7 +28,7 @@ export default class TripListView extends Component {
         return  (
             <div>
                 <CustomLayout data={{tab: '2'}} />
-                <TripList data={{trips: this.state.trips, tab: '0'}}/>
+                <TripList data={{trips: this.state.trips, tab: [true, false, false, false], type: "Todos los viajes"}}/>
             </div>
         )
     }

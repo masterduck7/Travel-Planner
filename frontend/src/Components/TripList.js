@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Col, DatePicker, Form, Icon, Input, Menu, Row, Select, Table, Tag } from 'antd';
+import { Col, DatePicker, Form, Icon, Input, Menu, Row, Select, Table, Tag } from 'antd';
+import { Button } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import { Modal } from 'react-responsive-modal';
 import moment from 'moment';
@@ -79,32 +80,40 @@ export default class TripList extends Component {
 
         const columns = [
             {
-                title: 'Destino',
+                title: <b>Destino</b>,
                 dataIndex: 'destination',
                 key: 'destination',
-                render: destination => <a>{destination}</a>,
+                sorter: (a, b) => a.destination.length - b.destination.length,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Fecha Inicio',
+                title: <b>Fecha Inicio</b>,
                 dataIndex: 'start_date',
                 key: 'start_date',
-                render: start_date => <a>{start_date}</a>,
+                defaultSortOrder: 'ascend',
+                sorter: (a, b) => moment(a.start_date).diff(moment(b.start_date), 'days'),
+                sortDirections: ['ascend','descend'],
+                render: start_date => moment(start_date).format("DD-MM-YYYY")
             },
             {
-                title: 'Fecha Fin',
+                title: <b>Fecha Fin</b>,
                 dataIndex: 'end_date',
-                key: 'end_date',
-                render: end_date => <a>{end_date}</a>,
+                key: "end_date",
+                sorter: (a, b) => moment(a.end_date).diff(moment(b.end_date), 'days'),
+                sortDirections: ['ascend','descend'],
+                render: end_date => moment(end_date).format("DD-MM-YYYY")
             },
             {
-                title: 'Estado',
+                title: <b>Estado</b>,
                 dataIndex: 'status',
                 key: 'status',
+                sorter: (a, b) => a.status.length - b.status.length,
+                sortDirections: ['ascend','descend'],
                 render: status => {
                     if (status === "Active") {
                         return (
                             <Tag color={'green'} key={status}>
-                                ACTIVO
+                                FUTURO
                             </Tag>
                         )
                     } 
@@ -125,17 +134,18 @@ export default class TripList extends Component {
                 }                    
             },
             {
-                title: 'Archivo planificación',
+                title: <b>Archivo planificación</b>,
                 dataIndex: 'planning_file',
                 key: 'planning_file',
-                render: planning_file => <a>{planning_file}</a>,
+                sorter: (a, b) => a.planning_file.length - b.planning_file.length,
+                sortDirections: ['ascend','descend']
             },
             {
-                title: 'Acción',
+                title: <b>Informacion</b>,
                 key: 'action',
                 render: (text, item) => (
                   <span>
-                    <Link to={`/trips/${item.trip_id}/`}><a>Detalles</a></Link>
+                    <Link to={`/trips/${item.trip_id}/`}>Ir a detalles</Link>
                   </span>
                 ),
             }
@@ -193,7 +203,7 @@ export default class TripList extends Component {
                             }}/>
                         </Form.Item>
                         <Form.Item {...tailFormItemLayout}>
-                            <Button type="primary" htmlType="submit">
+                            <Button primary htmlType="submit">
                                 Agregar
                             </Button>
                         </Form.Item>
@@ -201,49 +211,32 @@ export default class TripList extends Component {
                     </p>
                 </Modal>
                 <Row>
-                <Col xs={4} sm={6} md={6} lg={86} xl={4}>
-                    <div style={{width: 200}}>
-                        <Menu
-                        defaultSelectedKeys={[this.props.data.tab]}
-                        mode="inline"
-                        theme="dark"
-                        >
-                            <Menu.Item key="0">
-                                <Icon type="cloud" />
-                                <span>Todos</span>
-                                <Link to="/trips"></Link>
-                            </Menu.Item>
-                            <Menu.Item key="1">
-                                <Icon type="history" />
-                                <span>Anteriores</span>
-                                <Link to="/past-trips"></Link>
-                            </Menu.Item>
-                            <Menu.Item key="2">
-                                <Icon type="environment" />
-                                <span>Futuros</span>
-                                <Link to="/active-trips"></Link>
-                            </Menu.Item>
-                            <Menu.Item key="3">
-                                <Icon type="stop" />
-                                <span>Cancelados</span>
-                                <Link to="/cancelled-trips"></Link>
-                            </Menu.Item>
-                        </Menu>
-                    </div>
-                </Col>
-                <Col xs={19} sm={17} md={17} lg={17} xl={19}>
-                    <Row>
-                        <Col span={22}></Col>
-                        <Col span={2}>
-                            <Button type="primary" size={'small'} style={{top: 10}} onClick={(e)=> this.onOpenModalCreate(e)}>
-                                Agregar viaje
-                            </Button>
-                        </Col>
-                    </Row>
-                    <br />
-                    <Table columns={columns} dataSource={this.props.data.trips} />
-                </Col>
+                    <Button.Group style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}} size={"medium"}>
+                        <Button disabled={this.props.data.tab[0]} primary>
+                            <Link style={{color:"white"}} to="/trips" >Todos</Link>
+                        </Button>
+                        <Button disabled={this.props.data.tab[1]} primary>
+                            <Link style={{color:"white"}} to="/past-trips" >Pasados</Link>
+                        </Button>
+                        <Button disabled={this.props.data.tab[2]} primary>
+                            <Link style={{color:"white"}} to="/cancelled-trips" >Cancelados</Link>
+                        </Button>
+                        <Button disabled={this.props.data.tab[3]} primary>
+                            <Link style={{color:"white"}} to="/active-trips" >Futuros</Link>
+                        </Button>
+                    </Button.Group>
                 </Row>
+                <br />
+                <h1 style={{ marginTop: -20, textAlign:"center" }}>
+                    {this.props.data.type}
+                </h1>
+                <br />
+                <Row>
+                    <Button primary size={'small'} style={{ position:"absolute" ,right: "1%", top: "-22px"}} onClick={(e)=> this.onOpenModalCreate(e)}>
+                        Agregar viaje
+                    </Button>
+                </Row>
+                <Table style={{margin: "1%"}} columns={columns} dataSource={this.props.data.trips} />
             </div>
         )
     }
