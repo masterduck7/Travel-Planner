@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Col, DatePicker, Descriptions, Form, Input, Menu, Row, Select } from 'antd';
-import { Button, Icon } from 'semantic-ui-react'
+import { DatePicker, Descriptions, Form, Input, Row, Select } from 'antd';
+import { Button, Icon, Image, Label, Segment } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import 'react-responsive-modal/styles.css';
 import '../Assets/styles.css'
@@ -83,6 +83,35 @@ export default class TripDetail extends Component {
         .catch(error => {
             console.log(error)
         })
+    }
+
+    statusLabel = () => {
+        if (this.props.trip.status === "Active") {
+            return(
+                <Label as='a' color='green' size="huge" ribbon>
+                    Futuro
+                </Label>
+            )
+        }
+        else if (this.props.trip.status === "Past") {
+            return(
+                <Label as='a' color='grey' size="huge" ribbon>
+                    Pasado
+                </Label>
+            )
+        }
+        else{
+            return(
+                <Label as='a' color='red' size="huge" ribbon>
+                    Cancelado
+                </Label>
+            )
+        }
+    }
+
+    diffDays(){
+        let diff = moment(this.props.trip.end_date).diff(moment(this.props.trip.start_date), 'days')
+        return(diff)
     }
 
     render() {
@@ -205,25 +234,38 @@ export default class TripDetail extends Component {
                     <Link style={{color:"white"}} to={`/trips/${this.props.trip.trip_id}/costs`}>Costos</Link>
                 </Button>
                 
-                <Row style={{position: "absolute", marginTop:"10px", right: "1%"}}>
-                    <Button primary size={'small'} style={{right:"7%"}} onClick={this.onOpenModalEdit} >
-                        Editar
-                    </Button>
-                    <Button negative size={'small'} style={{right:"1%"}} onClick={this.onOpenModalRemove} >
-                        Eliminar
-                    </Button>
-                </Row>
+                
                 <h1 style={{ marginTop: -20, textAlign:"center" }}>
                     Detalles Viaje
                 </h1>
                 <br />
-                <Descriptions style={{margin:"1%"}} size= "small" layout="vertical" bordered >
-                    <Descriptions.Item label="Destino" span={1}>{this.props.trip.destination}</Descriptions.Item>
-                    <Descriptions.Item label="Fecha Inicio"span={1}>{this.props.trip.start_date}</Descriptions.Item>
-                    <Descriptions.Item label="Fecha Fin"span={1}>{this.props.trip.end_date}</Descriptions.Item>
-                    <Descriptions.Item label="Estado" span={1}>{this.props.trip.status}</Descriptions.Item>
-                    <Descriptions.Item label="Archivo Planificación" span={1}>{this.props.trip.planning_file}</Descriptions.Item>
-                </Descriptions>
+
+                <Segment style={{marginLeft: "10%", width: "80%" }} raised>
+                    {this.statusLabel()}
+                    <span>{this.props.trip.destination}</span>
+                    <br/><br/><br/>
+                    <Row style={{position: "absolute", marginTop:"-10px", right: "15px"}}>
+                        <Button primary size={'small'} style={{right:"7%"}} onClick={this.onOpenModalEdit} >
+                            Editar
+                        </Button>
+                        <Button negative size={'small'} style={{right:"1%"}} onClick={this.onOpenModalRemove} >
+                            Eliminar
+                        </Button>
+                    </Row>
+                    <br/>
+                    <Segment.Group>
+                        <Segment.Group style={{border:"0" }} raised >
+                            <Segment > <b>Duracion del viaje:</b> {this.diffDays()} Dias </Segment>
+                        </Segment.Group>
+                        <Segment.Group style={{border:"0"}} raised>
+                            <Segment> <b>Inicio:</b> {this.props.trip.start_date} </Segment>
+                            <Segment><b> Final:</b> {this.props.trip.end_date} </Segment>
+                        </Segment.Group>
+                        <Segment.Group style={{ border:"0", boxShadow: 0}} raised>
+                            <Segment > <b>Archivo de Planificación:</b> {this.props.trip.planning_file} </Segment>
+                        </Segment.Group>
+                    </Segment.Group>
+                </Segment>
             </div>
         )
     }
