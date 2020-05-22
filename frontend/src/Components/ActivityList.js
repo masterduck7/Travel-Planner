@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { DatePicker, Divider, Form, Input, Row, Table } from 'antd';
+import { DatePicker, Form, Input, Row, Table } from 'antd';
 import { Button, Icon } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import { Modal } from 'react-responsive-modal';
@@ -186,13 +186,12 @@ export default class ActivityList extends Component {
                 key: 'action',
                 render: (text, item) => (
                     <span>
-                        <a onClick={(e)=>{
+                        <Button basic color="blue" onClick={(e)=>{
                             e.stopPropagation();
-                            this.onOpenModalEdit(item)}}>Editar</a>
-                        <Divider type="vertical" />
-                        <a onClick={(e)=>{
+                            this.onOpenModalEdit(item)}}>Editar</Button>
+                        <Button basic color="red" onClick={(e)=>{
                             e.stopPropagation();
-                            this.onOpenModalRemove(e, item)}}>Eliminar</a>
+                            this.onOpenModalRemove(e, item)}}>Eliminar</Button>
                     </span>
                 ),
             }
@@ -321,11 +320,12 @@ export default class ActivityList extends Component {
                         </Button>
                     </center></p>
                 </Modal>
-                
-                <Button negative style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}}>
-                    <Icon name="angle left" />
-                    <Link style={{color:"white"}} to={`/trips/${this.props.data.tripID}/cities/`}>Volver</Link>
-                </Button>
+                <Link to={`/trips/${this.props.data.tripID}/cities/`}>
+                    <Button negative style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}}>
+                        <Icon name="angle left" />
+                        Volver
+                    </Button>
+                </Link>
                 <h1 style={{ marginTop: -20, textAlign:"center" }}>
                     Actividades
                 </h1>

@@ -33,36 +33,14 @@ export default class StatisticsView extends Component {
     }
 
     componentDidMount(){
-        // GET FLIGHTS DETAILS
-        axios.get(`http://127.0.0.1:8000/flights/`)
+
+        // GET YEAR DETAILS
+        axios.get(`http://127.0.0.1:8000/trips/`)
             .then(res => {
                 if (!res.data["Error"]) {
+                    let yearData = {}
                     let flights = []
                     let total_price_flights = 0
-                    res.data.forEach(flight => {
-                        let flighData = {
-                            'origin': flight.origin,
-                            'destination': flight.destination,
-                            'date': moment(flight.start_date).format('YYYY/MM')+"/01",
-                            'airline': flight.airline_name,
-                            'price': flight.price
-                        }
-                        total_price_flights = Number(total_price_flights) + Number(flight.price)
-                        flights.push(flighData)
-                    });
-                    this.setState({
-                        flights: flights,
-                        number_flights: flights.length,
-                        avgTotalFlights: Number(total_price_flights/flights.length).toFixed(2)
-                    })
-                }else{
-                    console.log("Error in Get Flights of Trip data")
-                }
-            })
-        // GET CITY DATA
-        axios.get(`http://127.0.0.1:8000/cities/`)
-            .then(res => {
-                if (!res.data["Error"]) {
                     let cityData = []
                     let TotalHotelNights = 0
                     let TotalHotelNightsCost = 0
@@ -71,112 +49,7 @@ export default class StatisticsView extends Component {
                     let TotalCityCostsAllTrips = 0
                     let cities = {}
                     let avgCountryData = {}
-                    res.data.forEach(city => {
 
-                        if (!cities[city.name]) {
-                            cities[city.name] = {'name': city.name, visits: 1 }
-                        }else{
-                            cities[city.name] = {'name': city.name, visits: Number(cities[city.name].visits) + 1 }
-                        }
-
-                        let selectedHotels = 0
-                        let totalHotels = 0
-                        let hotelNights = 0
-                        let selectedActivities = 0
-                        let totalActivities = 0
-                        let totalCityCost = 0
-                        city.hotels.forEach(hotel => {
-                            selectedHotels = Number(selectedHotels) + 1
-                            totalHotels = Number(totalHotels) + Number(hotel.total_price)
-                            let diff = moment(hotel.end_date).diff(moment(hotel.start_date), 'days')
-                            hotelNights = Number(hotelNights) + Number(diff)
-                        });
-                        city.activities.forEach(activity => {
-                            selectedActivities = Number(selectedActivities) + 1
-                            totalActivities = Number(totalActivities) + Number(activity.total_price)
-                        });
-                        city.costs.forEach(cost => {
-                            totalCityCost = Number(totalCityCost) + Number(cost.total_price)
-                        });
-
-                        let countryName = Object.keys(this.state.country_list).find(key => this.state.country_list[key] === city.country)
-                        let countryNameCapitalized = this.capitalizeFirstLetter(countryName)
-
-                        let avgHotels = Number(totalHotels/hotelNights).toFixed(2)
-                        let avgActivities = Number(totalActivities/selectedActivities).toFixed(2)
-
-                        if (selectedHotels === 0){
-                            avgHotels = 0
-                        }
-                        if(selectedActivities === 0){
-                            avgActivities = 0
-                        }
-
-                        TotalHotelNights = Number(TotalHotelNights) + Number(hotelNights)
-                        TotalActivitiesAllTrips = Number(TotalActivitiesAllTrips) + Number(selectedActivities)
-                        TotalHotelNightsCost = Number(TotalHotelNightsCost) + Number(totalHotels)
-                        TotalActivitiesAllTripsCost = Number(TotalActivitiesAllTripsCost) + Number(totalActivities)
-                        TotalCityCostsAllTrips = Number(TotalCityCostsAllTrips) + Number(totalCityCost)
-
-                        if (!avgCountryData[countryNameCapitalized]) {
-                            avgCountryData[countryNameCapitalized] = { 'country': countryNameCapitalized,
-                                'number_hotels': selectedHotels, 'hotelNights': hotelNights, 'price_hotels': totalHotels, 'avgHotels': avgHotels, 
-                                'number_activities': selectedActivities, 'price_activites': totalActivities, 'avgActivities': avgActivities, 
-                                'city_cost': totalCityCost 
-                            }
-                        }else{
-                            let oldSelectedHotels = avgCountryData[countryNameCapitalized].number_hotels
-                            let oldHotelNights = avgCountryData[countryNameCapitalized].hotelNights
-                            let oldTotalHotels = avgCountryData[countryNameCapitalized].price_hotels
-                            let oldSelectedActivities = avgCountryData[countryNameCapitalized].number_activities
-                            let oldTotalActivities = avgCountryData[countryNameCapitalized].price_activites
-                            let oldTotalCityCost = avgCountryData[countryNameCapitalized].city_cost
-                            avgCountryData[countryNameCapitalized] = { 'country': countryNameCapitalized,
-                                'number_hotels': selectedHotels + oldSelectedHotels, 'price_hotels': totalHotels + oldTotalHotels, 
-                                'hotelNights': oldHotelNights + hotelNights,
-                                'avgHotels': Number((totalHotels + oldTotalHotels)/(hotelNights + oldHotelNights)).toFixed(2), 
-                                'number_activities': selectedActivities + oldSelectedActivities, 'price_activites': totalActivities + oldTotalActivities, 
-                                'avgActivities': Number((totalActivities + oldTotalActivities)/(selectedActivities + oldSelectedActivities)).toFixed(2), 
-                                'city_cost': totalCityCost + oldTotalCityCost 
-                            }
-                        }
-
-                        let selectedCity = {'country': countryNameCapitalized, 'name': city.name, 'trip_id': city.trip, 'number_hotels': selectedHotels, 
-                        'price_hotels': totalHotels, 'avgHotels': avgHotels, 'number_activities': selectedActivities, 'price_activities': totalActivities, 
-                        'avgActivities': avgActivities, 'city_cost': totalCityCost }
-                        
-                        cityData.push(selectedCity)
-                    });
-
-                    let arrayAvgCountryData = []
-                    for (let obj in avgCountryData){
-                        arrayAvgCountryData.push(avgCountryData[obj])
-                    }
-
-                    let arrayCities = []
-                    for (let obj in cities){
-                        arrayCities.push(cities[obj])
-                    }
-
-                    this.setState({
-                        cityData: cityData,
-                        hotelNights: TotalHotelNights,
-                        totalActivitiesAllTrips: TotalActivitiesAllTrips,
-                        cities_most_visited: arrayCities,
-                        avgCountryData: arrayAvgCountryData,
-                        avgTotalHotels: Number(TotalHotelNightsCost/TotalHotelNights).toFixed(2),
-                        avgTotalActivities: Number(TotalActivitiesAllTripsCost/TotalActivitiesAllTrips).toFixed(2),
-                        avgTotalCityCosts: Number(TotalCityCostsAllTrips/Object.keys(cities).length).toFixed(2),
-                    })    
-                }else{
-                    console.log("Error in Get Cost City data")
-                }
-            })
-        // GET YEAR DETAILS
-        axios.get(`http://127.0.0.1:8000/trips/`)
-            .then(res => {
-                if (!res.data["Error"]) {
-                    let yearData = {}
                     res.data.forEach(trip => {
                         let totalFlights = 0
                         let totalHotels = 0
@@ -184,17 +57,92 @@ export default class StatisticsView extends Component {
                         let totalCityCost = 0
                         trip.flights.forEach(flight => {
                             totalFlights = Number(totalFlights) + Number(flight.price)
+                            let flighData = {
+                                'origin': flight.origin,
+                                'destination': flight.destination,
+                                'date': moment(flight.start_date).format('YYYY/MM')+"/01",
+                                'airline': flight.airline_name,
+                                'price': flight.price
+                            }
+                            flights.push(flighData)
                         });
+                        total_price_flights = Number(total_price_flights) + Number(totalFlights)
                         trip.cities.forEach(city => {
+
+                            if (!cities[city.name]) {
+                                cities[city.name] = {'name': city.name, visits: 1 }
+                            }else{
+                                cities[city.name] = {'name': city.name, visits: Number(cities[city.name].visits) + 1 }
+                            }
+    
+                            let selectedHotels = 0
+                            let totalHotels = 0
+                            let hotelNights = 0
+                            let selectedActivities = 0
+                            let totalActivities = 0
+                            let totalCityCost = 0
+
                             city.hotels.forEach(hotel => {
                                 totalHotels = Number(totalHotels) + Number(hotel.total_price)
+                                selectedHotels = Number(selectedHotels) + 1
+                                let diff = moment(hotel.end_date).diff(moment(hotel.start_date), 'days')
+                                hotelNights = Number(hotelNights) + Number(diff)
                             });
                             city.activities.forEach(activity => {
                                 totalActivities = Number(totalActivities) + Number(activity.total_price)
+                                selectedActivities = Number(selectedActivities) + 1
                             });
                             city.costs.forEach(cost => {
                                 totalCityCost = Number(totalCityCost) + Number(cost.total_price)
                             });
+
+                            let countryName = Object.keys(this.state.country_list).find(key => this.state.country_list[key] === city.country)
+                            let countryNameCapitalized = this.capitalizeFirstLetter(countryName)
+
+                            let avgHotels = Number(totalHotels/hotelNights).toFixed(2)
+                            let avgActivities = Number(totalActivities/selectedActivities).toFixed(2)
+
+                            if (selectedHotels === 0){
+                                avgHotels = 0
+                            }
+                            if(selectedActivities === 0){
+                                avgActivities = 0
+                            }
+
+                            TotalHotelNights = Number(TotalHotelNights) + Number(hotelNights)
+                            TotalActivitiesAllTrips = Number(TotalActivitiesAllTrips) + Number(selectedActivities)
+                            TotalHotelNightsCost = Number(TotalHotelNightsCost) + Number(totalHotels)
+                            TotalActivitiesAllTripsCost = Number(TotalActivitiesAllTripsCost) + Number(totalActivities)
+                            TotalCityCostsAllTrips = Number(TotalCityCostsAllTrips) + Number(totalCityCost)
+
+                            if (!avgCountryData[countryNameCapitalized]) {
+                                avgCountryData[countryNameCapitalized] = { 'country': countryNameCapitalized,
+                                    'number_hotels': selectedHotels, 'hotelNights': hotelNights, 'price_hotels': totalHotels, 'avgHotels': avgHotels, 
+                                    'number_activities': selectedActivities, 'price_activites': totalActivities, 'avgActivities': avgActivities, 
+                                    'city_cost': totalCityCost 
+                                }
+                            }else{
+                                let oldSelectedHotels = avgCountryData[countryNameCapitalized].number_hotels
+                                let oldHotelNights = avgCountryData[countryNameCapitalized].hotelNights
+                                let oldTotalHotels = avgCountryData[countryNameCapitalized].price_hotels
+                                let oldSelectedActivities = avgCountryData[countryNameCapitalized].number_activities
+                                let oldTotalActivities = avgCountryData[countryNameCapitalized].price_activites
+                                let oldTotalCityCost = avgCountryData[countryNameCapitalized].city_cost
+                                avgCountryData[countryNameCapitalized] = { 'country': countryNameCapitalized,
+                                    'number_hotels': selectedHotels + oldSelectedHotels, 'price_hotels': totalHotels + oldTotalHotels, 
+                                    'hotelNights': oldHotelNights + hotelNights,
+                                    'avgHotels': Number((totalHotels + oldTotalHotels)/(hotelNights + oldHotelNights)).toFixed(2), 
+                                    'number_activities': selectedActivities + oldSelectedActivities, 'price_activites': totalActivities + oldTotalActivities, 
+                                    'avgActivities': Number((totalActivities + oldTotalActivities)/(selectedActivities + oldSelectedActivities)).toFixed(2), 
+                                    'city_cost': totalCityCost + oldTotalCityCost 
+                                }
+                            }
+    
+                            let selectedCity = {'country': countryNameCapitalized, 'name': city.name, 'trip_id': city.trip, 'number_hotels': selectedHotels, 
+                            'price_hotels': totalHotels, 'avgHotels': avgHotels, 'number_activities': selectedActivities, 'price_activities': totalActivities, 
+                            'avgActivities': avgActivities, 'city_cost': totalCityCost }
+                            
+                            cityData.push(selectedCity)
                         });
 
                         let date = moment(trip.start_date).format('YYYY/MM')+"/01"
@@ -225,13 +173,34 @@ export default class StatisticsView extends Component {
                         }
                     });
 
+                    let arrayAvgCountryData = []
+                    for (let obj in avgCountryData){
+                        arrayAvgCountryData.push(avgCountryData[obj])
+                    }
+
+                    let arrayCities = []
+                    for (let obj in cities){
+                        arrayCities.push(cities[obj])
+                    }
+
                     let arrayYearData = []
                     for (let obj in yearData){
                         arrayYearData.push(yearData[obj])
                     }
 
                     this.setState({
-                        yearData: arrayYearData
+                        yearData: arrayYearData,
+                        flights: flights,
+                        number_flights: flights.length,
+                        avgTotalFlights: Number(total_price_flights/flights.length).toFixed(2),
+                        cityData: cityData,
+                        hotelNights: TotalHotelNights,
+                        totalActivitiesAllTrips: TotalActivitiesAllTrips,
+                        cities_most_visited: arrayCities,
+                        avgCountryData: arrayAvgCountryData,
+                        avgTotalHotels: Number(TotalHotelNightsCost/TotalHotelNights).toFixed(2),
+                        avgTotalActivities: Number(TotalActivitiesAllTripsCost/TotalActivitiesAllTrips).toFixed(2),
+                        avgTotalCityCosts: Number(TotalCityCostsAllTrips/Object.keys(cities).length).toFixed(2),
                     })
                 }else{
                     console.log("Error in Get All Trip data")

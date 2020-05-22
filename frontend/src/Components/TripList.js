@@ -212,18 +212,26 @@ export default class TripList extends Component {
                 </Modal>
                 <Row>
                     <Button.Group style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}} size={"medium"}>
-                        <Button disabled={this.props.data.tab[0]} primary>
-                            <Link style={{color:"white"}} to="/trips" >Todos</Link>
-                        </Button>
-                        <Button disabled={this.props.data.tab[1]} primary>
-                            <Link style={{color:"white"}} to="/past-trips" >Pasados</Link>
-                        </Button>
-                        <Button disabled={this.props.data.tab[2]} primary>
-                            <Link style={{color:"white"}} to="/cancelled-trips" >Cancelados</Link>
-                        </Button>
-                        <Button disabled={this.props.data.tab[3]} primary>
-                            <Link style={{color:"white"}} to="/active-trips" >Futuros</Link>
-                        </Button>
+                        <Link to={`/trips`}>
+                            <Button disabled={this.props.data.tab[0]} primary>
+                                Todos
+                            </Button>
+                        </Link>
+                        <Link to={`/past-trips`}>
+                            <Button disabled={this.props.data.tab[1]} primary>
+                                Pasados
+                            </Button>
+                        </Link>
+                        <Link to={`/cancelled-trips`}>
+                            <Button disabled={this.props.data.tab[2]} primary>
+                                Cancelados
+                            </Button>
+                        </Link>
+                        <Link to={`/active-trips`}>
+                            <Button disabled={this.props.data.tab[3]} primary>
+                                Futuros
+                            </Button>
+                        </Link>
                     </Button.Group>
                 </Row>
                 <br />

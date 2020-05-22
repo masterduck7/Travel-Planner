@@ -217,26 +217,31 @@ export default class TripDetail extends Component {
                         </Button>
                     </center></p>
                 </Modal>
-                <Button.Group style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}} size={"medium"}>
-                    <Button negative>
+                <Link to={`/trips`}>
+                    <Button negative size="medium" style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}}>
                         <Icon name="angle left" />
-                        <Link style={{color:"white"}} to={`/trips`}>Volver</Link>
+                        Volver
                     </Button>
-                </Button.Group>
+                </Link>
 
-                <Button primary style={{marginLeft: "0.5%", marginTop: "1%", marginBottom: "1%"}}>
-                    <Icon name='plane' />
-                    <Link style={{color:"white"}} to={`/trips/${this.props.trip.trip_id}/flights`}>Vuelos</Link>
-                </Button>
-                <Button primary style={{marginLeft: "0.2%", marginTop: "1%", marginBottom: "1%"}}>
-                    <Icon name="building" />
-                    <Link style={{color:"white"}} to={`/trips/${this.props.trip.trip_id}/cities`}>Ciudades</Link>
-                </Button>
-                <Button primary style={{marginLeft: "0.2%", marginTop: "1%", marginBottom: "1%"}}>
-                    <Icon name="dollar sign" />
-                    <Link style={{color:"white"}} to={`/trips/${this.props.trip.trip_id}/costs`}>Costos</Link>
-                </Button>
-                
+                <Link to={`/trips/${this.props.trip.trip_id}/flights`}>
+                    <Button primary style={{marginLeft: "0.5%", marginTop: "1%", marginBottom: "1%"}}>
+                        <Icon name="plane" />
+                        Vuelos
+                    </Button>
+                </Link>
+                <Link to={`/trips/${this.props.trip.trip_id}/cities`}>
+                    <Button primary style={{marginLeft: "0.2%", marginTop: "1%", marginBottom: "1%"}}>
+                        <Icon name="building" />
+                        Ciudades
+                    </Button>
+                </Link>
+                <Link to={`/trips/${this.props.trip.trip_id}/costs`}>
+                    <Button primary style={{marginLeft: "0.2%", marginTop: "1%", marginBottom: "1%"}}>
+                        <Icon name="dollar sign" />
+                        Costo total
+                    </Button>
+                </Link>
                 
                 <h1 style={{ marginTop: -20, textAlign:"center" }}>
                     Detalles Viaje

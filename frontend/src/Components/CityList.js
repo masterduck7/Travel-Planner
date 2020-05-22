@@ -178,23 +178,23 @@ export default class CityList extends Component {
                 key: 'city_id',
                 render: city_id => (
                     <span>
-                        <Button>
-                            <Link to={{ pathname:`/trips/${this.props.data.tripID}/cities/${city_id}/hotels` }}>
+                        <Link to={{ pathname:`/trips/${this.props.data.tripID}/cities/${city_id}/hotels` }}>
+                            <Button basic color="black">
                                 Hoteles
-                            </Link>
-                        </Button>
+                            </Button>
+                        </Link>
                         <Divider type="vertical" />
-                        <Button>
-                            <Link to={{ pathname:`/trips/${this.props.data.tripID}/cities/${city_id}/activities` }}>
+                        <Link to={{ pathname:`/trips/${this.props.data.tripID}/cities/${city_id}/activities` }}>
+                            <Button basic color="black">
                                 Actividades
-                            </Link>
-                        </Button>
+                            </Button>
+                        </Link>
                         <Divider type="vertical" />
-                        <Button>
-                            <Link to={{ pathname:`/trips/${this.props.data.tripID}/cities/${city_id}/city-costs` }}>
+                        <Link to={{ pathname:`/trips/${this.props.data.tripID}/cities/${city_id}/city-costs` }}>
+                            <Button basic color="black">
                                 Gastos
-                            </Link>
-                        </Button>
+                            </Button>
+                        </Link>
                     </span>
                 ),
             },
@@ -203,13 +203,12 @@ export default class CityList extends Component {
                 key: 'action',
                 render: (text, item) => (
                     <span>
-                    <a onClick={(e)=>{
-					    e.stopPropagation();
-					    this.onOpenModalEdit(item)}}>Editar</a>
-                    <Divider type="vertical" />
-                    <a onClick={(e)=>{
-					    e.stopPropagation();
-					    this.onOpenModalRemove(e, item)}}>Eliminar</a>
+                        <Button basic color="blue" onClick={(e)=>{
+                            e.stopPropagation();
+                            this.onOpenModalEdit(item)}}>Editar</Button>
+                        <Button basic color="red" onClick={(e)=>{
+                            e.stopPropagation();
+                            this.onOpenModalRemove(e, item)}}>Eliminar</Button>
                     </span>
                 ),
             }
@@ -310,10 +309,12 @@ export default class CityList extends Component {
                         </Button>
                     </center></p>
                 </Modal>
-                <Button negative style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}}>
-                    <Icon name="angle left" />
-                    <Link style={{color:"white"}} to={`/trips/${this.props.data.tripID}`}>Volver</Link>
-                </Button>
+                <Link to={`/trips/${this.props.data.tripID}`}>
+                    <Button negative style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}}>
+                        <Icon name="angle left" />
+                        Volver
+                    </Button>
+                </Link>
                 <h1 style={{ marginTop: -20, textAlign:"center" }}>
                     Ciudades
                 </h1>

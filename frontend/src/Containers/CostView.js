@@ -17,65 +17,45 @@ export default class CostView extends Component {
             hotels_costs: 0,
             activities_costs: 0,
             city_costs: 0,
-            totalHotels_paid : 0,
             totalHotels_not_paid : 0,
-            totalActivities_paid : 0,
             totalActivities_not_paid : 0
         }
     }
 
     componentDidMount(){
-        axios.get(`http://127.0.0.1:8000/flights/`)
+
+        axios.get(`http://127.0.0.1:8000/trips/${this.props.match.params.tripID}`)
             .then(res => {
                 if (!res.data["Error"]) {
                     let selectedFlights = 0
                     let totalFlights = 0
-                    res.data.forEach(flight => {
-                        if (flight.trip === this.props.match.params.tripID) {
-                            selectedFlights = Number(selectedFlights) + Number(flight.price)
-                            totalFlights = Number(totalFlights) + 1
-                        }
-                    });
-                    this.setState({
-                        flights_costs: selectedFlights,
-                        number_flights: totalFlights
-                    })    
-                }else{
-                    console.log("Error in Get Cost Flight data")
-                }
-            })
-        axios.get(`http://127.0.0.1:8000/cities/`)
-            .then(res => {
-                if (!res.data["Error"]) {
                     let selectedCities = 0
                     let selectedHotels = 0
                     let selectedActivities = 0
                     let totalCityCost = 0
                     let totalHotels = 0
-                    let totalHotels_paid = 0
                     let totalHotels_not_paid = 0
                     let totalActivities = 0
-                    let totalActivities_paid = 0
                     let totalActivities_not_paid = 0
-                    res.data.forEach(city => {
-                        if (city.trip === this.props.match.params.tripID) {
-                            selectedCities = Number(selectedCities) + 1
-                            city.hotels.forEach(hotel => {
-                                selectedHotels = Number(selectedHotels) + 1
-                                totalHotels = Number(totalHotels) + Number(hotel.total_price)
-                                totalHotels_paid = Number(totalHotels) + Number(hotel.amount_paid)
-                                totalHotels_not_paid = Number(totalHotels) + Number(hotel.amount_not_paid)
-                            });
-                            city.activities.forEach(activity => {
-                                selectedActivities = Number(selectedActivities) + 1
-                                totalActivities = Number(totalActivities) + Number(activity.total_price)
-                                totalActivities_paid = Number(totalActivities_paid) + Number(activity.amount_paid)
-                                totalActivities_not_paid = Number(totalActivities_not_paid) + Number(activity.amount_not_paid)
-                            });
-                            city.costs.forEach(cost => {
-                                totalCityCost = Number(totalCityCost) + Number(cost.total_price)
-                            });
-                        }
+                    res.data.flights.forEach(flight => {
+                        selectedFlights = Number(selectedFlights) + Number(flight.price)
+                        totalFlights = Number(totalFlights) + 1
+                    });
+                    res.data.cities.forEach(city => {
+                        selectedCities = Number(selectedCities) + 1
+                        city.hotels.forEach(hotel => {
+                            selectedHotels = Number(selectedHotels) + 1
+                            totalHotels = Number(totalHotels) + Number(hotel.total_price)
+                            totalHotels_not_paid = Number(totalHotels) + Number(hotel.amount_not_paid)
+                        });
+                        city.activities.forEach(activity => {
+                            selectedActivities = Number(selectedActivities) + 1
+                            totalActivities = Number(totalActivities) + Number(activity.total_price)
+                            totalActivities_not_paid = Number(totalActivities_not_paid) + Number(activity.amount_not_paid)
+                        });
+                        city.costs.forEach(cost => {
+                            totalCityCost = Number(totalCityCost) + Number(cost.total_price)
+                        });
                     });
                     this.setState({
                         city_costs: totalCityCost,
@@ -83,15 +63,16 @@ export default class CostView extends Component {
                         number_hotels: selectedHotels,
                         number_activities: selectedActivities,
                         activities_costs: totalActivities,
-                        totalActivities_paid: totalActivities_paid,
                         totalActivities_not_paid: totalActivities_not_paid,
                         hotels_costs: totalHotels,
-                        totalHotels_paid: totalHotels_paid,
-                        totalHotels_not_paid: totalHotels_not_paid
-                    })    
+                        totalHotels_not_paid: totalHotels_not_paid,
+                        flights_costs: selectedFlights,
+                        number_flights: totalFlights
+                    })
                 }else{
-                    console.log("Error in Get Cost City data")
+                    console.log("Error in Get Trip Cost data")
                 }
+                
             })
     }
 
