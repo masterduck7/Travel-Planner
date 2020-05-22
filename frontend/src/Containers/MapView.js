@@ -3,14 +3,15 @@ import CustomLayout from '../Components/CustomLayout'
 import { VectorMap } from "react-jvectormap"
 import { Col, Row } from 'antd';
 import axios from 'axios';
-import { Icon, Statistic } from 'semantic-ui-react'
+import { Icon, Flag, Segment, Statistic } from 'semantic-ui-react'
 
 export default class MapView extends Component {
 
     constructor(props){
         super(props)
         this.state = {
-            countries : {},
+            countryCodes: [],
+            countries: {},
             total_countries: 1,
             total_cities: 0,
             percentaje_world: 0
@@ -23,21 +24,25 @@ export default class MapView extends Component {
                 if (!res.data["Error"]) {
                     let visited_countries = {CL: 0}
                     let visited_cities = {}
+                    let countryCodes = []
                     let total_countries = 1
                     res.data.forEach(city => {
                         if (!visited_cities[city.name]) {
                             visited_cities[city.name] = city.country
                         }
                         if (city.country) {
+                            if (!countryCodes.includes(city.country)) {
+                                countryCodes.push(city.country.toString())
+                            }
                             if (!visited_countries[city.country]) {
                                 visited_countries[city.country] = 10
                                 total_countries = total_countries + 1  
                             }
                         }
                     });
-                    console.log(visited_countries)
                     this.setState({
                         countries: visited_countries,
+                        countryCodes: countryCodes,
                         total_countries: total_countries,
                         total_cities: Object.keys(visited_cities).length,
                         percentaje_world: Number((total_countries/250).toFixed(2))
@@ -50,11 +55,16 @@ export default class MapView extends Component {
 
     render() {
 
+        const countries = this.state.countryCodes
+        const listItems = countries.map((country) =>
+            <Flag name={country.toLowerCase()} />
+        );
+        
         return  (
             <div>
                 <CustomLayout data={{tab: '5'}} />
                 <Col xs={24} sm={12} md={12} lg={86} xl={12}>
-                    <Row style={{marginTop: "20%"}}>
+                    <Row style={{marginTop: "15%"}}>
                         <Statistic.Group size={"large"} widths='1' color="grey" >
                             <Statistic>
                                 <Statistic.Value>
@@ -64,9 +74,7 @@ export default class MapView extends Component {
                                 <Statistic.Label>Paises visitados</Statistic.Label>
                             </Statistic>
                         </Statistic.Group>
-                        <br />
-                        <br />
-                        <br />
+                        <br /><br /><br />
                         <Statistic.Group size={"small"} widths='2' color="grey" >
                             <Statistic>
                                 <Statistic.Value>
@@ -83,6 +91,10 @@ export default class MapView extends Component {
                                 <Statistic.Label>Ciudades visitadas</Statistic.Label>
                             </Statistic>
                         </Statistic.Group>
+                        <br /><br />
+                        <Segment style={{width: "90%", marginLeft: "5%"}}>
+                            {listItems}
+                        </Segment>
                     </Row>
                 </Col>
                 <Col xs={24} sm={12} md={12} lg={86} xl={12}>

@@ -3,7 +3,7 @@ import axios from 'axios';
 import moment from 'moment';
 import CustomLayout from '../Components/CustomLayout'
 import { Table } from 'antd';
-import { Icon, Statistic, Tab } from 'semantic-ui-react'
+import { Icon, Flag, Statistic, Tab } from 'semantic-ui-react'
 
 const { getNameList } = require('country-list');
 
@@ -116,7 +116,7 @@ export default class StatisticsView extends Component {
                             TotalCityCostsAllTrips = Number(TotalCityCostsAllTrips) + Number(totalCityCost)
 
                             if (!avgCountryData[countryNameCapitalized]) {
-                                avgCountryData[countryNameCapitalized] = { 'country': countryNameCapitalized,
+                                avgCountryData[countryNameCapitalized] = { 'country': [countryNameCapitalized, city.country.toString()],
                                     'number_hotels': selectedHotels, 'hotelNights': hotelNights, 'price_hotels': totalHotels, 'avgHotels': avgHotels, 
                                     'number_activities': selectedActivities, 'price_activites': totalActivities, 'avgActivities': avgActivities, 
                                     'city_cost': totalCityCost 
@@ -128,7 +128,7 @@ export default class StatisticsView extends Component {
                                 let oldSelectedActivities = avgCountryData[countryNameCapitalized].number_activities
                                 let oldTotalActivities = avgCountryData[countryNameCapitalized].price_activites
                                 let oldTotalCityCost = avgCountryData[countryNameCapitalized].city_cost
-                                avgCountryData[countryNameCapitalized] = { 'country': countryNameCapitalized,
+                                avgCountryData[countryNameCapitalized] = { 'country': [countryNameCapitalized, city.country.toString()],
                                     'number_hotels': selectedHotels + oldSelectedHotels, 'price_hotels': totalHotels + oldTotalHotels, 
                                     'hotelNights': oldHotelNights + hotelNights,
                                     'avgHotels': Number((totalHotels + oldTotalHotels)/(hotelNights + oldHotelNights)).toFixed(2), 
@@ -138,7 +138,7 @@ export default class StatisticsView extends Component {
                                 }
                             }
     
-                            let selectedCity = {'country': countryNameCapitalized, 'name': city.name, 'trip_id': city.trip, 'number_hotels': selectedHotels, 
+                            let selectedCity = {'country': [countryNameCapitalized, city.country.toString()], 'name': city.name, 'trip_id': city.trip, 'number_hotels': selectedHotels, 
                             'price_hotels': totalHotels, 'avgHotels': avgHotels, 'number_activities': selectedActivities, 'price_activities': totalActivities, 
                             'avgActivities': avgActivities, 'city_cost': totalCityCost }
                             
@@ -261,8 +261,21 @@ export default class StatisticsView extends Component {
                 title: <b>Pais</b>,
                 dataIndex: 'country',
                 key: 'country',
-                sorter: (a, b) => a.country.length - b.country.length,
-                sortDirections: ['ascend','descend']
+                sorter: (a, b) => {
+                    if (a.country !== undefined || a.country !== undefined) {
+                        return(
+                            a.country[0].length - b.country[0].length
+                        )
+                    }
+                },
+                sortDirections: ['ascend','descend'],
+                render: country => {
+                    return(
+                        <span>
+                        <Flag name={country[1].toLowerCase()} /> {country[0]}
+                        </span>
+                    )
+                }
             },
             {
                 title: <b>Promedio $ Hotel</b>,
@@ -331,8 +344,21 @@ export default class StatisticsView extends Component {
                 title: <b>Pais</b>,
                 dataIndex: 'country',
                 key: 'country',
-                sorter: (a, b) => a.country.length - b.country.length,
-                sortDirections: ['ascend','descend']
+                sorter: (a, b) => {
+                    if (a.country !== undefined || a.country !== undefined) {
+                        return(
+                            a.country[0].length - b.country[0].length
+                        )
+                    }
+                },
+                sortDirections: ['ascend','descend'],
+                render: country => {
+                    return(
+                        <span>
+                        <Flag name={country[1].toLowerCase()} /> {country[0]}
+                        </span>
+                    )
+                }
             },
             {
                 title: <b>Ciudad</b>,
