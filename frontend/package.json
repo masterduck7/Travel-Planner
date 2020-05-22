@@ -12,6 +12,7 @@
     "country-list": "^2.2.0",
     "moment": "^2.25.3",
     "react": "^16.13.1",
+    "react-big-calendar": "^0.24.6",
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
     "react-jvectormap": "0.0.16",

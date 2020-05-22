@@ -456,7 +456,7 @@ export default class StatisticsView extends Component {
 
         return  (
             <div>
-                <CustomLayout data={{tab: '3'}} />
+                <CustomLayout data={{tab: '4'}} />
                 <h1 style={{textAlign: 'center', marginTop: 20}}>Estadisticas</h1>
                 <br />
                 <Statistic.Group size={"tiny"} widths='three' color="grey" >

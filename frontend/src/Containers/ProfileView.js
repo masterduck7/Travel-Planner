@@ -5,7 +5,7 @@ export default class ProfileView extends Component {
     render() {
         return  (
             <div>
-                <CustomLayout data={{tab: '6'}} />
+                <CustomLayout data={{tab: '7'}} />
                 <h1>Perfil</h1>
             </div>
         )

@@ -3,7 +3,7 @@ import CustomLayout from '../Components/CustomLayout'
 import { VectorMap } from "react-jvectormap"
 import { Col, Row } from 'antd';
 import axios from 'axios';
-import { Icon, Statistic, Tab } from 'semantic-ui-react'
+import { Icon, Statistic } from 'semantic-ui-react'
 
 export default class MapView extends Component {
 
@@ -52,7 +52,7 @@ export default class MapView extends Component {
 
         return  (
             <div>
-                <CustomLayout data={{tab: '4'}} />
+                <CustomLayout data={{tab: '5'}} />
                 <Col xs={24} sm={12} md={12} lg={86} xl={12}>
                     <Row style={{marginTop: "20%"}}>
                         <Statistic.Group size={"large"} widths='1' color="grey" >

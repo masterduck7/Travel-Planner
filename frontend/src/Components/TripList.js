@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, DatePicker, Form, Icon, Input, Menu, Row, Select, Table, Tag } from 'antd';
+import { DatePicker, Form, Input, Row, Select, Table, Tag } from 'antd';
 import { Button } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import { Modal } from 'react-responsive-modal';
