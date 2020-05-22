@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Divider, Form, Input, Row, Select, Table } from 'antd';
-import { Button, Icon } from 'semantic-ui-react'
+import { Button, Flag, Icon } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import { Modal } from 'react-responsive-modal';
 import axios from 'axios';
@@ -161,7 +161,9 @@ export default class CityList extends Component {
                     let countryName = Object.keys(this.state.country_list).find(key => this.state.country_list[key] === country)
                     let countryNameCapitalized = this.capitalizeFirstLetter(countryName)
                     return(
-                        countryNameCapitalized
+                        <span>
+                            <Flag name={country.toLowerCase()} /> {countryNameCapitalized}
+                        </span>
                     )
                 }
             },
