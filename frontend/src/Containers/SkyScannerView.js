@@ -5,7 +5,7 @@ export default class SkyScannerView extends Component {
     render() {
         return  (
             <div>
-                <CustomLayout data={{tab: '5'}} />
+                <CustomLayout data={{tab: '6'}} />
                 <h1>SkyScanner</h1>
             </div>
         )

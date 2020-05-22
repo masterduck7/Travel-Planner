@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { DatePicker, Descriptions, Form, Input, Row, Select } from 'antd';
-import { Button, Icon, Image, Label, Segment } from 'semantic-ui-react'
+import { DatePicker, Form, Input, Row, Select } from 'antd';
+import { Button, Icon, Label, Segment } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import 'react-responsive-modal/styles.css';
 import '../Assets/styles.css'
@@ -111,6 +111,9 @@ export default class TripDetail extends Component {
 
     diffDays(){
         let diff = moment(this.props.trip.end_date).diff(moment(this.props.trip.start_date), 'days')
+        if (diff === 0) {
+            return 1
+        }
         return(diff)
     }
 

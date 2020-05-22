@@ -42,7 +42,8 @@ export default class Home extends Component {
                     let total_hotels = 0
                     let total_flights = 0
                     res.data.forEach(trip => {
-                        if ((moment(trip.start_date).fromNow()).includes("in") && nextTrips.length < 7  && trip.status === "Active") {
+                        console.log(moment(trip.start_date).fromNow())
+                        if ((moment(trip.start_date).fromNow()).includes("en") && nextTrips.length < 7  && trip.status === "Active") {
                             nextTrips.push(
                                 {
                                     'destination': trip.destination,
@@ -78,7 +79,6 @@ export default class Home extends Component {
                             });
                         }
                     });
-
                     this.setState({
                         number_trips : number_trips,
                         number_flights : number_flights,

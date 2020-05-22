@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Divider, Form, Input, Menu, Row, Select, Table } from 'antd';
+import { Divider, Form, Input, Row, Select, Table } from 'antd';
 import { Button, Icon } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import { Modal } from 'react-responsive-modal';
@@ -8,7 +8,6 @@ import 'react-responsive-modal/styles.css';
 import '../Assets/styles.css'
 
 const { getNameList } = require('country-list');
-const { Option } = Select;
 
 export default class CityList extends Component {
 
