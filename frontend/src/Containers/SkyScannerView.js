@@ -160,6 +160,15 @@ export default class SkyScannerView extends Component {
 
     handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
+    isDisabled(item){
+        if (this.state.months[item] === undefined) {
+            return true
+        }else{
+            console.log("tru")
+            return false
+        }
+    }
+
     render() {
 
         let currencies = [
@@ -271,31 +280,31 @@ export default class SkyScannerView extends Component {
                     </Form.Group>
                 </Form>
                 <Card.Group stackable style={{marginLeft: "2.5%", marginRight: "2.5%", marginTop: "1%"}} itemsPerRow={7}>
-                    <Card color='blue' style={{textAlign: "center"}} header={moment(this.state.months[0]).format("MM/YYYY")} onClick={(event)=> {
+                    <Card disabled={this.isDisabled(0)} color='blue' style={{textAlign: "center"}} header={moment(this.state.months[0]).format("MM/YYYY")} onClick={(event)=> {
                         event.stopPropagation();
                         this.showData(0);
                     }}/>
-                    <Card color='teal' style={{textAlign: "center"}} header={moment(this.state.months[1]).format("MM/YYYY")} onClick={(event)=> {
+                    <Card disabled={this.isDisabled(1)} color='teal' style={{textAlign: "center"}} header={moment(this.state.months[1]).format("MM/YYYY")} onClick={(event)=> {
                         event.stopPropagation();
                         this.showData(1);
                     }}/>
-                    <Card color='green' style={{textAlign: "center"}} header={moment(this.state.months[2]).format("MM/YYYY")} onClick={(event)=> {
+                    <Card disabled={this.isDisabled(2)} color='green' style={{textAlign: "center"}} header={moment(this.state.months[2]).format("MM/YYYY")} onClick={(event)=> {
                         event.stopPropagation();
                         this.showData(2);
                     }}/>
-                    <Card color='olive' style={{textAlign: "center"}} header={moment(this.state.months[3]).format("MM/YYYY")} onClick={(event)=> {
+                    <Card disabled={this.isDisabled(3)} color='olive' style={{textAlign: "center"}} header={moment(this.state.months[3]).format("MM/YYYY")} onClick={(event)=> {
                         event.stopPropagation();
                         this.showData(3);
                     }}/>
-                    <Card color='yellow' style={{textAlign: "center"}} header={moment(this.state.months[4]).format("MM/YYYY")} onClick={(event)=> {
+                    <Card disabled={this.isDisabled(4)} color='yellow' style={{textAlign: "center"}} header={moment(this.state.months[4]).format("MM/YYYY")} onClick={(event)=> {
                         event.stopPropagation();
                         this.showData(4);
                     }}/>
-                    <Card color='orange' style={{textAlign: "center"}} header={moment(this.state.months[5]).format("MM/YYYY")} onClick={(event)=> {
+                    <Card disabled={this.isDisabled(5)} color='orange' style={{textAlign: "center"}} header={moment(this.state.months[5]).format("MM/YYYY")} onClick={(event)=> {
                         event.stopPropagation();
                         this.showData(5);
                     }}/>
-                    <Card color='red' style={{textAlign: "center"}} header={moment(this.state.months[6]).format("MM/YYYY")} onClick={(event)=> {
+                    <Card disabled={this.isDisabled(6)} color='red' style={{textAlign: "center"}} header={moment(this.state.months[6]).format("MM/YYYY")} onClick={(event)=> {
                         event.stopPropagation();
                         this.showData(6);
                     }}/>
