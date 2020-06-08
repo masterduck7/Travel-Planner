@@ -162,6 +162,25 @@ export default class SkyScannerView extends Component {
                 defaultSortOrder: 'ascend',
                 sorter: (a, b) => a.price - b.price,
                 sortDirections: ['ascend','descend'],
+                render: price => {
+                    if (this.state.currency === "USD") {
+                        return(
+                            "US$ " + price
+                        )
+                    } else if (this.state.currency === "EUR") {
+                        return(
+                            "€ " + price
+                        )
+                    } else if (this.state.currency === "CLP") {
+                        return(
+                            "$ " + price
+                        )
+                    }else {
+                        return(
+                            price
+                        )
+                    }
+                }
             },
             {
                 title: 'Fecha Ida',
