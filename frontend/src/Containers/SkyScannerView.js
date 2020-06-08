@@ -42,7 +42,19 @@ export default class SkyScannerView extends Component {
                     "x-rapidapi-key": "6120e74e23msh17f84048c0c59fep1ce941jsnb3248f4b556b"
                 }})
                 .then(res => {
-                    if (!res.data["Error"]) {
+                    if (res.data.Places.length === 0) {
+                        console.log("No hay datos para la ruta seleccionada.")
+                        alert("No hay datos para la ruta seleccionada.")
+                        this.setState({
+                            carriers: {},
+                            places: {},
+                            dates: {},
+                            trips: {},
+                            months: [],
+                            tripTable: []
+                        })
+                    }
+                    else if (!res.data["Error"]) {
                         let carrierData = {}
                         let placeData = {}
                         let tripData = {}
@@ -77,50 +89,73 @@ export default class SkyScannerView extends Component {
                         })
                     }else{
                         console.log("Error in Get Skyscanner data")
+                        this.setState({
+                            carriers: {},
+                            places: {},
+                            dates: {},
+                            trips: {},
+                            months: [],
+                            tripTable: []
+                        })
                     }
                 })
+                .catch(() => {
+                    console.log("Error to get Data");
+                });
         }
     }
 
     showData(date){
         let inputDate = this.state.months[date]
         let selectedDate = this.state.dates[inputDate]
-        let trips = []
-        selectedDate.forEach(trip => {
-            let originCarriersTrip = this.state.trips[trip].origin.CarrierIds
-            let destinationCarriersTrip = this.state.trips[trip].destination.CarrierIds
-            let originCarrierList = ""
-            let destinationCarrierList = ""
-            if ( typeof(originCarriersTrip) === Array) {
-                originCarriersTrip.forEach(carrier => {
-                    originCarrierList = originCarrierList + "," + this.state.carriers[carrier]
-                });
-                originCarrierList = originCarrierList.substr(1);
-            }else{
-                originCarrierList = this.state.carriers[originCarriersTrip]
-            }
-            if ( typeof(destinationCarriersTrip) === Array) {
-                destinationCarriersTrip.forEach(carrier => {
-                    destinationCarrierList = destinationCarrierList + "," + this.state.carriers[carrier]
-                }); 
-                destinationCarrierList = destinationCarrierList.substr(1);
-            }else{
-                destinationCarrierList = this.state.carriers[destinationCarriersTrip]
-            }
-            let tripData = {
-                key: this.state.trips[trip].MinPrice+moment(this.state.trips[trip].origin.DepartureDate).format("DD-MM-YYYY HH:MM"),
-                direct: this.state.trips[trip].Direct,
-                price: this.state.trips[trip].MinPrice,
-                origin: moment(this.state.trips[trip].origin.DepartureDate).format("DD-MM-YYYY HH:MM"),
-                originAirline: originCarrierList,
-                destination: moment(this.state.trips[trip].destination.DepartureDate).format("DD-MM-YYYY HH:MM"),
-                destinationAirline: destinationCarrierList
-            }
-            trips.push(tripData)
-        });
-        this.setState({
-            tripTable: trips
-        })
+        if (inputDate === undefined && selectedDate === undefined) {
+            alert("No hay datos para la ruta seleccionada.")
+            this.setState({
+                carriers: {},
+                places: {},
+                dates: {},
+                trips: {},
+                months: [],
+                tripTable: []
+            })
+        }else{
+            let trips = []
+            selectedDate.forEach(trip => {
+                let originCarriersTrip = this.state.trips[trip].origin.CarrierIds
+                let destinationCarriersTrip = this.state.trips[trip].destination.CarrierIds
+                let originCarrierList = ""
+                let destinationCarrierList = ""
+                if ( typeof(originCarriersTrip) === Array) {
+                    originCarriersTrip.forEach(carrier => {
+                        originCarrierList = originCarrierList + "," + this.state.carriers[carrier]
+                    });
+                    originCarrierList = originCarrierList.substr(1);
+                }else{
+                    originCarrierList = this.state.carriers[originCarriersTrip]
+                }
+                if ( typeof(destinationCarriersTrip) === Array) {
+                    destinationCarriersTrip.forEach(carrier => {
+                        destinationCarrierList = destinationCarrierList + "," + this.state.carriers[carrier]
+                    }); 
+                    destinationCarrierList = destinationCarrierList.substr(1);
+                }else{
+                    destinationCarrierList = this.state.carriers[destinationCarriersTrip]
+                }
+                let tripData = {
+                    key: this.state.trips[trip].MinPrice+moment(this.state.trips[trip].origin.DepartureDate).format("DD-MM-YYYY HH:MM"),
+                    direct: this.state.trips[trip].Direct,
+                    price: this.state.trips[trip].MinPrice,
+                    origin: moment(this.state.trips[trip].origin.DepartureDate).format("DD-MM-YYYY HH:MM"),
+                    originAirline: originCarrierList,
+                    destination: moment(this.state.trips[trip].destination.DepartureDate).format("DD-MM-YYYY HH:MM"),
+                    destinationAirline: destinationCarrierList
+                }
+                trips.push(tripData)
+            });
+            this.setState({
+                tripTable: trips
+            })
+        }   
     }
 
     handleChange = (e, { name, value }) => this.setState({ [name]: value })
@@ -208,7 +243,7 @@ export default class SkyScannerView extends Component {
             <div>
                 <CustomLayout data={{tab: '6'}} />
                 <h1 style={{textAlign: 'center', marginTop: 20}}>SkyScanner Data</h1>
-                <h3 style={{marginLeft: "3%", marginTop: "3%"}}>Buscador de fechas económicas:</h3>
+                <h3 style={{marginLeft: "3%", marginTop: "3%"}}>Buscador de fechas económicas (Ordenadas desde el mes más económico hasta el más costoso)</h3>
                 <Form style={{marginLeft: "3%"}} onSubmit={(e) => this.getData(e)}>
                     <Form.Group>
                     <Form.Input
