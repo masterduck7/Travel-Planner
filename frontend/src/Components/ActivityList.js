@@ -51,7 +51,7 @@ export default class ActivityList extends Component {
             window.location.reload();
         })
         .catch(function (error) {
-          console.log(error.response);
+          console.log("Error in add activity");
         });
     }
 
@@ -88,7 +88,7 @@ export default class ActivityList extends Component {
             window.location.reload();
         })
         .catch(function (error) {
-          console.log(error);
+          console.log("Error in edit activity");
         });
     }
 
@@ -113,7 +113,7 @@ export default class ActivityList extends Component {
             window.location.reload();
         })
         .catch(error => {
-            console.log(error)
+            console.log("Error in remove activity")
         })
     }
 
