@@ -66,6 +66,9 @@ export default class SkyScannerView extends Component {
                         res.data.Places.forEach(place => {
                             placeData[place.PlaceId] = [place.SkyscannerCode, place.CityName, place.CountryName ]
                         });
+                        res.data.Dates.InboundDates.sort(function(a, b){
+                            return a.Price > b.Price;
+                        });
                         res.data.Dates.InboundDates.forEach(date => {
                             if ( Object.keys(tripData).length < 7 ) {
                                 tripData[date.PartialDate] = date.QuoteIds
@@ -164,7 +167,6 @@ export default class SkyScannerView extends Component {
         if (this.state.months[item] === undefined) {
             return true
         }else{
-            console.log("tru")
             return false
         }
     }
