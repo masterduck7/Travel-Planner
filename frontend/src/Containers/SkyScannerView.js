@@ -216,7 +216,7 @@ export default class SkyScannerView extends Component {
                     <Form.Button content='Buscar' />
                     </Form.Group>
                 </Form>
-                <Card.Group style={{marginLeft: "2.5%", marginRight: "2.5%", marginTop: "1%"}} itemsPerRow={7}>
+                <Card.Group stackable style={{marginLeft: "2.5%", marginRight: "2.5%", marginTop: "1%"}} itemsPerRow={7}>
                     <Card color='blue' style={{textAlign: "center"}} header={moment(this.state.months[0]).format("MM/YYYY")} onClick={(event)=> {
                         event.stopPropagation();
                         this.showData(0);
