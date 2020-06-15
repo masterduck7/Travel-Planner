@@ -15,8 +15,8 @@ export default class SkyScannerView extends Component {
             dates: {},
             trips: {},
             months: [],
-            origin: "",
-            destination: "",
+            origin: "LAX",
+            destination: "SFO",
             currency: "USD",
             tripTable: []
         }
@@ -179,6 +179,13 @@ export default class SkyScannerView extends Component {
             {key: "EUR", value: "EUR", text: "Euro"}
         ]
 
+        let airports = [
+            {key: "SFO", value: "SFO", text: "San Francisco"},
+            {key: "LAX", value: "LAX", text: "Los Angeles"},
+            {key: "MAD", value: "MAD", text: "Madrid"},
+            {key: "BCN", value: "BCN", text: "Barcelona"}
+        ]
+
         const columns = [
             {
                 title: 'Directo',
@@ -255,28 +262,39 @@ export default class SkyScannerView extends Component {
                 <CustomLayout data={{tab: '6'}} />
                 <h1 style={{textAlign: 'center', marginTop: 20}}>SkyScanner Data</h1>
                 <h3 style={{marginLeft: "3%", marginTop: "3%"}}>Buscador de fechas económicas (Ordenadas desde el mes más económico hasta el más costoso)</h3>
-                <Form style={{marginLeft: "3%"}} onSubmit={(e) => this.getData(e)}>
+                <Form style={{marginLeft: "3.5%"}} onSubmit={(e) => this.getData(e)}>
                     <Form.Group>
-                    <Form.Input
+                    <Dropdown
                         placeholder='Origen'
                         name='origin'
-                        value={this.state.origin}
                         onChange={this.handleChange}
+                        defaultValue="LAX"
+                        search
+                        selection
+                        floating
+                        options={airports}
                     />
-                    <Form.Input
+                    <Dropdown
                         placeholder='Destino'
                         name='destination'
-                        value={this.state.destination}
                         onChange={this.handleChange}
+                        defaultValue="SFO"
+                        search
+                        selection
+                        floating
+                        options={airports}
+                        style={{marginLeft: "1%"}}
                     />
                     <Dropdown
                         placeholder='Moneda'
                         name='currency'
                         onChange={this.handleChange}
                         selection
+                        search
                         floating
                         defaultValue={"USD"}
                         options={currencies}
+                        style={{marginLeft: "1%"}}
                     />
                     <Form.Button content='Buscar' />
                     </Form.Group>
