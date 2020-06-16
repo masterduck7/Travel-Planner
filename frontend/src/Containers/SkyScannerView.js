@@ -18,10 +18,14 @@ export default class SkyScannerView extends Component {
             dates: {},
             trips: {},
             months: [],
-            origin: "LAX",
-            destination: "SFO",
             currency: "USD",
             tripTable: [],
+            isLoadingOrigin: false,
+            resultsOrigin: [],
+            valueOrigin: "",
+            isLoadingDestination: false,
+            resultsDestination: [],
+            valueDestination: "",
             airportsCodes: [
                 {key: "AAC", value: "AAC", title: "Al Arish - Egypt"},
                 {key: "AAE", value: "AAE", title: "Annaba - Algeria"},
@@ -3531,10 +3535,7 @@ export default class SkyScannerView extends Component {
                 {key: "ZYL", value: "ZYL", title: "Sylhet - Bangladesh"},
                 {key: "ZYR", value: "ZYR", title: "Brussels - Belgium - Rail service"},
                 {key: "ZZU", value: "ZZU", title: "Mzuzu - Malawi"}
-            ],
-            isLoading: false,
-            results: [],
-            value: ""
+            ]
         }
     }
 
@@ -3546,8 +3547,8 @@ export default class SkyScannerView extends Component {
             let country = "US"
             let language = "en-US"
             let currency = this.state.currency
-            let origin = this.state.origin
-            let destination = this.state.destination
+            let origin = this.state.valueOrigin
+            let destination = this.state.valueDestination
             let startDate = "anytime"
             let endDate = "anytime"
             event.preventDefault()
@@ -3687,23 +3688,42 @@ export default class SkyScannerView extends Component {
         }
     }
 
-    handleResultSelect = (e, { result }) => {
-        this.setState({ value: result.title })
+    handleResultSelectOrigin = (e, { result }) => {
+        this.setState({ valueOrigin: result.value })
     }
 
-    handleSearchChange = (e, { value }) => {
+    handleSearchChangeOrigin = (e, { value }) => {
         this.setState({
-            isLoading: true, value
+            isLoadingOrigin: true, value
         })
         setTimeout(() => {
-            if (this.state.value.length < 1) return this.setState({isLoading: false, results: [], value: "" })
+            if (this.state.value.length < 1) return this.setState({isLoadingOrigin: false, resultsOrigin: [], valueOrigin: "" })
 
             const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-            console.log(re)
             const isMatch = (result) => re.test(result.title)
             this.setState({
-                isLoading: false,
-                results: _.filter(this.state.airportsCodes, isMatch),
+                isLoadingOrigin: false,
+                resultsOrigin: _.filter(this.state.airportsCodes, isMatch),
+            })
+        }, 300)
+    }
+
+    handleResultSelectDestination = (e, { result }) => {
+        this.setState({ valueDestination: result.value })
+    }
+
+    handleSearchChangeDestination = (e, { value }) => {
+        this.setState({
+            isLoadingDestination: true, value
+        })
+        setTimeout(() => {
+            if (this.state.value.length < 1) return this.setState({isLoadingDestination: false, resultsDestination: [], valueDestination: "" })
+
+            const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
+            const isMatch = (result) => re.test(result.title)
+            this.setState({
+                isLoadingDestination: false,
+                resultsDestination: _.filter(this.state.airportsCodes, isMatch),
             })
         }, 300)
     }
@@ -3714,13 +3734,6 @@ export default class SkyScannerView extends Component {
             {key: "CLP", value: "CLP", text: "Peso Chileno"},
             {key: "USD", value: "USD", text: "Dolar"},
             {key: "EUR", value: "EUR", text: "Euro"}
-        ]
-
-        let airports = [
-            {key: "SFO", value: "SFO", text: "San Francisco"},
-            {key: "LAX", value: "LAX", text: "Los Angeles"},
-            {key: "MAD", value: "MAD", text: "Madrid"},
-            {key: "BCN", value: "BCN", text: "Barcelona"}
         ]
 
         const columns = [
@@ -3802,37 +3815,35 @@ export default class SkyScannerView extends Component {
                 <Form style={{marginLeft: "3.5%"}} onSubmit={(e) => this.getData(e)}>
                     <Form.Group>
                     <Search
+                        aligned
+                        fluid
+                        minCharacters={3}
                         placeholder='Origen'
-                        loading={this.state.isLoading}
-                        onResultSelect={this.handleResultSelect}
-                        onSearchChange={_.debounce(this.handleSearchChange, 500, {
+                        loading={this.state.isLoadingOrigin}
+                        onResultSelect={this.handleResultSelectOrigin}
+                        onSearchChange={_.debounce(this.handleSearchChangeOrigin, 500, {
                             leading: true,
                         })}
-                        results={this.state.results}
-                        value={this.state.value}
+                        results={this.state.resultsOrigin}
+                        valueOrigin={this.state.valueOrigin}
                         resultRenderer={resultRenderer}
                         {...this.props}
                     />
-                    <Dropdown
-                        placeholder='Origen'
-                        name='origin'
-                        onChange={this.handleChange}
-                        defaultValue="LAX"
-                        search
-                        selection
-                        floating
-                        options={airports}
-                    />
-                    <Dropdown
-                        placeholder='Destino'
-                        name='destination'
-                        onChange={this.handleChange}
-                        defaultValue="SFO"
-                        search
-                        selection
-                        floating
-                        options={airports}
+                    <Search
+                        aligned
+                        fluid
+                        minCharacters={3}
                         style={{marginLeft: "1%"}}
+                        placeholder='Destino'
+                        loading={this.state.isLoadingDestination}
+                        onResultSelect={this.handleResultSelectDestination}
+                        onSearchChange={_.debounce(this.handleSearchChangeDestination, 500, {
+                            leading: true,
+                        })}
+                        results={this.state.resultsDestination}
+                        valueDestination={this.state.valueDestination}
+                        resultRenderer={resultRenderer}
+                        {...this.props}
                     />
                     <Dropdown
                         placeholder='Moneda'
