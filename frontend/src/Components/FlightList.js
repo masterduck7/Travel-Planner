@@ -55,7 +55,7 @@ export default class FlightList extends Component {
             window.location.reload();
         })
         .catch(function (error) {
-          console.log(error.response);
+          console.log("Error in add flight");
         });
     }
 
@@ -96,7 +96,7 @@ export default class FlightList extends Component {
             window.location.reload();
         })
         .catch(function (error) {
-          console.log(error);
+          console.log("Error in edit flight");
         });
     }
 
@@ -121,7 +121,7 @@ export default class FlightList extends Component {
             window.location.reload();
         })
         .catch(error => {
-            console.log(error)
+            console.log("Error in remove flight")
         })
     }
 

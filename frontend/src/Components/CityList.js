@@ -53,7 +53,7 @@ export default class CityList extends Component {
             window.location.reload();
         })
         .catch(function (error) {
-          console.log(error.response);
+          console.log("Error in add city");
         });
     }
 
@@ -86,7 +86,7 @@ export default class CityList extends Component {
             window.location.reload();
         })
         .catch(function (error) {
-          console.log(error);
+          console.log("Error in edit city");
         });
     }
 
@@ -111,7 +111,7 @@ export default class CityList extends Component {
             window.location.reload();
         })
         .catch(error => {
-            console.log(error)
+            console.log("Error in remove city")
         })
     }
     

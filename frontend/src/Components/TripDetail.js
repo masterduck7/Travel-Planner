@@ -59,7 +59,7 @@ export default class TripDetail extends Component {
             window.location.reload();
         })
         .catch(function (error) {
-          console.log(error);
+          console.log("Error in edit trip");
         });
     }
 
@@ -73,7 +73,6 @@ export default class TripDetail extends Component {
 
     onClickRemove = event => {
         event.preventDefault();
-        console.log(this.props.trip.trip_id)
         const tripID = this.props.trip.trip_id
         axios.delete(`http://127.0.0.1:8000/trips/${tripID}/`)
         .then(res => {
@@ -81,7 +80,7 @@ export default class TripDetail extends Component {
             window.location.href = "/#/trips"
         })
         .catch(error => {
-            console.log(error)
+            console.log( "Error in remove trip")
         })
     }
 
