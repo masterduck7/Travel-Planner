@@ -9,6 +9,7 @@ router.register(r'hotels', views.HotelViewSet)
 router.register(r'cities', views.CityViewSet)
 router.register(r'activities', views.ActivityViewSet)
 router.register(r'costs', views.CostViewSet)
+router.register(r'users', views.CustomUserViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
