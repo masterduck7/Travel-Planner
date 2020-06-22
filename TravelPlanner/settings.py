@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv
+load_dotenv(verbose=True)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -76,13 +78,17 @@ WSGI_APPLICATION = 'TravelPlanner.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
+print(os.getenv('DB_PORT'))
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.getenv('DB_NAME',default=""),
+            'USER': os.getenv('DB_USERNAME',default=""),
+            'PASSWORD': os.getenv('DB_PASSWORD',default=""),
+            'HOST': os.getenv('DB_HOSTNAME',default=""),
+            'PORT': os.getenv('DB_PORT',default=""),
+        }
     }
-}
 
 
 # Password validation
