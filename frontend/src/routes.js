@@ -1,6 +1,6 @@
 import React from 'react';
-import {Route,Switch} from 'react-router-dom';
-import { HashRouter } from 'react-router-dom'; 
+import { HashRouter, Route,Switch } from 'react-router-dom';
+import PrivateRoutes from './PrivateRoutes'
 import Home from './Containers/Home';
 import TripListView from './Containers/TripListView';
 import TripDetailView from './Containers/TripDetailView';
@@ -18,28 +18,32 @@ import TripListPastView from './Containers/TripListPastView';
 import TripListFutureView from './Containers/TripListFutureView';
 import TripListCancelledView from './Containers/TripListCancelledView';
 import CalendarView from './Containers/CalendarView';
+import LoginView from './Containers/LoginView';
+import RegisterView from './Containers/RegisterView';
 
 const BaseRouter = () => (
     <div>
         <HashRouter basename='/'>
             <Switch>
-                <Route exact path='/' component={Home} />
-                <Route exact path='/map' component={MapView} />
-                <Route exact path='/profile' component={ProfileView} />
-                <Route exact path='/calendar' component={CalendarView} />
-                <Route exact path='/statistics' component={StatisticsView} />
-                <Route exact path='/skyscanner' component={SkyScannerView} />
-                <Route exact path='/trips' component={TripListView} />
-                <Route exact path='/past-trips' component={TripListPastView} />
-                <Route exact path='/active-trips' component={TripListFutureView} />
-                <Route exact path='/cancelled-trips' component={TripListCancelledView} />
-                <Route exact path='/trips/:tripID' component={TripDetailView} />
-                <Route exact path='/trips/:tripID/costs' component={CostView} />
-                <Route exact path='/trips/:tripID/flights' component={FlightListView} />
-                <Route exact path='/trips/:tripID/cities' component={CityListView} />
-                <Route exact path='/trips/:tripID/cities/:cityID/hotels' component={HotelListView} />
-                <Route exact path='/trips/:tripID/cities/:cityID/activities' component={ActivityListView} />
-                <Route exact path='/trips/:tripID/cities/:cityID/city-costs' component={CityCostView} />
+                <Route exact path='/login' component={LoginView} />
+                <Route exact path='/register' component={RegisterView} />
+                <PrivateRoutes exact path='/' component={props => <Home {...props}/>} />
+                <PrivateRoutes exact path='/map' component={props => <MapView {...props}/>} />
+                <PrivateRoutes exact path='/profile' component={props => <ProfileView {...props}/>} />
+                <PrivateRoutes exact path='/calendar' component={props => <CalendarView {...props}/>} />
+                <PrivateRoutes exact path='/statistics' component={props => <StatisticsView {...props}/>} />
+                <PrivateRoutes exact path='/skyscanner' component={props => <SkyScannerView {...props}/>} />
+                <PrivateRoutes exact path='/trips' component={props => <TripListView {...props}/>} />
+                <PrivateRoutes exact path='/past-trips' component={props => <TripListPastView {...props}/>} />
+                <PrivateRoutes exact path='/active-trips' component={props => <TripListFutureView {...props}/>} />
+                <PrivateRoutes exact path='/cancelled-trips' component={props => <TripListCancelledView {...props}/>} />
+                <PrivateRoutes exact path='/trips/:tripID' component={props => <TripDetailView {...props}/>} />
+                <PrivateRoutes exact path='/trips/:tripID/costs' component={props => <CostView {...props}/>} />
+                <PrivateRoutes exact path='/trips/:tripID/flights' component={props => <FlightListView {...props}/>} />
+                <PrivateRoutes exact path='/trips/:tripID/cities' component={props => <CityListView {...props}/>} />
+                <PrivateRoutes exact path='/trips/:tripID/cities/:cityID/hotels' component={props => <HotelListView {...props}/>} />
+                <PrivateRoutes exact path='/trips/:tripID/cities/:cityID/activities' component={props => <ActivityListView {...props}/>} />
+                <PrivateRoutes exact path='/trips/:tripID/cities/:cityID/city-costs' component={props => <CityCostView {...props}/>} />
             </Switch>
         </HashRouter>
     </div>

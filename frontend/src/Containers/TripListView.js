@@ -7,6 +7,7 @@ export default class TripListView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            user_id: localStorage.getItem('user_id'),
             trips: []
         }
     }
@@ -15,8 +16,14 @@ export default class TripListView extends Component {
         axios.get(`http://127.0.0.1:8000/trips/`)
             .then(res => {
                 if (!res.data["Error"]) {
+                    let tripList = []
+                    res.data.forEach(trip => {
+                        if (trip.user.toString() === this.state.user_id) {
+                            tripList.push(trip)
+                        }
+                    });
                     this.setState({
-                        trips: res.data
+                        trips: tripList
                     })    
                 }else{
                     console.log("Error in Get Trips data")

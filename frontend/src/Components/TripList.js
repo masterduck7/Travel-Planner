@@ -15,6 +15,7 @@ export default class TripList extends Component {
     constructor(props){
         super(props)
         this.state = {
+            user_id: localStorage.getItem('user_id'),
             modalCreate: false,
             status: "",
             planning_file: "",
@@ -36,6 +37,7 @@ export default class TripList extends Component {
     onClickCreate = event => {
         event.preventDefault();
         const postObj = {
+            user: this.state.user_id,
             destination: event.target.destination.value,
             start_date: event.target.start_date.value,
             end_date: event.target.end_date.value,

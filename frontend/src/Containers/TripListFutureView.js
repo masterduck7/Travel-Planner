@@ -7,6 +7,7 @@ export default class TripListPastView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            user_id: localStorage.getItem('user_id'),
             trips: []
         }
     }
@@ -18,7 +19,7 @@ export default class TripListPastView extends Component {
                     const data = res.data
                     let filterData = []
                     data.forEach(trip => {
-                        if (trip.status === "Active") {
+                        if (trip.status === "Active" && trip.user.toString() === this.state.user_id) {
                             filterData.push(trip)
                         }
                     });
