@@ -70,4 +70,8 @@ class TripSerializer(serializers.ModelSerializer):
     cities = CitySerializer(many=True, read_only=True)
     class Meta:
         model = Trip
-        fields = ('url','trip_id','destination','start_date','end_date','status','planning_file','total_cost','flights','cities')
+        fields = ('user','url','trip_id','destination','start_date','end_date','status','planning_file','total_cost','flights','cities')
+
+        def to_representation(self, instance):
+            self.fields['user'] =  UserSerializer(read_only=True)
+            return super(TripSerializer, self).to_representation(instance)

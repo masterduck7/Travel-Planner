@@ -16,6 +16,7 @@ export default class TripDetail extends Component {
     constructor(props){
         super(props)
         this.state = {
+            user_id: localStorage.getItem('user_id'),
             modalEdit: null,
             modalRemove: null,
             tripID: null,
@@ -47,6 +48,7 @@ export default class TripDetail extends Component {
         event.preventDefault();
         const tripID = this.state.tripID
         const tripObj = {
+            user: this.state.user_id,
             destination: this.state.destination,
             planning_file: this.state.planning_file,
             status: this.state.status,

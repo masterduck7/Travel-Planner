@@ -8,6 +8,7 @@ export default class CalendarView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            user_id: localStorage.getItem('user_id'),
             trips: []
         }
     }
@@ -18,11 +19,13 @@ export default class CalendarView extends Component {
                 if (!res.data["Error"]) {
                     let tripsData = []
                     res.data.forEach(trip => {
-                        tripsData.push({
-                            "start": moment(trip.start_date).add(0, 'days'),
-                            "end": moment(trip.end_date).add(1, 'days'),
-                            "title": trip.destination
-                        })
+                        if (trip.user.toString() === this.state.user_id) {
+                            tripsData.push({
+                                "start": moment(trip.start_date).add(0, 'days'),
+                                "end": moment(trip.end_date).add(1, 'days'),
+                                "title": trip.destination
+                            })
+                        }
                     });
                     this.setState({
                         trips: tripsData

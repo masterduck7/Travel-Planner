@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
 
@@ -6,6 +7,7 @@ from django.utils.timezone import now
 
 
 class Trip(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='trips')
     trip_id = models.AutoField(primary_key=True)
     destination = models.CharField(max_length=250, blank=False)
     start_date = models.DateField(default=now, blank=False)

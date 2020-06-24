@@ -11,6 +11,7 @@ export default class Home extends Component {
     constructor(props){
         super(props)
         this.state = {
+            user_id: localStorage.getItem('user_id'),
             nextTrips : [],
             number_trips : 0,
             number_flights : 0,
@@ -42,8 +43,7 @@ export default class Home extends Component {
                     let total_hotels = 0
                     let total_flights = 0
                     res.data.forEach(trip => {
-                        console.log(moment(trip.start_date).fromNow())
-                        if ((moment(trip.start_date).fromNow()).includes("en") && nextTrips.length < 7  && trip.status === "Active") {
+                        if ( trip.user.toString() === this.state.user_id && (moment(trip.start_date).fromNow()).includes("en") && nextTrips.length < 7  && trip.status === "Active") {
                             nextTrips.push(
                                 {
                                     'destination': trip.destination,
@@ -53,7 +53,7 @@ export default class Home extends Component {
                                 }
                             )
                         }
-                        if (moment(trip.start_date).format('YYYY') === moment().format('YYYY')) {
+                        if ( trip.user.toString() === this.state.user_id && moment(trip.start_date).format('YYYY') === moment().format('YYYY')) {
                             number_trips = Number(number_trips) + 1
                             trip.flights.forEach(flight => {
                                 number_flights = Number(number_flights) + 1
