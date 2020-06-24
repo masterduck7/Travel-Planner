@@ -18,9 +18,10 @@ export default class Login extends Component {
             "username": this.state.username,
             "password": this.state.password
         }
-        axios.post(`http://127.0.0.1:8000/auth/`, postObj)
+        axios.post(`http://127.0.0.1:8000/authenticate/`, postObj)
         .then(function (response) {
             localStorage.setItem('token',response.data.token)
+            localStorage.setItem('user_id',response.data.id)
             window.location.href="#/";
         })
         .catch(function (error) {

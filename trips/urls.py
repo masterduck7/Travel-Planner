@@ -1,4 +1,5 @@
 from django.urls import include, path
+from django.conf.urls import url
 from rest_framework import routers
 from . import views
 
@@ -13,4 +14,5 @@ router.register(r'costs', views.CostViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    url(r'^authenticate/', views.CustomObtainAuthToken.as_view()),
 ]
