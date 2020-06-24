@@ -1,7 +1,7 @@
 import React from 'react';
 import { HashRouter, Route,Switch } from 'react-router-dom';
 import PrivateRoutes from './PrivateRoutes'
-import Home from './Containers/Home';
+import HomeView from './Containers/HomeView';
 import TripListView from './Containers/TripListView';
 import TripDetailView from './Containers/TripDetailView';
 import FlightListView from './Containers/FlightListView';
@@ -20,14 +20,16 @@ import TripListCancelledView from './Containers/TripListCancelledView';
 import CalendarView from './Containers/CalendarView';
 import LoginView from './Containers/LoginView';
 import RegisterView from './Containers/RegisterView';
+import LayoutView from './Containers/LayoutView';
 
 const BaseRouter = () => (
     <div>
         <HashRouter basename='/'>
             <Switch>
+                <Route exact path='/' component={LayoutView} />
                 <Route exact path='/login' component={LoginView} />
                 <Route exact path='/register' component={RegisterView} />
-                <PrivateRoutes exact path='/' component={props => <Home {...props}/>} />
+                <PrivateRoutes exact path='/home' component={props => <HomeView {...props}/>} />
                 <PrivateRoutes exact path='/map' component={props => <MapView {...props}/>} />
                 <PrivateRoutes exact path='/profile' component={props => <ProfileView {...props}/>} />
                 <PrivateRoutes exact path='/calendar' component={props => <CalendarView {...props}/>} />

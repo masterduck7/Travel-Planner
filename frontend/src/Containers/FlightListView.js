@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import FlightList from '../Components/FlightList';
-import CustomLayout from '../Components/CustomLayout'
+import NavBar from '../Components/NavBar'
 
 export default class FlightListView extends Component {
     constructor(props){
@@ -33,7 +33,7 @@ export default class FlightListView extends Component {
     render() {
         return  (
             <div>
-                <CustomLayout data={{tab: '2'}} />
+                <NavBar data={{tab: '2'}} />
                 <FlightList data={{ flights: this.state.flights, tripID: this.props.match.params.tripID }}/>
             </div>
         )

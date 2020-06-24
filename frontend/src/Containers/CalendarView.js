@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import Calendar from '../Components/Calendar';
 import moment from 'moment'
-import CustomLayout from '../Components/CustomLayout'
+import NavBar from '../Components/NavBar'
 
 export default class CalendarView extends Component {
     constructor(props){
@@ -39,7 +39,7 @@ export default class CalendarView extends Component {
     render() {
         return  (
             <div>
-                <CustomLayout data={{tab: '3'}} />
+                <NavBar data={{tab: '3'}} />
                 <Calendar data={{trips: this.state.trips}}/>
             </div>
         )

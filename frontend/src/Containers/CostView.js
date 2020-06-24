@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, Grid, Icon, Statistic } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import CustomLayout from '../Components/CustomLayout'
+import NavBar from '../Components/NavBar'
 
 export default class CostView extends Component {
 
@@ -79,7 +79,7 @@ export default class CostView extends Component {
     render() {
         return  (
             <div>
-                <CustomLayout data={{tab: '2'}} />
+                <NavBar data={{tab: '2'}} />
                 <Button negative style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}}>
                     <Icon name="angle left" />
                     <Link style={{color:"white"}} to={`/trips/${this.props.match.params.tripID}`}>Volver</Link>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CustomLayout from '../Components/CustomLayout';
+import NavBar from '../Components/NavBar';
 import axios from 'axios';
 import moment from 'moment';
 import { Table, Tag } from 'antd';
@@ -3809,7 +3809,7 @@ export default class SkyScannerView extends Component {
 
         return  (
             <div>
-                <CustomLayout data={{tab: '6'}} />
+                <NavBar data={{tab: '6'}} />
                 <h1 style={{textAlign: 'center', marginTop: 20}}>SkyScanner Data</h1>
                 <h3 style={{marginLeft: "3%", marginTop: "3%"}}>Buscador de fechas económicas (Ordenadas desde el mes más económico hasta el más costoso)</h3>
                 <Form style={{marginLeft: "3.5%"}} onSubmit={(e) => this.getData(e)}>

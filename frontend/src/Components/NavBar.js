@@ -26,7 +26,7 @@ export default class CustomLayout extends Component{
         //e.preventDefault();
         window.localStorage.removeItem('token')
         window.localStorage.removeItem('user_id')
-        window.location.href="#/login"
+        window.location.href="#/"
     }
     
     render(){
@@ -35,7 +35,7 @@ export default class CustomLayout extends Component{
                 <Layout className="layout">
                     <Header>
                         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[this.props.data.tab]} style={{ lineHeight: '64px', marginLeft: -50 }}>
-                            <Menu.Item key="1"><Link to="/"><Icon type="home" />Inicio</Link></Menu.Item>
+                            <Menu.Item key="1"><Link to="/home"><Icon type="home" />Inicio</Link></Menu.Item>
                             <Menu.Item key="2"><Link to="/trips">Mis Viajes</Link></Menu.Item>
                             <Menu.Item key="3"><Link to="/calendar">Calendario</Link></Menu.Item>
                             <Menu.Item key="4"><Link to="/statistics">Estadísticas</Link></Menu.Item>
@@ -52,7 +52,7 @@ export default class CustomLayout extends Component{
                 <Layout className="layout">
                     <Header>
                         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} style={{ lineHeight: '64px', marginLeft: -50 }}>
-                            <Menu.Item key="1"><Link to="/"><Icon type="home" />Inicio</Link></Menu.Item>
+                            <Menu.Item key="1"><Link to="/home"><Icon type="home" />Inicio</Link></Menu.Item>
                             <Menu.Item key="8"><Link to="/login">Login</Link></Menu.Item>
                             <Menu.Item key="9"><Link to="/register">Registro</Link></Menu.Item>
                         </Menu>

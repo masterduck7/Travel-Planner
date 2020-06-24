@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CustomLayout from '../Components/CustomLayout'
+import NavBar from '../Components/NavBar'
 import { VectorMap } from "react-jvectormap"
 import { Col, Row } from 'antd';
 import axios from 'axios';
@@ -100,7 +100,7 @@ export default class MapView extends Component {
         
         return  (
             <div>
-                <CustomLayout data={{tab: '5'}} />
+                <NavBar data={{tab: '5'}} />
                 <Col xs={24} sm={12} md={12} lg={86} xl={12}>
                     <Row style={{marginTop: "15%"}}>
                         <Statistic.Group size={"large"} widths='1' color="grey" >

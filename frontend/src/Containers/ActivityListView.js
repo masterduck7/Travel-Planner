@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import ActivityList from '../Components/ActivityList';
-import CustomLayout from '../Components/CustomLayout'
+import NavBar from '../Components/NavBar'
 
 export default class ActivityListView extends Component {
     constructor(props){
@@ -33,7 +33,7 @@ export default class ActivityListView extends Component {
     render() {
         return  (
             <div>
-                <CustomLayout data={{tab: '2'}} />
+                <NavBar data={{tab: '2'}} />
                 <ActivityList data={{ activities: this.state.activities, tripID: this.props.match.params.tripID, cityID: this.props.match.params.cityID }}/>
             </div>
         )

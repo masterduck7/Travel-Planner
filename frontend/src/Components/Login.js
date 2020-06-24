@@ -22,7 +22,7 @@ export default class Login extends Component {
         .then(function (response) {
             localStorage.setItem('token',response.data.token)
             localStorage.setItem('user_id',response.data.id)
-            window.location.href="#/";
+            window.location.href="#/home";
         })
         .catch(function (error) {
             console.log("Error in login");

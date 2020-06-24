@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import CustomLayout from '../Components/CustomLayout'
+import NavBar from '../Components/NavBar'
 
 export default class ProfileView extends Component {
     render() {
         return  (
             <div>
-                <CustomLayout data={{tab: '7'}} />
+                <NavBar data={{tab: '7'}} />
                 <h1>Perfil</h1>
             </div>
         )

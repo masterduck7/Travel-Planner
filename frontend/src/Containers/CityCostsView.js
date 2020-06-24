@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import CostList from '../Components/CostList';
-import CustomLayout from '../Components/CustomLayout'
+import NavBar from '../Components/NavBar'
 
 export default class CityCostView extends Component {
     constructor(props){
@@ -33,7 +33,7 @@ export default class CityCostView extends Component {
     render() {
         return  (
             <div>
-                <CustomLayout data={{tab: '2'}} />
+                <NavBar data={{tab: '2'}} />
                 <CostList data={{ costs: this.state.costs, tripID: this.props.match.params.tripID, cityID: this.props.match.params.cityID }}/>
             </div>
         )

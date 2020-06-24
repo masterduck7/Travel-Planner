@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import CustomLayout from '../Components/CustomLayout'
+import NavBar from '../Components/NavBar'
 import axios from 'axios';
 import moment from 'moment';
 import {Link} from 'react-router-dom';
 import { Table } from 'antd';
 import { Icon, Grid, Statistic } from 'semantic-ui-react'
 
-export default class Home extends Component {
+export default class HomeView extends Component {
 
     constructor(props){
         super(props)
@@ -129,7 +129,7 @@ export default class Home extends Component {
 
         return  (
             <div>
-                <CustomLayout data={{tab: '1'}} />
+                <NavBar data={{tab: '1'}} />
                 <h1 style={{marginLeft: "1%"}}>Hola Usuario</h1>
                 <Grid style={{margin: "1%"}} columns={2} divided >
                     <Grid.Row>

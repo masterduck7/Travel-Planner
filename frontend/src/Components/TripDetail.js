@@ -7,7 +7,6 @@ import '../Assets/styles.css'
 import { Modal } from 'react-responsive-modal';
 import moment from 'moment';
 import axios from 'axios';
-import CustomLayout from '../Components/CustomLayout'
 
 const { Option } = Select;
 
@@ -146,7 +145,6 @@ export default class TripDetail extends Component {
 
         return  (
             <div>
-                <CustomLayout data={{tab: '2'}} />
                 <Modal open={this.state.modalEdit} onClose={this.onCloseModalEdit} classNames={{modal: 'customModal'}} center>
                     <h1><center>Editar viaje</center></h1>
                     <p>
