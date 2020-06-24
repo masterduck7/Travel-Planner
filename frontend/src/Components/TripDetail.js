@@ -217,26 +217,26 @@ export default class TripDetail extends Component {
                     </center></p>
                 </Modal>
                 <Link to={`/trips`}>
-                    <Button negative size="medium" style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}}>
+                    <Button negative size="medium" style={{marginLeft: "1%", marginTop: "60px", marginBottom: "1%"}}>
                         <Icon name="angle left" />
                         Volver
                     </Button>
                 </Link>
 
                 <Link to={`/trips/${this.props.trip.trip_id}/flights`}>
-                    <Button primary style={{marginLeft: "0.5%", marginTop: "1%", marginBottom: "1%"}}>
+                    <Button primary style={{marginLeft: "0.5%", marginTop: "60px", marginBottom: "1%"}}>
                         <Icon name="plane" />
                         Vuelos
                     </Button>
                 </Link>
                 <Link to={`/trips/${this.props.trip.trip_id}/cities`}>
-                    <Button primary style={{marginLeft: "0.2%", marginTop: "1%", marginBottom: "1%"}}>
+                    <Button primary style={{marginLeft: "0.2%", marginTop: "60px", marginBottom: "1%"}}>
                         <Icon name="building" />
                         Ciudades
                     </Button>
                 </Link>
                 <Link to={`/trips/${this.props.trip.trip_id}/costs`}>
-                    <Button primary style={{marginLeft: "0.2%", marginTop: "1%", marginBottom: "1%"}}>
+                    <Button primary style={{marginLeft: "0.2%", marginTop: "60px", marginBottom: "1%"}}>
                         <Icon name="dollar sign" />
                         Costo total
                     </Button>

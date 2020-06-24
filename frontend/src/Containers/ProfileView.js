@@ -5,8 +5,8 @@ export default class ProfileView extends Component {
     render() {
         return  (
             <div>
-                <NavBar data={{tab: '7'}} />
-                <h1>Perfil</h1>
+                <NavBar/>
+                <h1 style={{marginTop: "60px"}}>Perfil</h1>
             </div>
         )
     }

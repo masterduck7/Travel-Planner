@@ -55,7 +55,7 @@ export default class Login extends Component {
         };
         return (
             <div>
-                <h1 style={{textAlign: 'center', marginTop: 20}}>Login</h1>
+                <h1 style={{textAlign: 'center', marginTop: "60px"}}>Login</h1>
                 <Form {...formItemLayout} onSubmit={this.onClickCreate.bind(this)} >
                     <Form.Item label="Username">
                         <Input name="username"

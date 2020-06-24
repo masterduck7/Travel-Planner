@@ -34,7 +34,7 @@ export default class TripListView extends Component {
     render() {
         return  (
             <div>
-                <NavBar data={{tab: '2'}} />
+                <NavBar/>
                 <TripList data={{trips: this.state.trips, tab: [true, false, false, false], type: "Todos los viajes"}}/>
             </div>
         )

@@ -39,7 +39,7 @@ export default class CalendarView extends Component {
     render() {
         return  (
             <div>
-                <NavBar data={{tab: '3'}} />
+                <NavBar/>
                 <Calendar data={{trips: this.state.trips}}/>
             </div>
         )

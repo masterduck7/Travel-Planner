@@ -79,8 +79,8 @@ export default class CostView extends Component {
     render() {
         return  (
             <div>
-                <NavBar data={{tab: '2'}} />
-                <Button negative style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}}>
+                <NavBar/>
+                <Button negative style={{marginLeft: "1%", marginTop: "60px", marginBottom: "1%"}}>
                     <Icon name="angle left" />
                     <Link style={{color:"white"}} to={`/trips/${this.props.match.params.tripID}`}>Volver</Link>
                 </Button>

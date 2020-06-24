@@ -234,7 +234,7 @@ export default class CostList extends Component {
                     </center></p>
                 </Modal>
                 <Link to={`/trips/${this.props.data.tripID}/cities/`}>
-                    <Button negative style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}}>
+                    <Button negative style={{marginLeft: "1%", marginTop: "60px", marginBottom: "1%"}}>
                         <Icon name="angle left" />
                         Volver
                     </Button>

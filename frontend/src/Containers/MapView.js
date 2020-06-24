@@ -100,8 +100,8 @@ export default class MapView extends Component {
         
         return  (
             <div>
-                <NavBar data={{tab: '5'}} />
-                <Col xs={24} sm={12} md={12} lg={86} xl={12}>
+                <NavBar/>
+                <Col xs={24} sm={12} md={12} lg={86} xl={12} style={{marginTop:"60px"}}>
                     <Row style={{marginTop: "15%"}}>
                         <Statistic.Group size={"large"} widths='1' color="grey" >
                             <Statistic>
@@ -135,7 +135,7 @@ export default class MapView extends Component {
                         </Segment>
                     </Row>
                 </Col>
-                <Col xs={24} sm={12} md={12} lg={86} xl={12}>
+                <Col xs={24} sm={12} md={12} lg={86} xl={12} style={{marginTop:"60px"}}>
                     <div style={{width: 500, height: 500, maxWidth: (window.innerWidth-30)+'px'}}>
                         <h2 style={{textAlign: 'center', marginTop: 20}}>Mapa</h2>
                         <VectorMap

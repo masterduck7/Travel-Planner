@@ -35,7 +35,7 @@ export default class TripListPastView extends Component {
     render() {
         return  (
             <div>
-                <NavBar data={{tab: '2'}} />
+                <NavBar/>
                 <TripList data={{trips: this.state.trips, tab: [false, false, true, false], type: 'Viajes cancelados'}}/>
             </div>
         )

@@ -33,7 +33,7 @@ export default class ActivityListView extends Component {
     render() {
         return  (
             <div>
-                <NavBar data={{tab: '2'}} />
+                <NavBar/>
                 <ActivityList data={{ activities: this.state.activities, tripID: this.props.match.params.tripID, cityID: this.props.match.params.cityID }}/>
             </div>
         )

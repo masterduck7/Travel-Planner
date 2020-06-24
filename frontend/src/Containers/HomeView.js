@@ -129,9 +129,8 @@ export default class HomeView extends Component {
 
         return  (
             <div>
-                <NavBar data={{tab: '1'}} />
-                <h1 style={{marginLeft: "1%"}}>Hola Usuario</h1>
-                <Grid style={{margin: "1%"}} columns={2} divided >
+                <NavBar/>
+                <Grid style={{margin: "1%", marginTop: "60px"}} columns={2} divided >
                     <Grid.Row>
                         <Grid.Column style={{marginTop: "7%"}} mobile={16} tablet={8} computer={8}>
                             <Statistic.Group size={"tiny"} widths='1' color="grey" >

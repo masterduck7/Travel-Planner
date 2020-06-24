@@ -27,7 +27,7 @@ export default class TripDetailView extends Component {
     render() {
         return  (
             <div>
-                <NavBar data={{tab: '2'}} />
+                <NavBar/>
                 <TripDetail trip={this.state.trip} />
             </div>
         )

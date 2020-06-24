@@ -33,7 +33,7 @@ export default class FlightListView extends Component {
     render() {
         return  (
             <div>
-                <NavBar data={{tab: '2'}} />
+                <NavBar/>
                 <FlightList data={{ flights: this.state.flights, tripID: this.props.match.params.tripID }}/>
             </div>
         )

@@ -33,7 +33,7 @@ export default class CityListView extends Component {
     render() {
         return  (
             <div>
-                <NavBar data={{tab: '2'}} />
+                <NavBar/>
                 <CityList data={{ cities: this.state.cities, tripID: this.props.match.params.tripID }}/>
             </div>
         )

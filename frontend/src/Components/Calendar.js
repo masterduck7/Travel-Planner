@@ -10,7 +10,7 @@ export default class ActivityList extends Component {
     render() {
         return (
             <div className="App">
-                <h1 style={{textAlign: 'center', marginTop: 20}}>Calendario</h1>
+                <h1 style={{textAlign: 'center', marginTop: 60}}>Calendario</h1>
                 <Calendar
                     localizer={localizer}
                     defaultView="month"

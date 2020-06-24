@@ -6,7 +6,7 @@ export default class LoginView extends Component {
     render() {
         return  (
             <div>
-                <NavBar data={{tab: '1'}} />
+                <NavBar/>
                 <Login />
             </div>
         )

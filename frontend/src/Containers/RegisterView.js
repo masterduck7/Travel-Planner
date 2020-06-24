@@ -6,7 +6,7 @@ export default class RegistervIEW extends Component {
     render() {
         return  (
             <div>
-                <NavBar data={{tab: '1'}} />
+                <NavBar/>
                 <Register />
             </div>
         )
