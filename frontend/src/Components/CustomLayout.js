@@ -6,6 +6,11 @@ import "antd/dist/antd.css";
 const { Header } = Layout;
 
 export default class CustomLayout extends Component{
+    logout(e){
+        //e.preventDefault();
+        window.localStorage.removeItem('token')
+        window.location.href="#/login"
+    }
     render(){
         return (
             <Layout className="layout">
@@ -18,6 +23,9 @@ export default class CustomLayout extends Component{
                         <Menu.Item key="5"><Link to="/map">Progreso</Link></Menu.Item>
                         <Menu.Item key="6"><Link to="/skyscanner">SkyScanner</Link></Menu.Item>
                         <Menu.Item key="7"><Link to="/profile">Usuario</Link></Menu.Item>
+                        <Menu.Item key="8"><Link to="/login">Login</Link></Menu.Item>
+                        <Menu.Item key="9"><Link to="/register">Registro</Link></Menu.Item>
+                        <Menu.Item key="10" onClick={(e)=>this.logout()}>Logout</Menu.Item>
                     </Menu>
                 </Header>
             </Layout>

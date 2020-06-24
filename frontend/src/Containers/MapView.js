@@ -12,7 +12,7 @@ export default class MapView extends Component {
         this.state = {
             countryCodes: [],
             countries: {},
-            total_countries: 1,
+            total_countries: 0,
             total_cities: 0,
             percentaje_world: 0
         }
@@ -25,7 +25,7 @@ export default class MapView extends Component {
                     let visited_countries = {CL: 0}
                     let visited_cities = {}
                     let countryCodes = []
-                    let total_countries = 1
+                    let total_countries = 0
                     res.data.forEach(city => {
                         if (!visited_cities[city.name]) {
                             visited_cities[city.name] = city.country
