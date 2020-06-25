@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Layout, Menu } from 'antd';
-import {Link} from 'react-router-dom';
 import { Nav, Navbar } from 'react-bootstrap';
-import "antd/dist/antd.css";
-
-const { Header } = Layout;
 
 export default class NavBar extends Component{
     constructor(props){
