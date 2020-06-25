@@ -3,7 +3,7 @@ import NavBar from '../Components/NavBar'
 import { VectorMap } from "react-jvectormap"
 import { Col, Row } from 'antd';
 import axios from 'axios';
-import { Icon, Flag, Segment, Statistic } from 'semantic-ui-react'
+import { Icon, Flag, Segment, Statistic } from 'semantic-ui-react';
 
 export default class MapView extends Component {
 

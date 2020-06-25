@@ -3,8 +3,8 @@ import NavBar from '../Components/NavBar';
 import axios from 'axios';
 import moment from 'moment';
 import { Table, Tag } from 'antd';
-import { Card, Dropdown, Form, Label, Search } from 'semantic-ui-react'
-import _ from 'lodash'
+import { Card, Dropdown, Form, Label, Search } from 'semantic-ui-react';
+import _ from 'lodash';
 
 const resultRenderer = ({ title,value }) => <><Label>{value}</Label> <Label content={title} /></>
 

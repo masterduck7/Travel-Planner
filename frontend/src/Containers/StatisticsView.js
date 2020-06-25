@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import moment from 'moment';
-import NavBar from '../Components/NavBar'
+import NavBar from '../Components/NavBar';
 import { Table } from 'antd';
-import { Icon, Flag, Statistic, Tab } from 'semantic-ui-react'
+import { Icon, Flag, Statistic, Tab } from 'semantic-ui-react';
 
 const { getNameList } = require('country-list');
 

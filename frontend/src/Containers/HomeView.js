@@ -4,7 +4,7 @@ import axios from 'axios';
 import moment from 'moment';
 import {Link} from 'react-router-dom';
 import { Table } from 'antd';
-import { Icon, Grid, Statistic } from 'semantic-ui-react'
+import { Icon, Grid, Statistic } from 'semantic-ui-react';
 
 export default class HomeView extends Component {
 
