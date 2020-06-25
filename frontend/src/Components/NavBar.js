@@ -33,12 +33,11 @@ export default class NavBar extends Component{
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="ml-auto">
+                            <Nav.Link style={{color:"#f5f5f5"}} href="#/map">Progreso</Nav.Link>
                             <Nav.Link style={{color:"#f5f5f5"}} href="#/trips">Mis viajes</Nav.Link>
                             <Nav.Link style={{color:"#f5f5f5"}} href="#/calendar">Calendario</Nav.Link>
                             <Nav.Link style={{color:"#f5f5f5"}} href="#/statistics">Estadisticas</Nav.Link>
-                            <Nav.Link style={{color:"#f5f5f5"}} href="#/map">Mapa</Nav.Link>
                             <Nav.Link style={{color:"#f5f5f5"}} href="#/skyscanner">SkyScanner</Nav.Link>
-                            <Nav.Link style={{color:"#f5f5f5"}} href="#/profile">Perfil</Nav.Link>
                             <Nav.Link style={{color:"#f5f5f5"}} onClick={(e)=>this.logout()}>Logout</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>

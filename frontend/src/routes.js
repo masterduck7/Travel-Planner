@@ -13,7 +13,6 @@ import CostView from './Containers/CostView';
 import MapView from './Containers/MapView';
 import StatisticsView from './Containers/StatisticsView';
 import SkyScannerView from './Containers/SkyScannerView';
-import ProfileView from './Containers/ProfileView';
 import TripListPastView from './Containers/TripListPastView';
 import TripListFutureView from './Containers/TripListFutureView';
 import TripListCancelledView from './Containers/TripListCancelledView';
@@ -31,7 +30,6 @@ const BaseRouter = () => (
                 <Route exact path='/register' component={RegisterView} />
                 <PrivateRoutes exact path='/home' component={props => <HomeView {...props}/>} />
                 <PrivateRoutes exact path='/map' component={props => <MapView {...props}/>} />
-                <PrivateRoutes exact path='/profile' component={props => <ProfileView {...props}/>} />
                 <PrivateRoutes exact path='/calendar' component={props => <CalendarView {...props}/>} />
                 <PrivateRoutes exact path='/statistics' component={props => <StatisticsView {...props}/>} />
                 <PrivateRoutes exact path='/skyscanner' component={props => <SkyScannerView {...props}/>} />
