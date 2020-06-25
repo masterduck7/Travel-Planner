@@ -1,10 +1,15 @@
 import React, { Component } from "react";
-import { Nav, Navbar } from 'react-bootstrap';
+import { Carousel, Nav, Navbar } from 'react-bootstrap';
 import Footer from 'rc-footer';
 import 'rc-footer/assets/index.css';
-import IcelandLPTravels from '../Assets/IcelandLPTravels.png'
+import Cover from '../Assets/Covers/Cover.png'
+import Slide1 from '../Assets/Covers/Slide1.png';
+import Slide2 from '../Assets/Covers/Slide2.png';
+import Slide3 from '../Assets/Covers/Slide3.png';
+import Slide4 from '../Assets/Covers/Slide4.png';
 import Linkedin from '../Assets/Icons/Linkedin.png';
 import Github from '../Assets/Icons/Github.png';
+
 
 export default class LayoutView extends Component {
     constructor(props){
@@ -51,8 +56,38 @@ export default class LayoutView extends Component {
                 </Navbar.Collapse>
             </Navbar>
 
-            <img alt="" src={IcelandLPTravels} style={{marginTop:this.state.marginNavBar}} height="auto" width={window.innerWidth} />
-            <img alt="" src={IcelandLPTravels} style={{marginTop:this.state.marginNavBar}} height="auto" width={window.innerWidth} />
+            <img alt="" src={Cover} style={{marginTop:this.state.marginNavBar}} height="auto" width={window.innerWidth} />
+            
+            <Carousel style={{width: window.innerWidth}} interval={3000} >
+                <Carousel.Item>
+                    <img
+                        style={{width:window.innerWidth, height:"auto"}}
+                        src={Slide1}
+                        alt="First slide"
+                    />
+                </Carousel.Item>
+                <Carousel.Item>
+                    <img
+                        style={{width:window.innerWidth, height:"auto"}}
+                        src={Slide2}
+                        alt="Third slide"
+                    />
+                </Carousel.Item>
+                <Carousel.Item>
+                    <img
+                        style={{width:window.innerWidth, height:"auto"}}
+                        src={Slide3}
+                        alt="Third slide"
+                    />
+                </Carousel.Item>
+                <Carousel.Item>
+                    <img
+                        style={{width:window.innerWidth, height:"auto"}}
+                        src={Slide4}
+                        alt="Fourth slide"
+                    />
+                </Carousel.Item>
+            </Carousel>
             
             <Footer
                 style={{width: window.innerWidth}}

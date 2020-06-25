@@ -24,7 +24,7 @@ export default class CostView extends Component {
 
     componentDidMount(){
 
-        axios.get(`http://127.0.0.1:8000/trips/${this.props.match.params.tripID}`)
+        axios.get(`http://127.0.0.1:8000/trips/${this.props.match.params.tripID}/`)
             .then(res => {
                 if (!res.data["Error"]) {
                     let selectedFlights = 0
@@ -37,6 +37,7 @@ export default class CostView extends Component {
                     let totalHotels_not_paid = 0
                     let totalActivities = 0
                     let totalActivities_not_paid = 0
+                    console.log(res.data)
                     res.data.flights.forEach(flight => {
                         selectedFlights = Number(selectedFlights) + Number(flight.price)
                         totalFlights = Number(totalFlights) + 1
