@@ -1,0 +1,24 @@
+{
+  "development": {
+    "username": "lpsoftwa_masterduck7_test",
+    "password": "ah%G+GUCIwr]",
+    "database": "lpsoftwa_travel_planner_test",
+    "host": "www.lpsoftware.space",
+    "port": 3306,
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
