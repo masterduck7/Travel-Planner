@@ -28,13 +28,9 @@ module.exports = {
         User.update(req.body, { where: { id: id }} )
         .then(num => {
             if (num == 1) {
-                res.send({
-                message: "User was updated successfully."
-                });
+                res.send({message: "User was updated successfully."});
             } else {
-                res.send({
-                message: `Cannot update User with id=${id}. Maybe User was not found or req.body is empty!`
-                });
+                res.send({message: `Cannot update User with id=${id}. Maybe User was not found or req.body is empty!`});
             }
         })
         .catch(err => {res.status(500).send({message: "Error updating Tutorial with id=" + id});});
@@ -44,13 +40,9 @@ module.exports = {
         User.destroy({where: { id: id }})
         .then(num => {
             if (num == 1) {
-                res.send({
-                message: "User was deleted successfully!"
-                });
+                res.send({message: "User was deleted successfully!"});
             } else {
-                res.send({
-                message: `Cannot delete User with id=${id}. Maybe User was not found!`
-                });
+                res.send({message: `Cannot delete User with id=${id}. Maybe User was not found!`});
             }
         })
         .catch(err => {res.status(500).send({message: "Could not delete User with id=" + id});});
