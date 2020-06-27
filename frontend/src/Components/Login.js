@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, Input } from 'antd';
 import { Button } from 'semantic-ui-react';
 import axios from 'axios';
+import "antd/dist/antd.css";
 
 export default class Login extends Component {
     constructor(props){
@@ -22,11 +23,12 @@ export default class Login extends Component {
         .then(function (response) {
             localStorage.setItem('token',response.data.token)
             localStorage.setItem('user_id',response.data.id)
-            window.location.href="#/";
+            window.location.href="#/home";
         })
         .catch(function (error) {
             console.log("Error in login");
-          });
+            alert("Usuario/Contraseña incorrecta")
+        });
     }
 
     render() {
@@ -55,7 +57,7 @@ export default class Login extends Component {
         };
         return (
             <div>
-                <h1 style={{textAlign: 'center', marginTop: 20}}>Login</h1>
+                <h1 style={{textAlign: 'center', marginTop: "60px"}}>Login</h1>
                 <Form {...formItemLayout} onSubmit={this.onClickCreate.bind(this)} >
                     <Form.Item label="Username">
                         <Input name="username"
@@ -66,7 +68,7 @@ export default class Login extends Component {
                         }} />
                     </Form.Item>
                     <Form.Item label="Password">
-                        <Input name="password"
+                        <Input.Password name="password"
                         onChange={(e) => {
                             this.setState({
                                 password: e.target.value

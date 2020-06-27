@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, Input } from 'antd';
 import { Button } from 'semantic-ui-react';
 import axios from 'axios';
+import "antd/dist/antd.css";
 
 export default class Register extends Component {
     constructor(props){
@@ -24,6 +25,8 @@ export default class Register extends Component {
         })
         .catch(function (error) {
             console.log("Error in login");
+            alert("Este usuario ya existe")
+            window.location.reload();
           });
     }
 
@@ -53,7 +56,7 @@ export default class Register extends Component {
         };
         return (
             <div>
-                <h1 style={{textAlign: 'center', marginTop: 20}}>Registro</h1>
+                <h1 style={{textAlign: 'center', marginTop: "60px"}}>Registro</h1>
                 <Form {...formItemLayout} onSubmit={this.onClickCreate.bind(this)} >
                     <Form.Item label="Username">
                         <Input name="username"
@@ -64,7 +67,7 @@ export default class Register extends Component {
                         }} />
                     </Form.Item>
                     <Form.Item label="Password">
-                        <Input name="password"
+                        <Input.Password name="password"
                         onChange={(e) => {
                             this.setState({
                                 password: e.target.value

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import CustomLayout from '../Components/CustomLayout';
+import NavBar from '../Components/NavBar';
 import axios from 'axios';
 import moment from 'moment';
 import { Table, Tag } from 'antd';
-import { Card, Dropdown, Form, Label, Search } from 'semantic-ui-react'
-import _ from 'lodash'
+import { Card, Dropdown, Form, Label, Search } from 'semantic-ui-react';
+import _ from 'lodash';
 
 const resultRenderer = ({ title,value }) => <><Label>{value}</Label> <Label content={title} /></>
 
@@ -3809,8 +3809,8 @@ export default class SkyScannerView extends Component {
 
         return  (
             <div>
-                <CustomLayout data={{tab: '6'}} />
-                <h1 style={{textAlign: 'center', marginTop: 20}}>SkyScanner Data</h1>
+                <NavBar/>
+                <h1 style={{textAlign: 'center', marginTop: "60px"}}>SkyScanner Data</h1>
                 <h3 style={{marginLeft: "3%", marginTop: "3%"}}>Buscador de fechas económicas (Ordenadas desde el mes más económico hasta el más costoso)</h3>
                 <Form style={{marginLeft: "3.5%"}} onSubmit={(e) => this.getData(e)}>
                     <Form.Group>

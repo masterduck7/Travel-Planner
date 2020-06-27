@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import moment from 'moment';
-import CustomLayout from '../Components/CustomLayout'
+import NavBar from '../Components/NavBar';
 import { Table } from 'antd';
-import { Icon, Flag, Statistic, Tab } from 'semantic-ui-react'
+import { Icon, Flag, Statistic, Tab } from 'semantic-ui-react';
 
 const { getNameList } = require('country-list');
 
@@ -454,8 +454,8 @@ export default class StatisticsView extends Component {
 
         return  (
             <div>
-                <CustomLayout data={{tab: '4'}} />
-                <h1 style={{textAlign: 'center', marginTop: 20}}>Estadisticas</h1>
+                <NavBar/>
+                <h1 style={{textAlign: 'center', marginTop: "60px"}}>Estadisticas</h1>
                 <br />
                 <Statistic.Group size={"tiny"} widths='three' color="grey" >
                     <Statistic>

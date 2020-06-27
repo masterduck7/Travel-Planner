@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import CustomLayout from '../Components/CustomLayout'
-import Register from '../Components/Register'
+import NavBar from '../Components/NavBar';
+import Register from '../Components/Register';
 
 export default class RegistervIEW extends Component {
     render() {
         return  (
             <div>
-                <CustomLayout data={{tab: '1'}} />
+                <NavBar/>
                 <Register />
             </div>
         )

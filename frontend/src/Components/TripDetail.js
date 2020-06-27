@@ -7,7 +7,6 @@ import '../Assets/styles.css'
 import { Modal } from 'react-responsive-modal';
 import moment from 'moment';
 import axios from 'axios';
-import CustomLayout from '../Components/CustomLayout'
 
 const { Option } = Select;
 
@@ -146,7 +145,6 @@ export default class TripDetail extends Component {
 
         return  (
             <div>
-                <CustomLayout data={{tab: '2'}} />
                 <Modal open={this.state.modalEdit} onClose={this.onCloseModalEdit} classNames={{modal: 'customModal'}} center>
                     <h1><center>Editar viaje</center></h1>
                     <p>
@@ -219,26 +217,26 @@ export default class TripDetail extends Component {
                     </center></p>
                 </Modal>
                 <Link to={`/trips`}>
-                    <Button negative size="medium" style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}}>
+                    <Button negative size="medium" style={{marginLeft: "1%", marginTop: "60px", marginBottom: "1%"}}>
                         <Icon name="angle left" />
                         Volver
                     </Button>
                 </Link>
 
                 <Link to={`/trips/${this.props.trip.trip_id}/flights`}>
-                    <Button primary style={{marginLeft: "0.5%", marginTop: "1%", marginBottom: "1%"}}>
+                    <Button primary style={{marginLeft: "0.5%", marginTop: "60px", marginBottom: "1%"}}>
                         <Icon name="plane" />
                         Vuelos
                     </Button>
                 </Link>
                 <Link to={`/trips/${this.props.trip.trip_id}/cities`}>
-                    <Button primary style={{marginLeft: "0.2%", marginTop: "1%", marginBottom: "1%"}}>
+                    <Button primary style={{marginLeft: "0.2%", marginTop: "60px", marginBottom: "1%"}}>
                         <Icon name="building" />
                         Ciudades
                     </Button>
                 </Link>
                 <Link to={`/trips/${this.props.trip.trip_id}/costs`}>
-                    <Button primary style={{marginLeft: "0.2%", marginTop: "1%", marginBottom: "1%"}}>
+                    <Button primary style={{marginLeft: "0.2%", marginTop: "60px", marginBottom: "1%"}}>
                         <Icon name="dollar sign" />
                         Costo total
                     </Button>

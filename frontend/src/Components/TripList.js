@@ -213,7 +213,7 @@ export default class TripList extends Component {
                     </p>
                 </Modal>
                 <Row>
-                    <Button.Group style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}} size={"medium"}>
+                    <Button.Group style={{marginLeft: "1%", marginTop: "60px", marginBottom: "1%"}} size={"medium"}>
                         <Link to={`/trips`}>
                             <Button disabled={this.props.data.tab[0]} primary>
                                 Todos

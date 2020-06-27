@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, Grid, Icon, Statistic } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import CustomLayout from '../Components/CustomLayout'
+import NavBar from '../Components/NavBar'
 
 export default class CostView extends Component {
 
@@ -24,7 +24,7 @@ export default class CostView extends Component {
 
     componentDidMount(){
 
-        axios.get(`http://127.0.0.1:8000/trips/${this.props.match.params.tripID}`)
+        axios.get(`http://127.0.0.1:8000/trips/${this.props.match.params.tripID}/`)
             .then(res => {
                 if (!res.data["Error"]) {
                     let selectedFlights = 0
@@ -37,6 +37,7 @@ export default class CostView extends Component {
                     let totalHotels_not_paid = 0
                     let totalActivities = 0
                     let totalActivities_not_paid = 0
+                    console.log(res.data)
                     res.data.flights.forEach(flight => {
                         selectedFlights = Number(selectedFlights) + Number(flight.price)
                         totalFlights = Number(totalFlights) + 1
@@ -79,8 +80,8 @@ export default class CostView extends Component {
     render() {
         return  (
             <div>
-                <CustomLayout data={{tab: '2'}} />
-                <Button negative style={{marginLeft: "1%", marginTop: "1%", marginBottom: "1%"}}>
+                <NavBar/>
+                <Button negative style={{marginLeft: "1%", marginTop: "60px", marginBottom: "1%"}}>
                     <Icon name="angle left" />
                     <Link style={{color:"white"}} to={`/trips/${this.props.match.params.tripID}`}>Volver</Link>
                 </Button>

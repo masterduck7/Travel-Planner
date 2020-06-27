@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import TripDetail from '../Components/TripDetail'
-
+import NavBar from '../Components/NavBar'
 
 export default class TripDetailView extends Component {
     constructor(props){
@@ -27,6 +27,7 @@ export default class TripDetailView extends Component {
     render() {
         return  (
             <div>
+                <NavBar/>
                 <TripDetail trip={this.state.trip} />
             </div>
         )
