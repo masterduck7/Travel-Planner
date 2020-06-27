@@ -5,7 +5,13 @@
     "database": "lpsoftwa_travel_planner_test",
     "host": "www.lpsoftware.space",
     "port": 3306,
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "pool": {
+      "max": 5,
+      "min": 0,
+      "acquire": 30000,
+      "idle": 10000
+    }
   },
   "test": {
     "username": "root",

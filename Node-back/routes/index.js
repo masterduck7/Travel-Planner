@@ -1,9 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-module.exports = router;
+var userController = require('../controllers').User;
+module.exports = (app) => {
+  app.get('/api', (req,res) => res.status(200).send({
+    message: 'Hello World'
+  }))
+  app.get('/api/users', userController.findAll);
+  app.get('/api/users/:id', userController.findOne);
+  app.post('/api/users', userController.create);
+  app.put('/api/users/:id', userController.update);
+  app.delete('/api/users/:id', userController.delete);
+}
