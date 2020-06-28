@@ -1,8 +1,9 @@
 jwt = require('jsonwebtoken');
-const jwtSecret = require('../../config/env.test')['jwt_secret'];
+const jwtSecret = process.env.JWT_SECRET
 
 exports.login = (req, res) => {
     try {
+        console.log(jwtSecret)
         let refreshId = req.body.userId + jwtSecret;
         let salt = crypto.randomBytes(16).toString('base64');
         let hash = crypto.createHmac('sha512', salt).update(refreshId).digest("base64");
