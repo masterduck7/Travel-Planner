@@ -1,10 +1,15 @@
 const User = require('../models').User;
 module.exports = {
     create(req,res){
+        let salt = crypto.randomBytes(16).toString('base64')
+        let hash = crypto.createHmac('sha512',salt)
+                                            .update(req.body.password)
+                                            .digest("base64")
+        let password = salt + "$" + hash
         return User
         .create({
             username: req.body.username,
-            password: req.body.password,
+            password: password,
             email: req.body.email,
             country: req.body.country,
             visitedCountries: req.body.visitedCountries
