@@ -6,6 +6,9 @@ var userController = require('../controllers/user');
 var tripController = require('../controllers/trip');
 var flightController = require('../controllers/flight');
 var cityController = require('../controllers/city');
+var costController = require('../controllers/cost');
+var hotelController = require('../controllers/hotel');
+var activityController = require('../controllers/activity');
 
 module.exports = (app) => {
   app.get('/api', (req,res) => res.status(200).send({
@@ -38,4 +41,25 @@ module.exports = (app) => {
   app.post('/api/cities', cityController.create);
   app.put('/api/cities/:id', cityController.update);
   app.delete('/api/cities/:id', cityController.delete);
+
+  // Costs Routes
+  app.get('/api/costs', costController.findAll);
+  app.get('/api/costs/:id', costController.findOne);
+  app.post('/api/costs', costController.create);
+  app.put('/api/costs/:id', costController.update);
+  app.delete('/api/costs/:id', costController.delete);
+
+  // Hotels Routes
+  app.get('/api/hotels', hotelController.findAll);
+  app.get('/api/hotels/:id', hotelController.findOne);
+  app.post('/api/hotels', hotelController.create);
+  app.put('/api/hotels/:id', hotelController.update);
+  app.delete('/api/hotels/:id', hotelController.delete);
+
+  // Activities Routes
+  app.get('/api/activities', activityController.findAll);
+  app.get('/api/activities/:id', activityController.findOne);
+  app.post('/api/activities', activityController.create);
+  app.put('/api/activities/:id', activityController.update);
+  app.delete('/api/activities/:id', activityController.delete);
 }
