@@ -32,6 +32,13 @@ module.exports = (sequelize, DataTypes) => {
     visitedCountries: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    // Level 10 Admin
+    // Level 1 User
+    // Level 2 Boss
+    permissionLevel: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, {
     sequelize,

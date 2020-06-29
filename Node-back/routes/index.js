@@ -21,7 +21,7 @@ module.exports = (app) => {
   // Users Routes
   app.get('/api/users', [ValidationMiddleware.validJWTNeeded, userController.findAll]);
   app.get('/api/users/:id', [ValidationMiddleware.validJWTNeeded, userController.findOne]);
-  app.post('/api/users', userController.create);
+  app.post('/api/users', [VerifyUserMiddleware.isSuperUser, userController.create]);
   app.put('/api/users/:id', [ValidationMiddleware.validJWTNeeded, userController.update]);
   app.delete('/api/users/:id', [ValidationMiddleware.validJWTNeeded, userController.delete]);
 

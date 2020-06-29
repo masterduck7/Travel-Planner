@@ -16,6 +16,7 @@ return queryInterface.bulkInsert('Users', [{
       password: safepassword,
       username: username,
       country: 'CL',
+      permissionLevel: 10,
       visitedCountries: 'CL',
       createdAt: new Date(),
       updatedAt: new Date()

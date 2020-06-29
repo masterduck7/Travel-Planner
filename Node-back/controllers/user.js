@@ -18,6 +18,7 @@ module.exports = {
             password: password,
             email: req.body.email,
             country: req.body.country,
+            permissionLevel: req.body.permissionLevel,
             visitedCountries: req.body.visitedCountries
         })
         .then(user => res.status(201).send(user))

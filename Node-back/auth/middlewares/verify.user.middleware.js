@@ -32,7 +32,7 @@ module.exports.isPasswordAndUserMatch = (req, res, next) => {
                 let hash = crypto.createHmac('sha512', salt).update(req.body.password).digest("base64");
                 if (hash === passwordFields[1]) {
                     req.body = {
-                        userId: user.dataValues._id,
+                        userId: user.dataValues.id,
                         email: user.dataValues.email,
                         username: user.dataValues.username,
                         country: user.dataValues.country,
@@ -45,4 +45,21 @@ module.exports.isPasswordAndUserMatch = (req, res, next) => {
             }
         })
         .catch(error => res.status(400).send(error))
- };
+};
+
+
+module.exports.isSuperUser = (req, res, next) => {
+    UserModel.findOne({where: {username: req.body.userLogged}})
+        .then((user)=>{
+            if(!user.dataValues){
+                res.status(404).send({});
+            }else{
+                if (user.permissionLevel === 10) {
+                    return next();
+                } else {
+                    return res.status(400).send({errors: ['You have not permissions']});
+                }
+            }
+        })
+        .catch(error => res.status(400).send(error))
+};
