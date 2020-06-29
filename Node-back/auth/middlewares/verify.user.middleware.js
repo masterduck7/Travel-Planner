@@ -22,7 +22,7 @@ exports.hasAuthValidFields = (req, res, next) => {
 };
 
 module.exports.isPasswordAndUserMatch = (req, res, next) => {
-    UserModel.findOne({username: req.body.username})
+    UserModel.findOne({where: {username: req.body.username}})
         .then((user)=>{
             if(!user.dataValues){
                 res.status(404).send({});
