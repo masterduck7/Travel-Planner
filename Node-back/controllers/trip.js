@@ -15,13 +15,13 @@ module.exports = {
         .catch(error => res.status(400).send(error))
     },
     findAll(req, res){
-        Trip.findAll({attributes: [`id`, `destination`, `start_date`, `end_date`, `planning_file`, `status`, `total_cost`, `createdAt`, `updatedAt`, `userID`] })
+        Trip.findAll({include: ['flights','cities']},{attributes: [`id`, `destination`, `start_date`, `end_date`, `planning_file`, `status`, `total_cost`, `createdAt`, `updatedAt`, `userID`] })
         .then(trips => res.status(200).json(trips))
         .catch(error => res.status(400).send(error))
     },
     findOne(req, res){
         const id = req.params.id;
-        Trip.findByPk(id, {attributes: [`id`, `destination`, `start_date`, `end_date`, `planning_file`, `status`, `total_cost`, `createdAt`, `updatedAt`, `userID`]})
+        Trip.findByPk(id, {include: ['flights','cities'], attributes: [`id`, `destination`, `start_date`, `end_date`, `planning_file`, `status`, `total_cost`, `createdAt`, `updatedAt`, `userID`]})
         .then(data => res.status(200).json(data))
         .catch(error => res.status(500).send(error))
     },

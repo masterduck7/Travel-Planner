@@ -1,4 +1,6 @@
 const User = require('../models').User;
+const Trip = require('../models').Trip;
+const Flight = require('../models').Flight;
 module.exports = {
     create(req,res){
         let salt = crypto.randomBytes(16).toString('base64')
@@ -18,13 +20,13 @@ module.exports = {
         .catch(error => res.status(400).send(error))
     },
     findAll(req, res){
-        User.findAll()
+        User.findAll({include: ['trips']})
         .then(users => res.status(200).json(users))
         .catch(error => res.status(400).send(error))
     },
     findOne(req, res){
         const id = req.params.id;
-        User.findByPk(id)
+        User.findByPk(id, {include: ['trips']})
         .then(data => res.status(200).json(data))
         .catch(error => res.status(500).send(error))
     },

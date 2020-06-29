@@ -9,6 +9,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userID',
         onDelete: 'CASCADE',
       })
+      Trip.hasMany(models.Flight,{
+        foreignKey: 'tripID',
+        as: 'flights',
+      })
+      Trip.hasMany(models.City,{
+        foreignKey: 'tripID',
+        as: 'cities',
+      })
     }
   };
   Trip.init({

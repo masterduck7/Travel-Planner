@@ -9,6 +9,18 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'tripID',
         onDelete: 'CASCADE',
       })
+      City.hasMany(models.Hotel,{
+        foreignKey: 'cityID',
+        as: 'hotels',
+      })
+      City.hasMany(models.Cost,{
+        foreignKey: 'cityID',
+        as: 'citycosts',
+      })
+      City.hasMany(models.Activity,{
+        foreignKey: 'cityID',
+        as: 'activities',
+      })
     }
   };
   City.init({
