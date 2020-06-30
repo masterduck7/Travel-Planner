@@ -13,7 +13,6 @@ module.exports = {
             end_date: req.body.end_date,
             planning_file: req.body.planning_file,
             status: req.body.status,
-            total_cost: req.body.total_cost,
             userID: req.body.userID
         })
         .then(trip => res.status(201).send(trip))
@@ -22,7 +21,7 @@ module.exports = {
     findAll(req, res){
         Trip.findAll({include: [{model: Flight, as: 'flights'},{model: City, as: 'cities',
         include: [{model: Hotel, as: 'hotels'},{model: Activity, as: 'activities'},{model: Cost, as: 'citycosts'}]}]},
-        {attributes: [`id`, `destination`, `start_date`, `end_date`, `planning_file`, `status`, `total_cost`, `createdAt`, `updatedAt`, `userID`] })
+        {attributes: [`id`, `destination`, `start_date`, `end_date`, `planning_file`, `status`, `createdAt`, `updatedAt`, `userID`] })
         .then(trips => res.status(200).json(trips))
         .catch(error => res.status(400).send(error))
     },
@@ -30,7 +29,7 @@ module.exports = {
         const id = req.params.id;
         Trip.findByPk(id, {include: [{model: Flight, as: 'flights'},{model: City, as: 'cities',
         include: [{model: Hotel, as: 'hotels'},{model: Activity, as: 'activities'},{model: Cost, as: 'citycosts'}]}]},
-        {attributes: [`id`, `destination`, `start_date`, `end_date`, `planning_file`, `status`, `total_cost`, `createdAt`, `updatedAt`, `userID`]})
+        {attributes: [`id`, `destination`, `start_date`, `end_date`, `planning_file`, `status`, `createdAt`, `updatedAt`, `userID`]})
         .then(data => res.status(200).json(data))
         .catch(error => res.status(500).send(error))
     },

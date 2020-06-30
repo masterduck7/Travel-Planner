@@ -6,20 +6,19 @@ module.exports = {
             name: req.body.name,
             country: req.body.country,
             map_link: req.body.map_link,
-            total_cost: req.body.total_cost,
             tripID: req.body.tripID
         })
         .then(data => res.status(201).send(data))
         .catch(error => res.status(400).send(error))
     },
     findAll(req, res){
-        City.findAll({include: ['hotels','citycosts','activities'], attributes: [`id`, `name`, `country`, `map_link`, `total_cost`, `createdAt`, `updatedAt`, `tripID`] })
+        City.findAll({include: ['hotels','citycosts','activities'], attributes: [`id`, `name`, `country`, `map_link`, `createdAt`, `updatedAt`, `tripID`] })
         .then(data => res.status(200).json(data))
         .catch(error => res.status(400).send(error))
     },
     findOne(req, res){
         const id = req.params.id;
-        City.findByPk(id, {include: ['hotels','citycosts','activities'], attributes: [`id`, `name`, `country`, `map_link`, `total_cost`, `createdAt`, `updatedAt`, `tripID`] })
+        City.findByPk(id, {include: ['hotels','citycosts','activities'], attributes: [`id`, `name`, `country`, `map_link`, `createdAt`, `updatedAt`, `tripID`] })
         .then(data => res.status(200).json(data))
         .catch(error => res.status(500).send(error))
     },

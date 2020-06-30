@@ -28,10 +28,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      total_cost: {
-        type: Sequelize.DOUBLE,
-        allowNull: false
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DOUBLE,
       allowNull: false
     },
+    badge_total_price: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
   }, {
     sequelize,
     modelName: 'Cost',

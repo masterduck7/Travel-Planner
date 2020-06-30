@@ -36,6 +36,10 @@ module.exports = {
         type: Sequelize.DOUBLE,
         allowNull: false
       },
+      badge_price: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

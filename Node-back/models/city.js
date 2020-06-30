@@ -35,11 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     map_link: {
       type: DataTypes.STRING,
       allowNull: true
-    },
-    total_cost: {
-      type: DataTypes.DOUBLE,
-      allowNull: false
-    },
+    }
   }, {
     sequelize,
     modelName: 'City',

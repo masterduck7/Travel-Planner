@@ -39,10 +39,6 @@ module.exports = (sequelize, DataTypes) => {
     status: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    total_cost: {
-      type: DataTypes.DOUBLE,
-      allowNull: false
     }
   }, {
     sequelize,
