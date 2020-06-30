@@ -7,18 +7,22 @@ export default class TripListView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             user_id: localStorage.getItem('user_id'),
             trips: []
         }
     }
     
     componentDidMount(){
-        axios.get(`http://127.0.0.1:8000/trips/`)
+        axios.get(`http://travelplanner.lpsoftware.space/api/trips/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
             .then(res => {
                 if (!res.data["Error"]) {
                     let tripList = []
                     res.data.forEach(trip => {
-                        if (trip.user.toString() === this.state.user_id) {
+                        if (trip.userID.toString() === this.state.user_id) {
                             tripList.push(trip)
                         }
                     });

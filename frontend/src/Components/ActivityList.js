@@ -13,6 +13,7 @@ export default class ActivityList extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             modalCreate: false,
             modalEdit: false,
             modalRemove: false,
@@ -45,7 +46,10 @@ export default class ActivityList extends Component {
             amount_paid: event.target.amount_paid.value,
             amount_not_paid: event.target.amount_not_paid.value
         }
-        axios.post(`http://127.0.0.1:8000/activities/`, postObj)
+        axios.post(`http://travelplanner.lpsoftware.space/api/activities/`, postObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(function (response) {
             alert("Actividad agregada")
             window.location.reload();
@@ -82,7 +86,10 @@ export default class ActivityList extends Component {
             amount_paid: this.state.amount_paid,
             amount_not_paid: this.state.amount_not_paid
         }
-        axios.put(`http://127.0.0.1:8000/activities/${activityID}/`, activityObj)
+        axios.put(`http://travelplanner.lpsoftware.space/api/activities/${activityID}/`, activityObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then((response) => {
             alert("Actividad editada")
             window.location.reload();
@@ -107,7 +114,10 @@ export default class ActivityList extends Component {
     onClickRemove = (event) => {
         event.preventDefault();
         const activityID = this.state.activity_id
-        axios.delete(`http://127.0.0.1:8000/activities/${activityID}/`)
+        axios.delete(`http://travelplanner.lpsoftware.space/api/activities/${activityID}/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(res => {
             alert("Actividad eliminada")
             window.location.reload();

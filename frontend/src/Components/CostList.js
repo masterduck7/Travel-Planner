@@ -12,6 +12,7 @@ export default class CostList extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             modalCreate: false,
             modalEdit: false,
             modalRemove: false,
@@ -38,7 +39,10 @@ export default class CostList extends Component {
             name: event.target.name.value,
             total_price: event.target.total_price.value
         }
-        axios.post(`http://127.0.0.1:8000/costs/`, postObj)
+        axios.post(`http://travelplanner.lpsoftware.space/api/costs/`, postObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(function (response) {
             alert("Gasto agregado")
             window.location.reload();
@@ -69,7 +73,10 @@ export default class CostList extends Component {
             name: this.state.name,
             total_price: this.state.total_price
         }
-        axios.put(`http://127.0.0.1:8000/costs/${costID}/`, costObj)
+        axios.put(`http://travelplanner.lpsoftware.space/api/costs/${costID}/`, costObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then((response) => {
             alert("Gasto editado")
             window.location.reload();
@@ -94,7 +101,10 @@ export default class CostList extends Component {
     onClickRemove = (event) => {
         event.preventDefault();
         const costID = this.state.cost_id
-        axios.delete(`http://127.0.0.1:8000/costs/${costID}/`)
+        axios.delete(`http://travelplanner.lpsoftware.space/api/costs/${costID}/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(res => {
             alert("Gasto eliminado")
             window.location.reload();

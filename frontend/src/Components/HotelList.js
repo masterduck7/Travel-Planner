@@ -13,6 +13,7 @@ export default class HotelList extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             modalCreate: false,
             modalEdit: false,
             modalRemove: false,
@@ -51,7 +52,10 @@ export default class HotelList extends Component {
             amount_paid: event.target.amount_paid.value,
             amount_not_paid: event.target.amount_not_paid.value
         }
-        axios.post(`http://127.0.0.1:8000/hotels/`, postObj)
+        axios.post(`http://travelplanner.lpsoftware.space/api/hotels/`, postObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(function (response) {
             alert("Hotel agregado")
             window.location.reload();
@@ -94,7 +98,10 @@ export default class HotelList extends Component {
             amount_paid: this.state.amount_paid,
             amount_not_paid: this.state.amount_not_paid
         }
-        axios.put(`http://127.0.0.1:8000/hotels/${hotelID}/`, hotelObj)
+        axios.put(`http://travelplanner.lpsoftware.space/api/hotels/${hotelID}/`, hotelObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then((response) => {
             alert("Hotel editado")
             window.location.reload();
@@ -119,7 +126,10 @@ export default class HotelList extends Component {
     onClickRemove = (event) => {
         event.preventDefault();
         const hotelID = this.state.hotel_id
-        axios.delete(`http://127.0.0.1:8000/hotels/${hotelID}/`)
+        axios.delete(`http://travelplanner.lpsoftware.space/api/hotels/${hotelID}/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(res => {
             alert("Hotel eliminado")
             window.location.reload();

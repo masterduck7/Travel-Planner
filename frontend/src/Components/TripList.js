@@ -15,6 +15,7 @@ export default class TripList extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             user_id: localStorage.getItem('user_id'),
             modalCreate: false,
             status: "",
@@ -44,7 +45,10 @@ export default class TripList extends Component {
             status: this.state.status,
             planning_file: event.target.planning_file.value
         }
-        axios.post(`http://127.0.0.1:8000/trips/`, postObj)
+        axios.post(`http://travelplanner.lpsoftware.space/api/trips/`, postObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(function (response) {
             alert("Viaje agregado")
             window.location.reload();
@@ -147,7 +151,7 @@ export default class TripList extends Component {
                 key: 'action',
                 render: (text, item) => (
                   <span>
-                    <Link to={`/trips/${item.trip_id}/`}>Ir a detalles</Link>
+                    <Link to={`/trips/${item.id}/`}>Ir a detalles</Link>
                   </span>
                 ),
             }

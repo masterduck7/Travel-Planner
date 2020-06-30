@@ -21,7 +21,9 @@ export default class NavBar extends Component{
     logout(e){
         //e.preventDefault();
         window.localStorage.removeItem('token')
+        window.localStorage.removeItem('refresh_token')
         window.localStorage.removeItem('user_id')
+        window.localStorage.removeItem('user_logged')
         window.location.href="#/"
     }
     

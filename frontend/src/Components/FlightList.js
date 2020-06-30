@@ -13,6 +13,7 @@ export default class FlightList extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             modalCreate: false,
             modalEdit: false,
             modalRemove: false,
@@ -49,7 +50,10 @@ export default class FlightList extends Component {
             flight_number: event.target.flight_number.value,
             price: event.target.price.value
         }
-        axios.post(`http://127.0.0.1:8000/flights/`, postObj)
+        axios.post(`http://travelplanner.lpsoftware.space/api/flights/`, postObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(function (response) {
             alert("Vuelo agregado")
             window.location.reload();
@@ -90,7 +94,10 @@ export default class FlightList extends Component {
             end_date: this.state.end_date,
             price: this.state.price
         }
-        axios.put(`http://127.0.0.1:8000/flights/${flightID}/`, flightObj)
+        axios.put(`http://travelplanner.lpsoftware.space/api/flights/${flightID}/`, flightObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then((response) => {
             alert("Vuelo editado")
             window.location.reload();
@@ -115,7 +122,10 @@ export default class FlightList extends Component {
     onClickRemove = (event) => {
         event.preventDefault();
         const flightID = this.state.flight_id
-        axios.delete(`http://127.0.0.1:8000/flights/${flightID}/`)
+        axios.delete(`http://travelplanner.lpsoftware.space/api/flights/${flightID}/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(res => {
             alert("Vuelo eliminado")
             window.location.reload();

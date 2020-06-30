@@ -8,18 +8,22 @@ export default class CalendarView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             user_id: localStorage.getItem('user_id'),
             trips: []
         }
     }
     
     componentDidMount(){
-        axios.get(`http://127.0.0.1:8000/trips/`)
+        axios.get(`http://travelplanner.lpsoftware.space/api/trips/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
             .then(res => {
                 if (!res.data["Error"]) {
                     let tripsData = []
                     res.data.forEach(trip => {
-                        if (trip.user.toString() === this.state.user_id) {
+                        if (Number(trip.userID) === Number(this.state.user_id)) {
                             tripsData.push({
                                 "start": moment(trip.start_date).add(0, 'days'),
                                 "end": moment(trip.end_date).add(1, 'days'),

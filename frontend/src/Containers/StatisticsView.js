@@ -12,6 +12,7 @@ export default class StatisticsView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             user_id: localStorage.getItem('user_id'),
             country_list: getNameList(),
             totalActivitiesAllTrips : 0,
@@ -34,9 +35,11 @@ export default class StatisticsView extends Component {
     }
 
     componentDidMount(){
-
         // GET YEAR DETAILS
-        axios.get(`http://127.0.0.1:8000/trips/`)
+        axios.get(`http://travelplanner.lpsoftware.space/api/trips/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
             .then(res => {
                 if (!res.data["Error"]) {
                     let yearData = {}
@@ -56,7 +59,7 @@ export default class StatisticsView extends Component {
                         let totalHotels = 0
                         let totalActivities = 0
                         let totalCityCost = 0
-                        if (trip.user.toString() === this.state.user_id) {
+                        if (Number(trip.userID) === Number(this.state.user_id)) {
                             trip.flights.forEach(flight => {
                                 totalFlights = Number(totalFlights) + Number(flight.price)
                                 let flighData = {
@@ -94,8 +97,8 @@ export default class StatisticsView extends Component {
                                     totalActivities = Number(totalActivities) + Number(activity.total_price)
                                     selectedActivities = Number(selectedActivities) + 1
                                 });
-                                city.costs.forEach(cost => {
-                                    totalCityCost = Number(totalCityCost) + Number(cost.total_price)
+                                city.citycosts.forEach(citycost => {
+                                    totalCityCost = Number(totalCityCost) + Number(citycost.total_price)
                                 });
 
                                 let countryName = Object.keys(this.state.country_list).find(key => this.state.country_list[key] === city.country)

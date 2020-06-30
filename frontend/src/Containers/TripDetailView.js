@@ -7,13 +7,17 @@ export default class TripDetailView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             trip: []
         }
     }
     
     componentDidMount(){
         const tripID = this.props.match.params.tripID;
-        axios.get(`http://127.0.0.1:8000/trips/${tripID}/`)
+        axios.get(`http://travelplanner.lpsoftware.space/api/trips/${tripID}/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
             .then(res => {
                 if (!res.data["Error"]) {
                     this.setState({

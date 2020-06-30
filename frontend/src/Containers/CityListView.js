@@ -7,17 +7,21 @@ export default class CityListView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             cities: []
         }
     }
     
     componentDidMount(){
-        axios.get(`http://127.0.0.1:8000/cities/`)
+        axios.get(`http://travelplanner.lpsoftware.space/api/cities/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
             .then(res => {
                 if (!res.data["Error"]) {
                     let citiesdata = []
                     res.data.forEach(city => {
-                        if (Number(this.props.match.params.tripID) === city.trip) {
+                        if (Number(this.props.match.params.tripID) === Number(city.tripID)) {
                             citiesdata.push(city)
                         }
                     });
