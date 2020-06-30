@@ -43,7 +43,7 @@ export default class CityList extends Component {
     onClickCreate = event => {
         event.preventDefault();
         const postObj = {
-            trip: this.props.data.tripID,
+            tripID: this.props.data.tripID,
             name: event.target.name.value,
             country: this.state.country,
             map_link: event.target.map_link.value
@@ -79,7 +79,7 @@ export default class CityList extends Component {
         event.preventDefault();
         const id = this.state.id
         const cityObj = {
-            trip: this.props.data.tripID,
+            tripID: this.props.data.tripID,
             name: this.state.name,
             country: this.state.country,
             map_link: this.state.map_link

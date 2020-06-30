@@ -10,7 +10,10 @@ export default class Register extends Component {
         this.state = {
             token: localStorage.getItem('token'),
             username: "",
-            password: ""
+            password: "",
+            email: "",
+            country: "",
+            visitedCountries: ""
         }
     }
 
@@ -18,7 +21,11 @@ export default class Register extends Component {
         event.preventDefault();
         const postObj = {
             "username": this.state.username,
-            "password": this.state.password
+            "password": this.state.password,
+            "email": this.state.email,
+            "country": this.state.country,
+            "visitedCountries": this.state.visitedCountries,
+            "permissionLevel": 1
         }
         axios.post(`http://travelplanner.lpsoftware.space/api/users/`, postObj,{
             headers: {
@@ -75,6 +82,30 @@ export default class Register extends Component {
                         onChange={(e) => {
                             this.setState({
                                 password: e.target.value
+                            })
+                        }} />
+                    </Form.Item>
+                    <Form.Item label="Email">
+                        <Input name="email"
+                        onChange={(e) => {
+                            this.setState({
+                                email: e.target.value
+                            })
+                        }} />
+                    </Form.Item>
+                    <Form.Item label="Country">
+                        <Input name="country"
+                        onChange={(e) => {
+                            this.setState({
+                                country: e.target.value
+                            })
+                        }} />
+                    </Form.Item>
+                    <Form.Item label="Visited Countries">
+                        <Input name="visitedCountries"
+                        onChange={(e) => {
+                            this.setState({
+                                visitedCountries: e.target.value
                             })
                         }} />
                     </Form.Item>

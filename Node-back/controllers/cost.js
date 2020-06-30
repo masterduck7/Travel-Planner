@@ -5,6 +5,7 @@ module.exports = {
         .create({
             name: req.body.name,
             total_price: req.body.total_price,
+            badge_total_price: req.body.badge_total_price,
             cityID: req.body.cityID
         })
         .then(data => res.status(201).send(data))

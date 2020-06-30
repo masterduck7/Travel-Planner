@@ -3560,8 +3560,8 @@ export default class SkyScannerView extends Component {
                 }})
                 .then(res => {
                     if (res.data.Places.length === 0) {
-                        console.log("No hay datos para la ruta seleccionada.")
-                        alert("No hay datos para la ruta seleccionada.")
+                        console.log("No flights found.")
+                        alert("No flights found.")
                         this.setState({
                             carriers: {},
                             places: {},

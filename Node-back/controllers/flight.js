@@ -10,6 +10,7 @@ module.exports = {
             airline_name: req.body.airline_name,
             flight_number: req.body.flight_number,
             price: req.body.price,
+            badge_price: req.body.badge_price,
             tripID: req.body.tripID
         })
         .then(data => res.status(201).send(data))

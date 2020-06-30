@@ -18,7 +18,8 @@ export default class CostList extends Component {
             modalRemove: false,
             cost_id: "",
             name: "",
-            total_price: ""
+            total_price: "",
+            badge_total_price: 'USD'
         }
     }
 
@@ -35,9 +36,10 @@ export default class CostList extends Component {
     onClickCreate = event => {
         event.preventDefault();
         const postObj = {
-            city: this.props.data.cityID,
+            cityID: this.props.data.cityID,
             name: event.target.name.value,
-            total_price: event.target.total_price.value
+            total_price: event.target.total_price.value,
+            badge_total_price: this.state.badge_total_price
         }
         axios.post(`http://travelplanner.lpsoftware.space/api/costs/`, postObj,{
             headers: {
@@ -55,7 +57,7 @@ export default class CostList extends Component {
     onOpenModalEdit = (record) => {
         this.setState({ 
             modalEdit: true,
-            cost_id: record.cost_id,
+            cost_id: record.id,
             name: record.name,
             total_price: record.total_price
         });
@@ -69,9 +71,10 @@ export default class CostList extends Component {
         event.preventDefault();
         const costID = this.state.cost_id
         const costObj = {
-            city: this.props.data.cityID,
+            cityID: this.props.data.cityID,
             name: this.state.name,
-            total_price: this.state.total_price
+            total_price: this.state.total_price,
+            badge_total_price: this.state.badge_total_price
         }
         axios.put(`http://travelplanner.lpsoftware.space/api/costs/${costID}/`, costObj,{
             headers: {
@@ -90,7 +93,7 @@ export default class CostList extends Component {
         event.preventDefault();
         this.setState({
             modalRemove: true,
-            cost_id: item.cost_id,
+            cost_id: item.id,
         })
     }
 

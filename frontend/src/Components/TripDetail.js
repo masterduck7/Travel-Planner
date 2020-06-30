@@ -19,7 +19,6 @@ export default class TripDetail extends Component {
             user_id: localStorage.getItem('user_id'),
             modalEdit: null,
             modalRemove: null,
-            tripID: null,
             destination: "",
             planning_file: "",
             status: "",
@@ -31,7 +30,7 @@ export default class TripDetail extends Component {
     onOpenModalEdit = () => {
         this.setState({ 
             modalEdit: true,
-            tripID: this.props.trip.id,
+            id: this.props.trip.id,
             destination: this.props.trip.destination,
             planning_file: this.props.trip.planning_file,
             status: this.props.trip.status,
@@ -46,9 +45,9 @@ export default class TripDetail extends Component {
 
     onClickEdit = event => {
         event.preventDefault();
-        const tripID = this.state.tripID
+        const tripID = this.props.trip.id
         const tripObj = {
-            user: this.state.user_id,
+            userID: this.state.user_id,
             destination: this.state.destination,
             planning_file: this.state.planning_file,
             status: this.state.status,
