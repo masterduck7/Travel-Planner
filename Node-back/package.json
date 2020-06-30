@@ -1,0 +1,31 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "Travel Planner API",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon node ./bin/www"
+  },
+  "author": "Luis Ramirez",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.3",
+    "connect-multiparty": "^2.1.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "^4.16.3",
+    "http-errors": "~1.6.2",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-simple": "^0.5.1",
+    "moment": "^2.17.1",
+    "morgan": "~1.9.0",
+    "mysql": "^2.15.0",
+    "mysql2": "^2.1.0",
+    "pug": "2.0.0-beta11",
+    "sequelize": "^6.2.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
