@@ -7,17 +7,21 @@ export default class CityCostView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             costs: []
         }
     }
     
     componentDidMount(){
-        axios.get(`http://127.0.0.1:8000/costs/`)
+        axios.get(`http://travelplanner.lpsoftware.space/api/costs/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
             .then(res => {
                 if (!res.data["Error"]) {
                     let costData = []
                     res.data.forEach(cost => {
-                        if (Number(this.props.match.params.cityID) === cost.city) {
+                        if (Number(this.props.match.params.cityID) === Number(cost.cityID)) {
                             costData.push(cost)
                         }
                     });

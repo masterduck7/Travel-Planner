@@ -13,6 +13,7 @@ export default class HotelList extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             modalCreate: false,
             modalEdit: false,
             modalRemove: false,
@@ -23,6 +24,9 @@ export default class HotelList extends Component {
             total_price: "",
             amount_paid: "",
             amount_not_paid: "",
+            badge_total_price: 'USD',
+            badge_amount_paid: 'USD',
+            badge_amount_not_paid: 'USD',
             start_date: moment().format("YYYY-MM-DD"),
             end_date: moment().format("YYYY-MM-DD")
         }
@@ -41,7 +45,7 @@ export default class HotelList extends Component {
     onClickCreate = event => {
         event.preventDefault();
         const postObj = {
-            city: this.props.data.cityID,
+            cityID: this.props.data.cityID,
             name: event.target.name.value,
             number_beds: event.target.number_beds.value,
             start_date: event.target.start_date.value,
@@ -49,9 +53,15 @@ export default class HotelList extends Component {
             breakfast: this.state.breakfast,
             total_price: event.target.total_price.value,
             amount_paid: event.target.amount_paid.value,
-            amount_not_paid: event.target.amount_not_paid.value
+            amount_not_paid: event.target.amount_not_paid.value,
+            badge_total_price: this.state.badge_total_price,
+            badge_amount_paid: this.state.badge_amount_paid,
+            badge_amount_not_paid: this.state.badge_amount_not_paid
         }
-        axios.post(`http://127.0.0.1:8000/hotels/`, postObj)
+        axios.post(`http://travelplanner.lpsoftware.space/api/hotels/`, postObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(function (response) {
             alert("Hotel agregado")
             window.location.reload();
@@ -64,7 +74,7 @@ export default class HotelList extends Component {
     onOpenModalEdit = (record) => {
         this.setState({ 
             modalEdit: true,
-            hotel_id: record.hotel_id,
+            hotel_id: record.id,
             name: record.name,
             number_beds: record.number_beds,
             breakfast: record.breakfast,
@@ -84,7 +94,7 @@ export default class HotelList extends Component {
         event.preventDefault();
         const hotelID = this.state.hotel_id
         const hotelObj = {
-            city: this.props.data.cityID,
+            cityID: this.props.data.cityID,
             name: this.state.name,
             number_beds: this.state.number_beds,
             breakfast: this.state.breakfast,
@@ -92,9 +102,15 @@ export default class HotelList extends Component {
             end_date: this.state.end_date,
             total_price: this.state.total_price,
             amount_paid: this.state.amount_paid,
-            amount_not_paid: this.state.amount_not_paid
+            amount_not_paid: this.state.amount_not_paid,
+            badge_total_price: this.state.badge_total_price,
+            badge_amount_paid: this.state.badge_amount_paid,
+            badge_amount_not_paid: this.state.badge_amount_not_paid
         }
-        axios.put(`http://127.0.0.1:8000/hotels/${hotelID}/`, hotelObj)
+        axios.put(`http://travelplanner.lpsoftware.space/api/hotels/${hotelID}/`, hotelObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then((response) => {
             alert("Hotel editado")
             window.location.reload();
@@ -108,7 +124,7 @@ export default class HotelList extends Component {
         event.preventDefault();
         this.setState({
             modalRemove: true,
-            hotel_id: item.hotel_id,
+            hotel_id: item.id,
         })
     }
 
@@ -119,7 +135,10 @@ export default class HotelList extends Component {
     onClickRemove = (event) => {
         event.preventDefault();
         const hotelID = this.state.hotel_id
-        axios.delete(`http://127.0.0.1:8000/hotels/${hotelID}/`)
+        axios.delete(`http://travelplanner.lpsoftware.space/api/hotels/${hotelID}/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(res => {
             alert("Hotel eliminado")
             window.location.reload();

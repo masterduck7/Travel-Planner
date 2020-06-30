@@ -13,6 +13,7 @@ export default class FlightList extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             modalCreate: false,
             modalEdit: false,
             modalRemove: false,
@@ -23,7 +24,8 @@ export default class FlightList extends Component {
             flight_number: "",
             start_date: moment().format("YYYY-MM-DD"),
             end_date: moment().format("YYYY-MM-DD"),
-            price: ""
+            price: "",
+            badge_price: 'USD'
         }
     }
 
@@ -40,16 +42,21 @@ export default class FlightList extends Component {
     onClickCreate = event => {
         event.preventDefault();
         const postObj = {
-            trip: this.props.data.tripID,
+            tripID: this.props.data.tripID,
             origin: event.target.origin.value,
             destination: event.target.destination.value,
             start_date: event.target.start_date.value,
             end_date: event.target.end_date.value,
             airline_name: event.target.airline_name.value,
             flight_number: event.target.flight_number.value,
-            price: event.target.price.value
+            price: event.target.price.value,
+            badge_price: this.state.badge_price
         }
-        axios.post(`http://127.0.0.1:8000/flights/`, postObj)
+        console.log(postObj)
+        axios.post(`http://travelplanner.lpsoftware.space/api/flights/`, postObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(function (response) {
             alert("Vuelo agregado")
             window.location.reload();
@@ -62,14 +69,15 @@ export default class FlightList extends Component {
     onOpenModalEdit = (record) => {
         this.setState({ 
             modalEdit: true,
-            flight_id: record.flight_id,
+            flight_id: record.id,
             origin: record.origin,
             destination: record.destination,
             airline_name: record.airline_name,
             flight_number: record.flight_number,
             start_date: record.start_date,
             end_date: record.end_date,
-            price: record.price
+            price: record.price,
+            badge_price: this.state.badge_price
         });
     };
 
@@ -81,16 +89,20 @@ export default class FlightList extends Component {
         event.preventDefault();
         const flightID = this.state.flight_id
         const flightObj = {
-            trip: this.props.data.tripID,
+            tripID: this.props.data.tripID,
             origin: this.state.origin,
             destination: this.state.destination,
             airline_name: this.state.airline_name,
             flight_number: this.state.flight_number,
             start_date: this.state.start_date,
             end_date: this.state.end_date,
-            price: this.state.price
+            price: this.state.price,
+            badge_price: this.state.badge_price
         }
-        axios.put(`http://127.0.0.1:8000/flights/${flightID}/`, flightObj)
+        axios.put(`http://travelplanner.lpsoftware.space/api/flights/${flightID}/`, flightObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then((response) => {
             alert("Vuelo editado")
             window.location.reload();
@@ -104,7 +116,7 @@ export default class FlightList extends Component {
         event.preventDefault();
         this.setState({
             modalRemove: true,
-            flight_id: item.flight_id,
+            flight_id: item.id,
         })
     }
 
@@ -115,7 +127,10 @@ export default class FlightList extends Component {
     onClickRemove = (event) => {
         event.preventDefault();
         const flightID = this.state.flight_id
-        axios.delete(`http://127.0.0.1:8000/flights/${flightID}/`)
+        axios.delete(`http://travelplanner.lpsoftware.space/api/flights/${flightID}/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(res => {
             alert("Vuelo eliminado")
             window.location.reload();

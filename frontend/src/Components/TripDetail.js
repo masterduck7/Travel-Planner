@@ -15,10 +15,10 @@ export default class TripDetail extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             user_id: localStorage.getItem('user_id'),
             modalEdit: null,
             modalRemove: null,
-            tripID: null,
             destination: "",
             planning_file: "",
             status: "",
@@ -30,7 +30,7 @@ export default class TripDetail extends Component {
     onOpenModalEdit = () => {
         this.setState({ 
             modalEdit: true,
-            tripID: this.props.trip.trip_id,
+            id: this.props.trip.id,
             destination: this.props.trip.destination,
             planning_file: this.props.trip.planning_file,
             status: this.props.trip.status,
@@ -45,16 +45,19 @@ export default class TripDetail extends Component {
 
     onClickEdit = event => {
         event.preventDefault();
-        const tripID = this.state.tripID
+        const tripID = this.props.trip.id
         const tripObj = {
-            user: this.state.user_id,
+            userID: this.state.user_id,
             destination: this.state.destination,
             planning_file: this.state.planning_file,
             status: this.state.status,
             start_date: this.state.start_date,
             end_date: this.state.end_date
         }
-        axios.put(`http://127.0.0.1:8000/trips/${tripID}/`, tripObj)
+        axios.put(`http://travelplanner.lpsoftware.space/api/trips/${tripID}/`, tripObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then((response) => {
             alert("Viaje editado")
             window.location.reload();
@@ -74,8 +77,11 @@ export default class TripDetail extends Component {
 
     onClickRemove = event => {
         event.preventDefault();
-        const tripID = this.props.trip.trip_id
-        axios.delete(`http://127.0.0.1:8000/trips/${tripID}/`)
+        const tripID = this.props.trip.id
+        axios.delete(`http://travelplanner.lpsoftware.space/api/trips/${tripID}/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(res => {
             alert("Viaje eliminado")
             window.location.href = "/#/trips"
@@ -223,19 +229,19 @@ export default class TripDetail extends Component {
                     </Button>
                 </Link>
 
-                <Link to={`/trips/${this.props.trip.trip_id}/flights`}>
+                <Link to={`/trips/${this.props.trip.id}/flights`}>
                     <Button primary style={{marginLeft: "0.5%", marginTop: "60px", marginBottom: "1%"}}>
                         <Icon name="plane" />
                         Vuelos
                     </Button>
                 </Link>
-                <Link to={`/trips/${this.props.trip.trip_id}/cities`}>
+                <Link to={`/trips/${this.props.trip.id}/cities`}>
                     <Button primary style={{marginLeft: "0.2%", marginTop: "60px", marginBottom: "1%"}}>
                         <Icon name="building" />
                         Ciudades
                     </Button>
                 </Link>
-                <Link to={`/trips/${this.props.trip.trip_id}/costs`}>
+                <Link to={`/trips/${this.props.trip.id}/costs`}>
                     <Button primary style={{marginLeft: "0.2%", marginTop: "60px", marginBottom: "1%"}}>
                         <Icon name="dollar sign" />
                         Costo total

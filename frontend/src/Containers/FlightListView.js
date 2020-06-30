@@ -7,17 +7,21 @@ export default class FlightListView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             flights: []
         }
     }
     
     componentDidMount(){
-        axios.get(`http://127.0.0.1:8000/flights/`)
+        axios.get(`http://travelplanner.lpsoftware.space/api/flights/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
             .then(res => {
                 if (!res.data["Error"]) {
                     let flightdata = []
                     res.data.forEach(flight => {
-                        if (Number(this.props.match.params.tripID) === flight.trip) {
+                        if (Number(this.props.match.params.tripID) === flight.tripID) {
                             flightdata.push(flight)
                         }
                     });

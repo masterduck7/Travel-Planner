@@ -12,12 +12,14 @@ export default class CostList extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             modalCreate: false,
             modalEdit: false,
             modalRemove: false,
             cost_id: "",
             name: "",
-            total_price: ""
+            total_price: "",
+            badge_total_price: 'USD'
         }
     }
 
@@ -34,11 +36,15 @@ export default class CostList extends Component {
     onClickCreate = event => {
         event.preventDefault();
         const postObj = {
-            city: this.props.data.cityID,
+            cityID: this.props.data.cityID,
             name: event.target.name.value,
-            total_price: event.target.total_price.value
+            total_price: event.target.total_price.value,
+            badge_total_price: this.state.badge_total_price
         }
-        axios.post(`http://127.0.0.1:8000/costs/`, postObj)
+        axios.post(`http://travelplanner.lpsoftware.space/api/costs/`, postObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(function (response) {
             alert("Gasto agregado")
             window.location.reload();
@@ -51,7 +57,7 @@ export default class CostList extends Component {
     onOpenModalEdit = (record) => {
         this.setState({ 
             modalEdit: true,
-            cost_id: record.cost_id,
+            cost_id: record.id,
             name: record.name,
             total_price: record.total_price
         });
@@ -65,11 +71,15 @@ export default class CostList extends Component {
         event.preventDefault();
         const costID = this.state.cost_id
         const costObj = {
-            city: this.props.data.cityID,
+            cityID: this.props.data.cityID,
             name: this.state.name,
-            total_price: this.state.total_price
+            total_price: this.state.total_price,
+            badge_total_price: this.state.badge_total_price
         }
-        axios.put(`http://127.0.0.1:8000/costs/${costID}/`, costObj)
+        axios.put(`http://travelplanner.lpsoftware.space/api/costs/${costID}/`, costObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then((response) => {
             alert("Gasto editado")
             window.location.reload();
@@ -83,7 +93,7 @@ export default class CostList extends Component {
         event.preventDefault();
         this.setState({
             modalRemove: true,
-            cost_id: item.cost_id,
+            cost_id: item.id,
         })
     }
 
@@ -94,7 +104,10 @@ export default class CostList extends Component {
     onClickRemove = (event) => {
         event.preventDefault();
         const costID = this.state.cost_id
-        axios.delete(`http://127.0.0.1:8000/costs/${costID}/`)
+        axios.delete(`http://travelplanner.lpsoftware.space/api/costs/${costID}/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(res => {
             alert("Gasto eliminado")
             window.location.reload();

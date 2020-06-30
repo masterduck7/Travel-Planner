@@ -11,8 +11,10 @@ export default class HomeView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             user_id: localStorage.getItem('user_id'),
             nextTrips : [],
+            number_countries: 0,
             number_trips : 0,
             number_flights : 0,
             number_cities : 0,
@@ -28,7 +30,10 @@ export default class HomeView extends Component {
 
     componentDidMount(){
         // GET THIS YEAR TRIP DETAILS
-        axios.get(`http://127.0.0.1:8000/trips/`)
+        axios.get(`http://travelplanner.lpsoftware.space/api/trips/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
             .then(res => {
                 if (!res.data["Error"]) {
                     let countryData = {}
@@ -43,17 +48,17 @@ export default class HomeView extends Component {
                     let total_hotels = 0
                     let total_flights = 0
                     res.data.forEach(trip => {
-                        if ( trip.user.toString() === this.state.user_id && (moment(trip.start_date).fromNow()).includes("en") && nextTrips.length < 7  && trip.status === "Active") {
+                        if ( Number(trip.userID) === Number(this.state.user_id) && (moment(trip.start_date).fromNow()).includes("en") && nextTrips.length < 7  && trip.status === "Active") {
                             nextTrips.push(
                                 {
                                     'destination': trip.destination,
                                     'start_date': trip.start_date,
                                     'end_date': trip.end_date,
-                                    'trip_id': trip.trip_id
+                                    'trip_id': trip.id
                                 }
                             )
                         }
-                        if ( trip.user.toString() === this.state.user_id && moment(trip.start_date).format('YYYY') === moment().format('YYYY')) {
+                        if ( Number(trip.userID) === Number(this.state.user_id) && moment(trip.start_date).format('YYYY') === moment().format('YYYY')) {
                             number_trips = Number(number_trips) + 1
                             trip.flights.forEach(flight => {
                                 number_flights = Number(number_flights) + 1
@@ -73,8 +78,8 @@ export default class HomeView extends Component {
                                     total_activities = Number(total_activities) + Number(activity.total_price)
                                     number_activities = Number(number_activities) + 1
                                 });
-                                city.costs.forEach(cost => {
-                                    total_city_cost = Number(total_city_cost) + Number(cost.total_price)
+                                city.citycosts.forEach(citycost => {
+                                    total_city_cost = Number(total_city_cost) + Number(citycost.total_price)
                                 });
                             });
                         }

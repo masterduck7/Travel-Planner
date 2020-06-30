@@ -4,7 +4,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Cities', [{
       name: 'Lyon',
-      country: 'Francia',
+      country: 'FR',
       map_link: 'lyon.map',
       tripID: 1,
       createdAt: new Date(),
@@ -12,7 +12,7 @@ module.exports = {
     },
     {
       name: 'Madrid',
-      country: 'España',
+      country: 'ES',
       map_link: 'madrid.map',
       tripID: 1,
       createdAt: new Date(),

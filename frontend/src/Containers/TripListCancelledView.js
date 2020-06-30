@@ -7,19 +7,23 @@ export default class TripListPastView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             user_id: localStorage.getItem('user_id'),
             trips: []
         }
     }
     
     componentDidMount(){
-        axios.get(`http://127.0.0.1:8000/trips/`)
+        axios.get(`http://travelplanner.lpsoftware.space/api/trips/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
             .then(res => {
                 if (!res.data["Error"]) {
                     const data = res.data
                     let filterData = []
                     data.forEach(trip => {
-                        if (trip.status === "Cancelled" && trip.user.toString() === this.state.user_id) {
+                        if (trip.status === "Cancelled" && trip.userID.toString() === this.state.user_id.toString()) {
                             filterData.push(trip)
                         }
                     });

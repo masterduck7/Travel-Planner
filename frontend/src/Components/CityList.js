@@ -14,10 +14,11 @@ export default class CityList extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             modalCreate: false,
             modalEdit: false,
             modalRemove: false,
-            city_id: "",
+            id: "",
             name: "",
             country: "",
             map_link: "",
@@ -28,7 +29,7 @@ export default class CityList extends Component {
     onOpenModalCreate(e){
         this.setState({ 
             modalCreate: true,
-            city_id: "",
+            id: "",
             name: "",
             country: "",
             map_link: ""
@@ -42,12 +43,15 @@ export default class CityList extends Component {
     onClickCreate = event => {
         event.preventDefault();
         const postObj = {
-            trip: this.props.data.tripID,
+            tripID: this.props.data.tripID,
             name: event.target.name.value,
             country: this.state.country,
             map_link: event.target.map_link.value
         }
-        axios.post(`http://127.0.0.1:8000/cities/`, postObj)
+        axios.post(`http://travelplanner.lpsoftware.space/api/cities/`, postObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(function (response) {
             alert("Ciudad agregada")
             window.location.reload();
@@ -60,7 +64,7 @@ export default class CityList extends Component {
     onOpenModalEdit = (record) => {
         this.setState({ 
             modalEdit: true,
-            city_id: record.city_id,
+            id: record.id,
             name: record.name,
             country: record.country,
             map_link: record.map_link
@@ -73,14 +77,17 @@ export default class CityList extends Component {
 
     onClickEdit = event => {
         event.preventDefault();
-        const cityID = this.state.city_id
+        const id = this.state.id
         const cityObj = {
-            trip: this.props.data.tripID,
+            tripID: this.props.data.tripID,
             name: this.state.name,
             country: this.state.country,
             map_link: this.state.map_link
         }
-        axios.put(`http://127.0.0.1:8000/cities/${cityID}/`, cityObj)
+        axios.put(`http://travelplanner.lpsoftware.space/api/cities/${id}/`, cityObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then((response) => {
             alert("Ciudad editada")
             window.location.reload();
@@ -94,7 +101,7 @@ export default class CityList extends Component {
         event.preventDefault();
         this.setState({
             modalRemove: true,
-            city_id: item.city_id,
+            id: item.id,
         })
     }
 
@@ -104,8 +111,11 @@ export default class CityList extends Component {
 
     onClickRemove = (event) => {
         event.preventDefault();
-        const cityID = this.state.city_id
-        axios.delete(`http://127.0.0.1:8000/cities/${cityID}/`)
+        const id = this.state.id
+        axios.delete(`http://travelplanner.lpsoftware.space/api/cities/${id}/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(res => {
             alert("Ciudad eliminada")
             window.location.reload();
@@ -176,23 +186,23 @@ export default class CityList extends Component {
             },
             {
                 title: <b>Detalles</b>,
-                dataIndex: 'city_id',
-                key: 'city_id',
-                render: city_id => (
+                dataIndex: 'id',
+                key: 'id',
+                render: id => (
                     <span>
-                        <Link to={{ pathname:`/trips/${this.props.data.tripID}/cities/${city_id}/hotels` }}>
+                        <Link to={{ pathname:`/trips/${this.props.data.tripID}/cities/${id}/hotels` }}>
                             <Button basic color="black">
                                 Hoteles
                             </Button>
                         </Link>
                         <Divider type="vertical" />
-                        <Link to={{ pathname:`/trips/${this.props.data.tripID}/cities/${city_id}/activities` }}>
+                        <Link to={{ pathname:`/trips/${this.props.data.tripID}/cities/${id}/activities` }}>
                             <Button basic color="black">
                                 Actividades
                             </Button>
                         </Link>
                         <Divider type="vertical" />
-                        <Link to={{ pathname:`/trips/${this.props.data.tripID}/cities/${city_id}/city-costs` }}>
+                        <Link to={{ pathname:`/trips/${this.props.data.tripID}/cities/${id}/city-costs` }}>
                             <Button basic color="black">
                                 Gastos
                             </Button>

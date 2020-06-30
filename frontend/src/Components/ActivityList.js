@@ -13,6 +13,7 @@ export default class ActivityList extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             modalCreate: false,
             modalEdit: false,
             modalRemove: false,
@@ -21,7 +22,10 @@ export default class ActivityList extends Component {
             activity_date: moment().format("YYYY-MM-DD"),
             total_price: "",
             amount_paid: "",
-            amount_not_paid: ""
+            amount_not_paid: "",
+            badge_total_price: 'USD',
+            badge_amount_paid: 'USD',
+            badge_amount_not_paid: 'USD'
         }
     }
 
@@ -38,14 +42,20 @@ export default class ActivityList extends Component {
     onClickCreate = event => {
         event.preventDefault();
         const postObj = {
-            city: this.props.data.cityID,
+            cityID: this.props.data.cityID,
             name: event.target.name.value,
             activity_date: event.target.activity_date.value,
             total_price: event.target.total_price.value,
             amount_paid: event.target.amount_paid.value,
-            amount_not_paid: event.target.amount_not_paid.value
+            amount_not_paid: event.target.amount_not_paid.value,
+            badge_total_price: this.state.badge_total_price,
+            badge_amount_paid: this.state.badge_amount_paid,
+            badge_amount_not_paid: this.state.badge_amount_not_paid
         }
-        axios.post(`http://127.0.0.1:8000/activities/`, postObj)
+        axios.post(`http://travelplanner.lpsoftware.space/api/activities/`, postObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(function (response) {
             alert("Actividad agregada")
             window.location.reload();
@@ -58,7 +68,7 @@ export default class ActivityList extends Component {
     onOpenModalEdit = (record) => {
         this.setState({ 
             modalEdit: true,
-            activity_id: record.activity_id,
+            activity_id: record.id,
             name: record.name,
             activity_date: record.activity_date,
             total_price: record.total_price,
@@ -75,14 +85,20 @@ export default class ActivityList extends Component {
         event.preventDefault();
         const activityID = this.state.activity_id
         const activityObj = {
-            city: this.props.data.cityID,
+            cityID: this.props.data.cityID,
             name: this.state.name,
             activity_date: this.state.activity_date,
             total_price: this.state.total_price,
             amount_paid: this.state.amount_paid,
-            amount_not_paid: this.state.amount_not_paid
+            amount_not_paid: this.state.amount_not_paid,
+            badge_total_price: this.state.badge_total_price,
+            badge_amount_paid: this.state.badge_amount_paid,
+            badge_amount_not_paid: this.state.badge_amount_not_paid
         }
-        axios.put(`http://127.0.0.1:8000/activities/${activityID}/`, activityObj)
+        axios.put(`http://travelplanner.lpsoftware.space/api/activities/${activityID}/`, activityObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then((response) => {
             alert("Actividad editada")
             window.location.reload();
@@ -96,7 +112,7 @@ export default class ActivityList extends Component {
         event.preventDefault();
         this.setState({
             modalRemove: true,
-            activity_id: item.activity_id,
+            activity_id: item.id,
         })
     }
 
@@ -107,7 +123,10 @@ export default class ActivityList extends Component {
     onClickRemove = (event) => {
         event.preventDefault();
         const activityID = this.state.activity_id
-        axios.delete(`http://127.0.0.1:8000/activities/${activityID}/`)
+        axios.delete(`http://travelplanner.lpsoftware.space/api/activities/${activityID}/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(res => {
             alert("Actividad eliminada")
             window.location.reload();

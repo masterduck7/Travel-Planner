@@ -21,7 +21,9 @@ export default class NavBar extends Component{
     logout(e){
         //e.preventDefault();
         window.localStorage.removeItem('token')
+        window.localStorage.removeItem('refresh_token')
         window.localStorage.removeItem('user_id')
+        window.localStorage.removeItem('user_logged')
         window.location.href="#/"
     }
     
@@ -29,10 +31,11 @@ export default class NavBar extends Component{
         if (this.state.isLogged) {
             return(
                 <Navbar fixed="top" collapseOnSelect expand="lg" style={{backgroundColor: 'gray'}}>
-                    <Navbar.Brand style={{color:"white"}} href="#/home">Inicio</Navbar.Brand>
+                    <Navbar.Brand style={{color:"white"}} href="#/home">LPSoftware</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="ml-auto">
+                            <Nav.Link style={{color:"#f5f5f5"}} href="#/home">Inicio</Nav.Link>
                             <Nav.Link style={{color:"#f5f5f5"}} href="#/map">Progreso</Nav.Link>
                             <Nav.Link style={{color:"#f5f5f5"}} href="#/trips">Mis viajes</Nav.Link>
                             <Nav.Link style={{color:"#f5f5f5"}} href="#/calendar">Calendario</Nav.Link>
@@ -46,12 +49,12 @@ export default class NavBar extends Component{
         }else{
             return(
                 <Navbar fixed="top" collapseOnSelect expand="lg" style={{backgroundColor: 'gray'}}>
-                <Navbar.Brand style={{color:"white"}} href="#/">Inicio</Navbar.Brand>
+                <Navbar.Brand style={{color:"white"}} href="#/">LPSoftware</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="ml-auto">
                         <Nav.Link style={{color:"white"}} href="#/login">Login</Nav.Link>
-                        <Nav.Link style={{color:"white"}} href="#/register">Registro</Nav.Link>
+                        {/* <Nav.Link style={{color:"white"}} href="#/register">Registro</Nav.Link> */}
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

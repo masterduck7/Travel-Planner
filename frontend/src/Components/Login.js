@@ -8,6 +8,7 @@ export default class Login extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             username: "",
             password: ""
         }
@@ -19,14 +20,19 @@ export default class Login extends Component {
             "username": this.state.username,
             "password": this.state.password
         }
-        axios.post(`http://127.0.0.1:8000/authenticate/`, postObj)
+        axios.post(`http://travelplanner.lpsoftware.space/api/auth/`, postObj,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
         .then(function (response) {
-            localStorage.setItem('token',response.data.token)
-            localStorage.setItem('user_id',response.data.id)
+            localStorage.setItem('token',response.data.accessToken)
+            localStorage.setItem('refresh_token',response.data.refreshToken)
+            localStorage.setItem('user_id',response.data.userID)
+            localStorage.setItem('user_logged',response.data.userLogged)
             window.location.href="#/home";
         })
         .catch(function (error) {
-            console.log("Error in login");
+            console.log("Error in login", error);
             alert("Usuario/Contraseña incorrecta")
         });
     }

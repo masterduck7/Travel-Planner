@@ -8,6 +8,9 @@ module.exports = {
             amount_paid: req.body.amount_paid,
             amount_not_paid: req.body.amount_not_paid,
             total_price: req.body.total_price,
+            badge_total_price: req.body.badge_total_price,
+            badge_amount_paid: req.body.badge_amount_paid,
+            badge_amount_not_paid: req.body.badge_amount_not_paid,
             cityID: req.body.cityID
         })
         .then(data => res.status(201).send(data))

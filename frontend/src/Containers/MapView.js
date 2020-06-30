@@ -10,6 +10,7 @@ export default class MapView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             user_id: localStorage.getItem('user_id'),
             countryCodes: [],
             countries: {},
@@ -20,43 +21,10 @@ export default class MapView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`http://127.0.0.1:8000/trips/`)
-            .then(res => {
-                if (!res.data["Error"]) {
-                    let visited_countries = {}
-                    let visited_cities = {}
-                    let countryCodes = []
-                    let total_countries = 0
-                    res.data.forEach(trip => {
-                        if (trip.user.toString() === this.state.user_id) {
-                            trip.cities.forEach(city => {
-                                if (!visited_cities[city.name]) {
-                                    visited_cities[city.name] = city.country
-                                }
-                                if (city.country) {
-                                    if (!countryCodes.includes(city.country)) {
-                                        countryCodes.push(city.country.toString())
-                                    }
-                                    if (!visited_countries[city.country]) {
-                                        visited_countries[city.country] = 10
-                                        total_countries = total_countries + 1  
-                                    }
-                                }
-                            });
-                        }
-                    });
-                    this.setState({
-                        countries: visited_countries,
-                        countryCodes: countryCodes,
-                        total_countries: total_countries,
-                        total_cities: Object.keys(visited_cities).length,
-                        percentaje_world: Number((total_countries/250).toFixed(2))
-                    })   
-                }else{
-                    console.log("Error in Get City Map data")
-                }
-            })
-        axios.get(`http://127.0.0.1:8000/cities/`)
+        axios.get(`http://travelplanner.lpsoftware.space/api/cities/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
             .then(res => {
                 if (!res.data["Error"]) {
                     let visited_countries = {}
@@ -64,7 +32,6 @@ export default class MapView extends Component {
                     let countryCodes = []
                     let total_countries = 0
                     res.data.forEach(city => {
-                        console.log(city.trip)
                         if (!visited_cities[city.name]) {
                             visited_cities[city.name] = city.country
                         }

@@ -9,6 +9,7 @@ export default class CostView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            token: localStorage.getItem('token'),
             number_flights: 0,
             number_cities: 0,
             number_hotels : 0,
@@ -23,8 +24,10 @@ export default class CostView extends Component {
     }
 
     componentDidMount(){
-
-        axios.get(`http://127.0.0.1:8000/trips/${this.props.match.params.tripID}/`)
+        axios.get(`http://travelplanner.lpsoftware.space/api/trips/${this.props.match.params.tripID}/`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
             .then(res => {
                 if (!res.data["Error"]) {
                     let selectedFlights = 0
@@ -37,7 +40,6 @@ export default class CostView extends Component {
                     let totalHotels_not_paid = 0
                     let totalActivities = 0
                     let totalActivities_not_paid = 0
-                    console.log(res.data)
                     res.data.flights.forEach(flight => {
                         selectedFlights = Number(selectedFlights) + Number(flight.price)
                         totalFlights = Number(totalFlights) + 1
@@ -54,8 +56,8 @@ export default class CostView extends Component {
                             totalActivities = Number(totalActivities) + Number(activity.total_price)
                             totalActivities_not_paid = Number(totalActivities_not_paid) + Number(activity.amount_not_paid)
                         });
-                        city.costs.forEach(cost => {
-                            totalCityCost = Number(totalCityCost) + Number(cost.total_price)
+                        city.citycosts.forEach(citycost => {
+                            totalCityCost = Number(totalCityCost) + Number(citycost.total_price)
                         });
                     });
                     this.setState({
