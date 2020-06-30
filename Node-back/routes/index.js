@@ -15,61 +15,61 @@ var AuthorizationController = require('../auth/controllers/authorization.control
 var ValidationMiddleware = require('../auth/validation/auth.validation.middleware')
 
 module.exports = (app) => {
-  app.get('/api', (req,res) => res.status(200).send({
+  app.get('/', (req,res) => res.status(200).send({
     message: 'Hello World'
   }))
   // Users Routes
-  app.get('/api/users', [ValidationMiddleware.validJWTNeeded, userController.findAll]);
-  app.get('/api/users/:id', [ValidationMiddleware.validJWTNeeded, userController.findOne]);
-  app.post('/api/users', [VerifyUserMiddleware.isSuperUser, userController.create]);
-  app.put('/api/users/:id', [ValidationMiddleware.validJWTNeeded, userController.update]);
-  app.delete('/api/users/:id', [ValidationMiddleware.validJWTNeeded, userController.delete]);
+  app.get('/users', [ValidationMiddleware.validJWTNeeded, userController.findAll]);
+  app.get('/users/:id', [ValidationMiddleware.validJWTNeeded, userController.findOne]);
+  app.post('/users', [VerifyUserMiddleware.isSuperUser, userController.create]);
+  app.put('/users/:id', [ValidationMiddleware.validJWTNeeded, userController.update]);
+  app.delete('/users/:id', [ValidationMiddleware.validJWTNeeded, userController.delete]);
 
   // Trips Routes
-  app.get('/api/trips', [ValidationMiddleware.validJWTNeeded, tripController.findAll]);
-  app.get('/api/trips/:id', [ValidationMiddleware.validJWTNeeded, tripController.findOne]);
-  app.post('/api/trips', [ValidationMiddleware.validJWTNeeded, tripController.create]);
-  app.put('/api/trips/:id', [ValidationMiddleware.validJWTNeeded, tripController.update]);
-  app.delete('/api/trips/:id', [ValidationMiddleware.validJWTNeeded, tripController.delete]);
+  app.get('/trips', [ValidationMiddleware.validJWTNeeded, tripController.findAll]);
+  app.get('/trips/:id', [ValidationMiddleware.validJWTNeeded, tripController.findOne]);
+  app.post('/trips', [ValidationMiddleware.validJWTNeeded, tripController.create]);
+  app.put('/trips/:id', [ValidationMiddleware.validJWTNeeded, tripController.update]);
+  app.delete('/trips/:id', [ValidationMiddleware.validJWTNeeded, tripController.delete]);
 
   // Flights Routes
-  app.get('/api/flights', [ValidationMiddleware.validJWTNeeded, flightController.findAll]);
-  app.get('/api/flights/:id', [ValidationMiddleware.validJWTNeeded, flightController.findOne]);
-  app.post('/api/flights', [ValidationMiddleware.validJWTNeeded, flightController.create]);
-  app.put('/api/flights/:id', [ValidationMiddleware.validJWTNeeded, flightController.update]);
-  app.delete('/api/flights/:id', [ValidationMiddleware.validJWTNeeded, flightController.delete]);
+  app.get('/flights', [ValidationMiddleware.validJWTNeeded, flightController.findAll]);
+  app.get('/flights/:id', [ValidationMiddleware.validJWTNeeded, flightController.findOne]);
+  app.post('/flights', [ValidationMiddleware.validJWTNeeded, flightController.create]);
+  app.put('/flights/:id', [ValidationMiddleware.validJWTNeeded, flightController.update]);
+  app.delete('/flights/:id', [ValidationMiddleware.validJWTNeeded, flightController.delete]);
 
   // Cities Routes
-  app.get('/api/cities', [ValidationMiddleware.validJWTNeeded, cityController.findAll]);
-  app.get('/api/cities/:id', [ValidationMiddleware.validJWTNeeded, cityController.findOne]);
-  app.post('/api/cities', [ValidationMiddleware.validJWTNeeded, cityController.create]);
-  app.put('/api/cities/:id', [ValidationMiddleware.validJWTNeeded, cityController.update]);
-  app.delete('/api/cities/:id', [ValidationMiddleware.validJWTNeeded, cityController.delete]);
+  app.get('/cities', [ValidationMiddleware.validJWTNeeded, cityController.findAll]);
+  app.get('/cities/:id', [ValidationMiddleware.validJWTNeeded, cityController.findOne]);
+  app.post('/cities', [ValidationMiddleware.validJWTNeeded, cityController.create]);
+  app.put('/cities/:id', [ValidationMiddleware.validJWTNeeded, cityController.update]);
+  app.delete('/cities/:id', [ValidationMiddleware.validJWTNeeded, cityController.delete]);
 
   // Costs Routes
-  app.get('/api/costs', [ValidationMiddleware.validJWTNeeded, costController.findAll]);
-  app.get('/api/costs/:id', [ValidationMiddleware.validJWTNeeded, costController.findOne]);
-  app.post('/api/costs', [ValidationMiddleware.validJWTNeeded, costController.create]);
-  app.put('/api/costs/:id', [ValidationMiddleware.validJWTNeeded, costController.update]);
-  app.delete('/api/costs/:id', [ValidationMiddleware.validJWTNeeded, costController.delete]);
+  app.get('/costs', [ValidationMiddleware.validJWTNeeded, costController.findAll]);
+  app.get('/costs/:id', [ValidationMiddleware.validJWTNeeded, costController.findOne]);
+  app.post('/costs', [ValidationMiddleware.validJWTNeeded, costController.create]);
+  app.put('/costs/:id', [ValidationMiddleware.validJWTNeeded, costController.update]);
+  app.delete('/costs/:id', [ValidationMiddleware.validJWTNeeded, costController.delete]);
 
   // Hotels Routes
-  app.get('/api/hotels', [ValidationMiddleware.validJWTNeeded, hotelController.findAll]);
-  app.get('/api/hotels/:id', [ValidationMiddleware.validJWTNeeded, hotelController.findOne]);
-  app.post('/api/hotels', [ValidationMiddleware.validJWTNeeded, hotelController.create]);
-  app.put('/api/hotels/:id', [ValidationMiddleware.validJWTNeeded, hotelController.update]);
-  app.delete('/api/hotels/:id', [ValidationMiddleware.validJWTNeeded, hotelController.delete]);
+  app.get('/hotels', [ValidationMiddleware.validJWTNeeded, hotelController.findAll]);
+  app.get('/hotels/:id', [ValidationMiddleware.validJWTNeeded, hotelController.findOne]);
+  app.post('/hotels', [ValidationMiddleware.validJWTNeeded, hotelController.create]);
+  app.put('/hotels/:id', [ValidationMiddleware.validJWTNeeded, hotelController.update]);
+  app.delete('/hotels/:id', [ValidationMiddleware.validJWTNeeded, hotelController.delete]);
 
   // Activities Routes
-  app.get('/api/activities', [ValidationMiddleware.validJWTNeeded, activityController.findAll]);
-  app.get('/api/activities/:id', [ValidationMiddleware.validJWTNeeded, activityController.findOne]);
-  app.post('/api/activities', [ValidationMiddleware.validJWTNeeded, activityController.create]);
-  app.put('/api/activities/:id', [ValidationMiddleware.validJWTNeeded, activityController.update]);
-  app.delete('/api/activities/:id', [ValidationMiddleware.validJWTNeeded, activityController.delete]);
+  app.get('/activities', [ValidationMiddleware.validJWTNeeded, activityController.findAll]);
+  app.get('/activities/:id', [ValidationMiddleware.validJWTNeeded, activityController.findOne]);
+  app.post('/activities', [ValidationMiddleware.validJWTNeeded, activityController.create]);
+  app.put('/activities/:id', [ValidationMiddleware.validJWTNeeded, activityController.update]);
+  app.delete('/activities/:id', [ValidationMiddleware.validJWTNeeded, activityController.delete]);
 
   // Auth
 
-  app.post('/api/auth', [
+  app.post('/auth', [
     VerifyUserMiddleware.hasAuthValidFields,
     VerifyUserMiddleware.isPasswordAndUserMatch,
     AuthorizationController.login

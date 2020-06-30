@@ -1,3 +1,4 @@
+var http = require('http');
 var createError = require('http-errors');
 var express = require('express');
 var logger = require('morgan');
@@ -25,12 +26,6 @@ models.sequelize.sync().then(function(){
 // Routes
 
 require('./routes')(app);
-app.get('*', (req,res) => res.status(200).send({
-  message: 'Welcome to Travel Planner'
-}))
-
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
-});
+http.createServer(app).listen(3000, () => { console.log('Server started listening on port ' + 3000); });
 
 module.exports = app;

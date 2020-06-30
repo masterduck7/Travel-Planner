@@ -1,5 +1,5 @@
 crypto = require('crypto')
-
+require('dotenv').config();
 'use strict';
 
 module.exports = {

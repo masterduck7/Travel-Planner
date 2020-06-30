@@ -1,4 +1,5 @@
 jwt = require('jsonwebtoken');
+require('dotenv').config();
 const jwtSecret = process.env.JWT_SECRET
 
 exports.validJWTNeeded = (req, res, next) => {
