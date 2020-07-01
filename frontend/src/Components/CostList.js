@@ -157,7 +157,12 @@ export default class CostList extends Component {
                 key: 'total_price',
                 defaultSortOrder: 'descend',
                 sorter: (a, b) => a.total_price - b.total_price,
-                sortDirections: ['ascend','descend']
+                sortDirections: ['ascend','descend'],
+                render: total_price => (
+                    <span>
+                        {this.state.badge_total_price} {total_price}
+                    </span>
+                )
             },
             {
                 title: <b>Accion</b>,

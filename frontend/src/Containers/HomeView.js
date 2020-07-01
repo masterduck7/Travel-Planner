@@ -25,7 +25,8 @@ export default class HomeView extends Component {
             total_activities : 0, 
             total_hotels : 0,
             total_flights : 0,
-            totalYear: 0
+            totalYear: 0,
+            badge_total_year: 'USD'
         }
     }
 
@@ -143,7 +144,7 @@ export default class HomeView extends Component {
                             <Statistic.Group style={{marginTop: 30}} size={"tiny"} widths='1' color="grey" >
                                 <Statistic>
                                     <Statistic.Value>
-                                        <Icon name='dollar sign' /> {this.state.totalYear}
+                                        {this.state.badge_total_year} {this.state.totalYear}
                                     </Statistic.Value>
                                     <br />
                                     <Statistic.Label>Total gastado este año</Statistic.Label>

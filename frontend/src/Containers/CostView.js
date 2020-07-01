@@ -14,11 +14,17 @@ export default class CostView extends Component {
             number_cities: 0,
             number_hotels : 0,
             number_activities : 0,
+            badge_flights: 'USD',
             flights_costs: 0,
+            badge_hotels: 'USD',
             hotels_costs: 0,
+            badge_activities: 'USD',
             activities_costs: 0,
+            badge_city_costs: 'USD',
             city_costs: 0,
+            badge_hotels_not_paid: 'USD',
             totalHotels_not_paid : 0,
+            badge_activities_not_paid: 'USD',
             totalActivities_not_paid : 0
         }
     }
@@ -104,7 +110,7 @@ export default class CostView extends Component {
                             </Statistic>
                             <Statistic>
                                 <Statistic.Value>
-                                    <Icon name='dollar sign' /> {this.state.flights_costs}
+                                    {this.state.flights_costs} {this.state.badge_flights}
                                 </Statistic.Value>
                                 <br />
                                 <Statistic.Label>Gastos en vuelos</Statistic.Label>
@@ -121,7 +127,7 @@ export default class CostView extends Component {
                             </Statistic>
                             <Statistic>
                                 <Statistic.Value>
-                                    <Icon name='dollar sign' /> {this.state.hotels_costs}
+                                    {this.state.hotels_costs} {this.state.badge_hotels}
                                 </Statistic.Value>
                                 <br />
                                 <Statistic.Label>Gastos en hotel</Statistic.Label>
@@ -138,7 +144,7 @@ export default class CostView extends Component {
                             </Statistic>
                             <Statistic>
                                 <Statistic.Value>
-                                    <Icon name='dollar sign' /> {this.state.activities_costs}
+                                    {this.state.activities_costs} {this.state.badge_activities}
                                 </Statistic.Value>
                                 <br />
                                 <Statistic.Label>Gastos en actividades</Statistic.Label>
@@ -150,7 +156,7 @@ export default class CostView extends Component {
                             </Statistic>
                             <Statistic>
                                 <Statistic.Value>
-                                    <Icon name='dollar sign' /> {this.state.city_costs}
+                                    {this.state.city_costs} {this.state.badge_city_costs}
                                 </Statistic.Value>
                                 <br />
                                 <Statistic.Label>Gastos extras</Statistic.Label>
@@ -163,7 +169,7 @@ export default class CostView extends Component {
                             <Statistic.Group size={"tiny"} widths='1' color="grey" >
                                 <Statistic>
                                     <Statistic.Value>
-                                        <Icon name='money' /> {this.state.totalHotels_not_paid}
+                                        <Icon name='money' />  {this.state.totalHotels_not_paid} {this.state.badge_hotels_not_paid}
                                     </Statistic.Value>
                                     <br />
                                     <Statistic.Label>Hotel Por pagar</Statistic.Label>
@@ -173,7 +179,7 @@ export default class CostView extends Component {
                             <Statistic.Group size={"tiny"} widths='1' color="grey" >
                                 <Statistic>
                                     <Statistic.Value>
-                                        <Icon name='money' /> {this.state.totalActivities_not_paid}
+                                        <Icon name='money' />  {this.state.totalActivities_not_paid} {this.state.badge_activities_not_paid}
                                     </Statistic.Value>
                                     <br />
                                     <Statistic.Label>Actividades Por pagar</Statistic.Label>

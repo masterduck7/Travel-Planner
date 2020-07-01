@@ -184,21 +184,36 @@ export default class ActivityList extends Component {
                 dataIndex: 'total_price',
                 key: 'total_price',
                 sorter: (a, b) => a.total_price - b.total_price,
-                sortDirections: ['ascend','descend']
+                sortDirections: ['ascend','descend'],
+                render: total_price => (
+                    <span>
+                        {this.state.badge_total_price} {total_price}
+                    </span>
+                )
             },
             {
                 title: <b>Precio pagado</b>,
                 dataIndex: 'amount_paid',
                 key: 'amount_paid',
                 sorter: (a, b) => a.amount_paid - b.amount_paid,
-                sortDirections: ['ascend','descend']
+                sortDirections: ['ascend','descend'],
+                render: amount_paid => (
+                    <span>
+                        {this.state.badge_amount_paid} {amount_paid}
+                    </span>
+                )
             },
             {
                 title: <b>Precio por pagar</b>,
                 dataIndex: 'amount_not_paid',
                 key: 'amount_not_paid',
                 sorter: (a, b) => a.amount_not_paid - b.amount_not_paid,
-                sortDirections: ['ascend','descend']
+                sortDirections: ['ascend','descend'],
+                render: amount_not_paid => (
+                    <span>
+                        {this.state.badge_amount_not_paid} {amount_not_paid}
+                    </span>
+                )
             },
             {
                 title: <b>Accion</b>,
