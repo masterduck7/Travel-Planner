@@ -9,6 +9,7 @@ export default class Register extends Component {
         super(props)
         this.state = {
             token: localStorage.getItem('token'),
+            userLogged: localStorage.getItem('user_logged'),
             username: "",
             password: "",
             email: "",
@@ -25,9 +26,10 @@ export default class Register extends Component {
             "email": this.state.email,
             "country": this.state.country,
             "visitedCountries": this.state.visitedCountries,
+            "userLogged": this.state.userLogged,
             "permissionLevel": 1
         }
-        axios.post(`http://travelplanner.lpsoftware.space/api/users/`, postObj,{
+        axios.post(`http://travelplanner.lpsoftware.space/api/users`, postObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -35,10 +37,10 @@ export default class Register extends Component {
             window.location.href="#/login";
         })
         .catch(function (error) {
-            console.log("Error in login");
+            console.log("Error in login ",error);
             alert("Este usuario ya existe")
-            window.location.reload();
-          });
+            //window.location.reload();
+        });
     }
 
     render() {

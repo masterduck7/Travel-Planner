@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import NavBar from '../Components/NavBar'
+import { Button } from 'semantic-ui-react'
+import {Link} from 'react-router-dom';
+import NavBar from '../Components/NavBar';
 
 export default class AdminView extends Component {
 
@@ -15,7 +17,22 @@ export default class AdminView extends Component {
         return  (
             <div>
                 <NavBar/>
-                <h1>Hola admin</h1>
+                <h1 style={{ textAlign:'center', marginTop:"60px"}}>Hola admin</h1>
+                <Button.Group style={{marginLeft: "1%", marginTop: "20px", marginBottom: "1%"}} size={"medium"}>
+                    <Link to={`/register`}>
+                        <Button primary>
+                            Agregar usuario
+                        </Button>
+                    </Link>
+                    <Button primary onClick={()=>alert('Not implemented')}>
+                        Obtener datos de todos los usuarios
+                    </Button>
+                    <Link to={`/admin_users`}>
+                        <Button primary>
+                            Administrar usuarios
+                        </Button>
+                    </Link>
+                </Button.Group>
             </div>
         )
     }
