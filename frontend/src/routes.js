@@ -20,6 +20,7 @@ import CalendarView from './Containers/CalendarView';
 import LoginView from './Containers/LoginView';
 import RegisterView from './Containers/RegisterView';
 import LayoutView from './Containers/LayoutView';
+import AdminView from './Containers/AdminView';
 
 const BaseRouter = () => (
     <div>
@@ -28,6 +29,7 @@ const BaseRouter = () => (
                 <Route exact path='/' component={LayoutView} />
                 <Route exact path='/login' component={LoginView} />
                 <Route exact path='/register' component={RegisterView} />
+                <PrivateRoutes exact path='/admin' component={props => <AdminView {...props}/>} />
                 <PrivateRoutes exact path='/home' component={props => <HomeView {...props}/>} />
                 <PrivateRoutes exact path='/map' component={props => <MapView {...props}/>} />
                 <PrivateRoutes exact path='/calendar' component={props => <CalendarView {...props}/>} />
