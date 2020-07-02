@@ -23,6 +23,7 @@ import RegisterView from '../Containers/RegisterView';
 import LayoutView from '../Containers/LayoutView';
 import AdminView from '../Containers/AdminView';
 import AdminUsersView from '../Containers/AdminUsersView';
+import NoPermissionView from '../Containers/NoPermissionView';
 
 const BaseRouter = () => (
     <div>
@@ -30,6 +31,7 @@ const BaseRouter = () => (
             <Switch>
                 <Route exact path='/' component={LayoutView} />
                 <Route exact path='/login' component={LoginView} />
+                <Route exact path='/blocked' component={NoPermissionView} />
                 <AdminRoutes exact path='/register' component={RegisterView} />
                 <AdminRoutes exact path='/admin' component={props => <AdminView {...props}/>} />
                 <AdminRoutes exact path='/admin_users' component={props => <AdminUsersView {...props}/>} />
