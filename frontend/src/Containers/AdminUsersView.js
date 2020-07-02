@@ -33,7 +33,6 @@ export default class AdminUsersView extends Component {
         return  (
             <div>
                 <NavBar/>
-                <h1 style={{ textAlign:'center', marginTop:"60px"}}>Administrar usuarios</h1>
                 <UserList data={{ users: this.state.users }}/>
             </div>
         )

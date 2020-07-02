@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Input, Row, Table } from 'antd';
-import { Button } from 'semantic-ui-react'
+import { Button, Icon } from 'semantic-ui-react'
 import { Modal } from 'react-responsive-modal';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 import 'react-responsive-modal/styles.css';
 import '../Assets/styles.css'
@@ -345,6 +346,16 @@ export default class UserList extends Component {
                         </Button>
                     </center></p>
                 </Modal>
+                <Link to={`/admin`}>
+                    <Button negative style={{marginLeft: "1%", marginTop: "60px", marginBottom: "1%"}}>
+                        <Icon name="angle left" />
+                        Volver
+                    </Button>
+                </Link>
+                <h1 style={{ marginTop: -20, textAlign:"center" }}>
+                    Administrar usuarios
+                </h1>
+                <br />
                 <Row>
                     <Button primary size={'small'} style={{ position:"absolute" ,right: "1%", top: "-22px"}} onClick={(e)=> this.onOpenModalCreate(e)}>
                         Agregar usuario
