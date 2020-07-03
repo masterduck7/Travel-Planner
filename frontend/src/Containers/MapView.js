@@ -12,6 +12,7 @@ export default class MapView extends Component {
         this.state = {
             token: localStorage.getItem('token'),
             user_id: localStorage.getItem('user_id'),
+            permissionLevel: false,
             countryCodes: [],
             countries: {},
             total_countries: 0,
@@ -21,7 +22,23 @@ export default class MapView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`http://travelplanner.lpsoftware.space/api/cities/`,{
+        axios.get(`http://travelplanner.lpsoftware.space/api/users/${this.state.user_id}`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
+            .then(res => {
+                if (!res.data["Error"]) {
+                    if (res.data.permissionLevel === 10) {
+                        this.setState({
+                            permissionLevel: true
+                        })
+                    }
+                }
+            })
+            .catch(error => {
+                console.log("Error in get user data, ", error)
+            })
+        axios.get(`http://travelplanner.lpsoftware.space/api/trips/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -31,18 +48,40 @@ export default class MapView extends Component {
                     let visited_cities = {}
                     let countryCodes = []
                     let total_countries = 0
-                    res.data.forEach(city => {
-                        if (!visited_cities[city.name]) {
-                            visited_cities[city.name] = city.country
-                        }
-                        if (city.country) {
-                            if (!countryCodes.includes(city.country)) {
-                                countryCodes.push(city.country.toString())
-                            }
-                            if (!visited_countries[city.country]) {
-                                visited_countries[city.country] = 10
-                                total_countries = total_countries + 1  
-                            }
+                    if (this.state.permissionLevel){
+                        res.data.forEach(trip => {
+                            trip.cities.forEach(city => {
+                                if (!visited_cities[city.name]) {
+                                    visited_cities[city.name] = city.country
+                                }
+                                if (city.country) {
+                                    if (!countryCodes.includes(city.country)) {
+                                        countryCodes.push(city.country.toString())
+                                    }
+                                    if (!visited_countries[city.country]) {
+                                        visited_countries[city.country] = 10
+                                        total_countries = total_countries + 1  
+                                    }
+                                }
+                            })
+                        })
+                    }
+                    res.data.forEach(trip => {
+                        if (Number(trip.userID) === Number(this.state.user_id)) {
+                            trip.cities.forEach(city => {
+                                if (!visited_cities[city.name]) {
+                                    visited_cities[city.name] = city.country
+                                }
+                                if (city.country) {
+                                    if (!countryCodes.includes(city.country)) {
+                                        countryCodes.push(city.country.toString())
+                                    }
+                                    if (!visited_countries[city.country]) {
+                                        visited_countries[city.country] = 10
+                                        total_countries = total_countries + 1  
+                                    }
+                                }
+                            })
                         }
                     });
                     this.setState({

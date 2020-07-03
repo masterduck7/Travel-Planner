@@ -57,7 +57,7 @@ export default class NavBar extends Component{
                             <Nav className="ml-auto">
                                 <Nav.Link style={{color:"#f5f5f5"}} href="#/home">Inicio</Nav.Link>
                                 <Nav.Link style={{color:"#f5f5f5"}} href="#/admin">Administración</Nav.Link>
-                                <Nav.Link style={{color:"#f5f5f5"}} href="#/map">Progreso</Nav.Link>
+                                <Nav.Link style={{color:"#f5f5f5"}} href="#/map">Progreso General</Nav.Link>
                                 <Nav.Link style={{color:"#f5f5f5"}} href="#/trips">Mis viajes</Nav.Link>
                                 <Nav.Link style={{color:"#f5f5f5"}} href="#/calendar">Calendario</Nav.Link>
                                 <Nav.Link style={{color:"#f5f5f5"}} href="#/statistics">Estadisticas</Nav.Link>

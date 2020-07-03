@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Table } from 'antd';
 import { Button, Icon, Flag, Statistic, Tab } from 'semantic-ui-react';
 import NavBar from '../Components/NavBar';
+import Nodata from '../Assets/Icons/Nodata.png'
 
 const { getNameList } = require('country-list');
 
@@ -17,6 +18,7 @@ export default class AdminView extends Component {
             user_id: localStorage.getItem('user_id'),
             userLogged: localStorage.getItem('user_logged'),
             country_list: getNameList(),
+            data: false,
             totalActivitiesAllTrips : 0,
             avgTotalFlights: 0,
             avgTotalHotels: 0,
@@ -186,6 +188,7 @@ export default class AdminView extends Component {
                     }
 
                     this.setState({
+                        data: true,
                         yearData: arrayYearData,
                         flights: flights,
                         number_flights: flights.length,
@@ -401,53 +404,74 @@ export default class AdminView extends Component {
             },
         ]
 
-        return  (
-            <div>
-                <NavBar/>
-                <div style={{marginLeft: "1%", marginTop: "60px", marginBottom: "1%"}} >
-                    <Button primary onClick={()=>this.getData()}>
-                        Get summary data
-                    </Button>
-                    <Link to={`/admin_users`}>
-                        <Button style={{marginLeft: "0.5%"}} primary>
-                            Admin users
+        if(this.state.data){
+            console.log(this.state.data)
+            return  (
+                <div>
+                    <NavBar/>
+                    <div style={{marginLeft: "1%", marginTop: "60px", marginBottom: "1%"}} >
+                        <Button primary onClick={()=>this.getData()}>
+                            Get summary data
                         </Button>
-                    </Link>
-                    <Statistic.Group style={{marginTop:'60px'}} size={"tiny"} widths='four' color="grey" >
-                        <Statistic>
-                            <Statistic.Value>
-                                <Icon name='dollar sign' /> {this.state.avgTotalFlights}
-                            </Statistic.Value>
-                            <br />
-                            <Statistic.Label>Promedio vuelo</Statistic.Label>
-                        </Statistic>
-                        <Statistic>
-                            <Statistic.Value>
-                                <Icon name='dollar sign' /> {this.state.avgTotalHotels}
-                            </Statistic.Value>
-                            <br />
-                            <Statistic.Label>Promedio noche de hotel</Statistic.Label>
-                        </Statistic>
-                        <Statistic>
-                            <Statistic.Value>
-                                <Icon name='dollar sign' /> {this.state.avgTotalActivities}
-                            </Statistic.Value>
-                            <br />
-                            <Statistic.Label>Promedio actividad</Statistic.Label>
-                        </Statistic>
-                        <Statistic>
-                            <Statistic.Value>
-                                <Icon name='dollar sign' /> {this.state.avgTotalCityCosts}
-                            </Statistic.Value>
-                            <br />
-                            <Statistic.Label>Promedio gastos ciudad</Statistic.Label>
-                        </Statistic>
-                    </Statistic.Group>
-                    <br />
-                    <br />
-                    <Tab panes={panes} menu={{ secondary: true, borderless: true }} ></Tab>
+                        <Link to={`/admin_users`}>
+                            <Button style={{marginLeft: "0.5%"}} primary>
+                                Admin users
+                            </Button>
+                        </Link>
+                        <Statistic.Group style={{marginTop:'60px'}} size={"tiny"} widths='four' color="grey" >
+                            <Statistic>
+                                <Statistic.Value>
+                                    <Icon name='dollar sign' /> {this.state.avgTotalFlights}
+                                </Statistic.Value>
+                                <br />
+                                <Statistic.Label>Promedio vuelo</Statistic.Label>
+                            </Statistic>
+                            <Statistic>
+                                <Statistic.Value>
+                                    <Icon name='dollar sign' /> {this.state.avgTotalHotels}
+                                </Statistic.Value>
+                                <br />
+                                <Statistic.Label>Promedio noche de hotel</Statistic.Label>
+                            </Statistic>
+                            <Statistic>
+                                <Statistic.Value>
+                                    <Icon name='dollar sign' /> {this.state.avgTotalActivities}
+                                </Statistic.Value>
+                                <br />
+                                <Statistic.Label>Promedio actividad</Statistic.Label>
+                            </Statistic>
+                            <Statistic>
+                                <Statistic.Value>
+                                    <Icon name='dollar sign' /> {this.state.avgTotalCityCosts}
+                                </Statistic.Value>
+                                <br />
+                                <Statistic.Label>Promedio gastos ciudad</Statistic.Label>
+                            </Statistic>
+                        </Statistic.Group>
+                        <br />
+                        <br />
+                        <Tab panes={panes} menu={{ secondary: true, borderless: true }} ></Tab>
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        }else{
+            return  (
+                <div>
+                    <NavBar/>
+                    <div style={{marginLeft: "1%", marginTop: "60px", marginBottom: "1%"}} >
+                        <Button primary onClick={()=>this.getData()}>
+                            Get summary data
+                        </Button>
+                        <Link to={`/admin_users`}>
+                            <Button style={{marginLeft: "0.5%"}} primary>
+                                Admin users
+                            </Button>
+                        </Link>
+                        <img alt="" src={Nodata} style={{display:'block', marginLeft:'auto', marginRight: 'auto', marginTop: '10%'}} height="auto" width='400px' />
+                        <h3 style={{textAlign: 'center', marginTop: '50px'}} >Press Get Data Summary</h3>
+                    </div>
+                </div>
+            )
+        }
     }
 };

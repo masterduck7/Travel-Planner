@@ -7,8 +7,8 @@ export default class NoPermissionView extends Component {
     render() {
         return  (
             <div>
-                <Link to={`/admin`}>
-                    <Button negative style={{marginLeft: "1%", marginTop: "60px", marginBottom: "1%"}}>
+                <Link to={`/home`}>
+                    <Button negative style={{marginLeft: "1%", marginTop: "20px", marginBottom: "1%"}}>
                         <Icon name="angle left" />
                         Volver
                     </Button>
