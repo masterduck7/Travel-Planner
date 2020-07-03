@@ -1,6 +1,6 @@
 /**
  *
- * PrivateRoutes
+ * AdminRoutes
  *
  */
 import React from 'react';
@@ -8,16 +8,16 @@ import { Redirect, Route } from 'react-router-dom';
 
 // Utils
 
-const PrivateRoutes = ({ component: Component, ...rest }) => {  
+const AdminRoutes = ({ component: Component, ...rest }) => {  
   var session_token=localStorage.getItem('token')
-
+  var user_logged=localStorage.getItem('user_logged')
   return (
     <Route {...rest} render={props => (
-        session_token !== null ? (
+        (session_token !== null && user_logged === 'admin') ? (
         < Component  {...props} />
         ) : (
             <Redirect to={{
-                pathname: '/login',
+                pathname: '/blocked',
                 state: { from: props.location }
             }}/>
             )
@@ -27,4 +27,4 @@ const PrivateRoutes = ({ component: Component, ...rest }) => {
 };
 
 
-export default PrivateRoutes;
+export default AdminRoutes;

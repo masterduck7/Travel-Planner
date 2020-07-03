@@ -217,7 +217,12 @@ export default class FlightList extends Component {
                 dataIndex: 'price',
                 key: 'price',
                 sorter: (a, b) => a.price - b.price,
-                sortDirections: ['ascend','descend']
+                sortDirections: ['ascend','descend'],
+                render: price => (
+                    <span>
+                        {this.state.badge_price} {price}
+                    </span>
+                )
             },
             {
                 title: <b>Acción</b>,

@@ -25,19 +25,21 @@ module.exports = {
         .catch(error => res.status(400).send(error))
     },
     findAll(req, res){
-        User.findAll({include: [{model: Trip, as: 'trips', 
-        include: [{model: Flight, as: 'flights'},
-        {model: City, as: 'cities', include: [{model: Hotel, as: 'hotels'},
-        {model: Activity, as: 'activities'},{model: Cost, as: 'citycosts'}]}]}]})
+        // User.findAll({include: [{model: Trip, as: 'trips', 
+        // include: [{model: Flight, as: 'flights'},
+        // {model: City, as: 'cities', include: [{model: Hotel, as: 'hotels'},
+        // {model: Activity, as: 'activities'},{model: Cost, as: 'citycosts'}]}]}]})
+        User.findAll()
         .then(users => res.status(200).json(users))
         .catch(error => res.status(400).send(error))
     },
     findOne(req, res){
         const id = req.params.id;
-        User.findByPk(id, {include: [{model: Trip, as: 'trips', 
-        include: [{model: Flight, as: 'flights'},
-        {model: City, as: 'cities', include: [{model: Hotel, as: 'hotels'},
-        {model: Activity, as: 'activities'},{model: Cost, as: 'citycosts'}]}]}]})
+        // User.findByPk(id, {include: [{model: Trip, as: 'trips', 
+        // include: [{model: Flight, as: 'flights'},
+        // {model: City, as: 'cities', include: [{model: Hotel, as: 'hotels'},
+        // {model: Activity, as: 'activities'},{model: Cost, as: 'citycosts'}]}]}]})
+        User.findByPk(id)
         .then(data => res.status(200).json(data))
         .catch(error => res.status(500).send(error))
     },

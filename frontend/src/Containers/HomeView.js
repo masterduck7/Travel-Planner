@@ -13,6 +13,7 @@ export default class HomeView extends Component {
         this.state = {
             token: localStorage.getItem('token'),
             user_id: localStorage.getItem('user_id'),
+            user_logged: localStorage.getItem('user_logged'),
             nextTrips : [],
             number_countries: 0,
             number_trips : 0,
@@ -24,7 +25,8 @@ export default class HomeView extends Component {
             total_activities : 0, 
             total_hotels : 0,
             total_flights : 0,
-            totalYear: 0
+            totalYear: 0,
+            badge_total_year: 'USD'
         }
     }
 
@@ -137,11 +139,12 @@ export default class HomeView extends Component {
                 <NavBar/>
                 <Grid style={{margin: "1%", marginTop: "60px"}} columns={2} divided >
                     <Grid.Row>
-                        <Grid.Column style={{marginTop: "7%"}} mobile={16} tablet={8} computer={8}>
-                            <Statistic.Group size={"tiny"} widths='1' color="grey" >
+                        <Grid.Column mobile={16} tablet={8} computer={8}>
+                            <h1 style={{textAlign: 'center', marginTop: 20}}>Bienvenido {this.state.user_logged}</h1>
+                            <Statistic.Group style={{marginTop: 30}} size={"tiny"} widths='1' color="grey" >
                                 <Statistic>
                                     <Statistic.Value>
-                                        <Icon name='dollar sign' /> {this.state.totalYear}
+                                        {this.state.badge_total_year} {this.state.totalYear}
                                     </Statistic.Value>
                                     <br />
                                     <Statistic.Label>Total gastado este año</Statistic.Label>

@@ -1,19 +1,38 @@
 import React, { Component } from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
+import axios from 'axios';
 
 export default class NavBar extends Component{
     constructor(props){
         super(props)
         this.state={
-            isLogged : false
+            isLogged : false,
+            permissionLevel: false
         }
     }
 
     componentDidMount(){
         const token = window.localStorage.getItem('token')
-        if (token !== null) {
+        const user_id = window.localStorage.getItem('user_id')
+        if (token !== null && user_id !== null) {
             this.setState({
                 isLogged: true
+            })
+            axios.get(`http://travelplanner.lpsoftware.space/api/users/${user_id}`,{
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }})
+            .then(res => {
+                if (!res.data["Error"]) {
+                    if (res.data.permissionLevel === 10) {
+                        this.setState({
+                            permissionLevel: true
+                        })
+                    }
+                }
+            })
+            .catch(error => {
+                console.log("Error in get user data, ", error)
             })
         }
     }
@@ -29,23 +48,44 @@ export default class NavBar extends Component{
     
     render(){
         if (this.state.isLogged) {
-            return(
-                <Navbar fixed="top" collapseOnSelect expand="lg" style={{backgroundColor: 'gray'}}>
-                    <Navbar.Brand style={{color:"white"}} href="#/home">LPSoftware</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="ml-auto">
-                            <Nav.Link style={{color:"#f5f5f5"}} href="#/home">Inicio</Nav.Link>
-                            <Nav.Link style={{color:"#f5f5f5"}} href="#/map">Progreso</Nav.Link>
-                            <Nav.Link style={{color:"#f5f5f5"}} href="#/trips">Mis viajes</Nav.Link>
-                            <Nav.Link style={{color:"#f5f5f5"}} href="#/calendar">Calendario</Nav.Link>
-                            <Nav.Link style={{color:"#f5f5f5"}} href="#/statistics">Estadisticas</Nav.Link>
-                            <Nav.Link style={{color:"#f5f5f5"}} href="#/skyscanner">SkyScanner</Nav.Link>
-                            <Nav.Link style={{color:"#f5f5f5"}} onClick={(e)=>this.logout()}>Logout</Nav.Link>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Navbar>
-            )
+            if (this.state.permissionLevel) {
+                return(
+                    <Navbar fixed="top" collapseOnSelect expand="lg" style={{backgroundColor: 'gray'}}>
+                        <Navbar.Brand style={{color:"white"}} href="#/home">LPSoftware</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                        <Navbar.Collapse id="responsive-navbar-nav">
+                            <Nav className="ml-auto">
+                                <Nav.Link style={{color:"#f5f5f5"}} href="#/home">Inicio</Nav.Link>
+                                <Nav.Link style={{color:"#f5f5f5"}} href="#/admin">Administración</Nav.Link>
+                                <Nav.Link style={{color:"#f5f5f5"}} href="#/map">Progreso General</Nav.Link>
+                                <Nav.Link style={{color:"#f5f5f5"}} href="#/trips">Mis viajes</Nav.Link>
+                                <Nav.Link style={{color:"#f5f5f5"}} href="#/calendar">Calendario</Nav.Link>
+                                <Nav.Link style={{color:"#f5f5f5"}} href="#/statistics">Estadisticas</Nav.Link>
+                                <Nav.Link style={{color:"#f5f5f5"}} href="#/skyscanner">SkyScanner</Nav.Link>
+                                <Nav.Link style={{color:"#f5f5f5"}} onClick={(e)=>this.logout()}>Logout</Nav.Link>
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Navbar>
+                )
+            } else {
+                return(
+                    <Navbar fixed="top" collapseOnSelect expand="lg" style={{backgroundColor: 'gray'}}>
+                        <Navbar.Brand style={{color:"white"}} href="#/home">LPSoftware</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                        <Navbar.Collapse id="responsive-navbar-nav">
+                            <Nav className="ml-auto">
+                                <Nav.Link style={{color:"#f5f5f5"}} href="#/home">Inicio</Nav.Link>
+                                <Nav.Link style={{color:"#f5f5f5"}} href="#/map">Progreso</Nav.Link>
+                                <Nav.Link style={{color:"#f5f5f5"}} href="#/trips">Mis viajes</Nav.Link>
+                                <Nav.Link style={{color:"#f5f5f5"}} href="#/calendar">Calendario</Nav.Link>
+                                <Nav.Link style={{color:"#f5f5f5"}} href="#/statistics">Estadisticas</Nav.Link>
+                                <Nav.Link style={{color:"#f5f5f5"}} href="#/skyscanner">SkyScanner</Nav.Link>
+                                <Nav.Link style={{color:"#f5f5f5"}} onClick={(e)=>this.logout()}>Logout</Nav.Link>
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Navbar>
+                )
+            }
         }else{
             return(
                 <Navbar fixed="top" collapseOnSelect expand="lg" style={{backgroundColor: 'gray'}}>

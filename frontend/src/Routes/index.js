@@ -1,25 +1,29 @@
 import React from 'react';
 import { HashRouter, Route,Switch } from 'react-router-dom';
-import PrivateRoutes from './PrivateRoutes'
-import HomeView from './Containers/HomeView';
-import TripListView from './Containers/TripListView';
-import TripDetailView from './Containers/TripDetailView';
-import FlightListView from './Containers/FlightListView';
-import HotelListView from './Containers/HotelListView';
-import CityListView from './Containers/CityListView';
-import ActivityListView from './Containers/ActivityListView';
-import CityCostView from './Containers/CityCostsView';
-import CostView from './Containers/CostView';
-import MapView from './Containers/MapView';
-import StatisticsView from './Containers/StatisticsView';
-import SkyScannerView from './Containers/SkyScannerView';
-import TripListPastView from './Containers/TripListPastView';
-import TripListFutureView from './Containers/TripListFutureView';
-import TripListCancelledView from './Containers/TripListCancelledView';
-import CalendarView from './Containers/CalendarView';
-import LoginView from './Containers/LoginView';
-import RegisterView from './Containers/RegisterView';
-import LayoutView from './Containers/LayoutView';
+import PrivateRoutes from './PrivateRoutes';
+import AdminRoutes from './AdminRoutes';
+import HomeView from '../Containers/HomeView';
+import TripListView from '../Containers/TripListView';
+import TripDetailView from '../Containers/TripDetailView';
+import FlightListView from '../Containers/FlightListView';
+import HotelListView from '../Containers/HotelListView';
+import CityListView from '../Containers/CityListView';
+import ActivityListView from '../Containers/ActivityListView';
+import CityCostView from '../Containers/CityCostsView';
+import CostView from '../Containers/CostView';
+import MapView from '../Containers/MapView';
+import StatisticsView from '../Containers/StatisticsView';
+import SkyScannerView from '../Containers/SkyScannerView';
+import TripListPastView from '../Containers/TripListPastView';
+import TripListFutureView from '../Containers/TripListFutureView';
+import TripListCancelledView from '../Containers/TripListCancelledView';
+import CalendarView from '../Containers/CalendarView';
+import LoginView from '../Containers/LoginView';
+import RegisterView from '../Containers/RegisterView';
+import LayoutView from '../Containers/LayoutView';
+import AdminView from '../Containers/AdminView';
+import AdminUsersView from '../Containers/AdminUsersView';
+import NoPermissionView from '../Containers/NoPermissionView';
 
 const BaseRouter = () => (
     <div>
@@ -27,7 +31,10 @@ const BaseRouter = () => (
             <Switch>
                 <Route exact path='/' component={LayoutView} />
                 <Route exact path='/login' component={LoginView} />
-                <Route exact path='/register' component={RegisterView} />
+                <Route exact path='/blocked' component={NoPermissionView} />
+                <AdminRoutes exact path='/register' component={RegisterView} />
+                <AdminRoutes exact path='/admin' component={props => <AdminView {...props}/>} />
+                <AdminRoutes exact path='/admin_users' component={props => <AdminUsersView {...props}/>} />
                 <PrivateRoutes exact path='/home' component={props => <HomeView {...props}/>} />
                 <PrivateRoutes exact path='/map' component={props => <MapView {...props}/>} />
                 <PrivateRoutes exact path='/calendar' component={props => <CalendarView {...props}/>} />
