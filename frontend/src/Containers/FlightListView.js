@@ -13,7 +13,7 @@ export default class FlightListView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`http://travelplanner.lpsoftware.space/api/flights/`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/flights/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

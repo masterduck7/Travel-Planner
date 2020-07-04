@@ -58,7 +58,7 @@ export default class HotelList extends Component {
             badge_amount_paid: this.state.badge_amount_paid,
             badge_amount_not_paid: this.state.badge_amount_not_paid
         }
-        axios.post(`http://travelplanner.lpsoftware.space/api/hotels/`, postObj,{
+        axios.post(`https://travelplanner.lpsoftware.space/api/hotels/`, postObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -107,7 +107,7 @@ export default class HotelList extends Component {
             badge_amount_paid: this.state.badge_amount_paid,
             badge_amount_not_paid: this.state.badge_amount_not_paid
         }
-        axios.put(`http://travelplanner.lpsoftware.space/api/hotels/${hotelID}/`, hotelObj,{
+        axios.put(`https://travelplanner.lpsoftware.space/api/hotels/${hotelID}/`, hotelObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -135,7 +135,7 @@ export default class HotelList extends Component {
     onClickRemove = (event) => {
         event.preventDefault();
         const hotelID = this.state.hotel_id
-        axios.delete(`http://travelplanner.lpsoftware.space/api/hotels/${hotelID}/`,{
+        axios.delete(`https://travelplanner.lpsoftware.space/api/hotels/${hotelID}/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

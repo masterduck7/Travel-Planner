@@ -41,7 +41,7 @@ export default class CostList extends Component {
             total_price: event.target.total_price.value,
             badge_total_price: this.state.badge_total_price
         }
-        axios.post(`http://travelplanner.lpsoftware.space/api/costs/`, postObj,{
+        axios.post(`https://travelplanner.lpsoftware.space/api/costs/`, postObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -76,7 +76,7 @@ export default class CostList extends Component {
             total_price: this.state.total_price,
             badge_total_price: this.state.badge_total_price
         }
-        axios.put(`http://travelplanner.lpsoftware.space/api/costs/${costID}/`, costObj,{
+        axios.put(`https://travelplanner.lpsoftware.space/api/costs/${costID}/`, costObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -104,7 +104,7 @@ export default class CostList extends Component {
     onClickRemove = (event) => {
         event.preventDefault();
         const costID = this.state.cost_id
-        axios.delete(`http://travelplanner.lpsoftware.space/api/costs/${costID}/`,{
+        axios.delete(`https://travelplanner.lpsoftware.space/api/costs/${costID}/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

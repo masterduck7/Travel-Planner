@@ -13,7 +13,7 @@ export default class AdminUsersView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`http://travelplanner.lpsoftware.space/api/users/`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/users/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

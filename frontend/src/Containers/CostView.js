@@ -30,7 +30,7 @@ export default class CostView extends Component {
     }
 
     componentDidMount(){
-        axios.get(`http://travelplanner.lpsoftware.space/api/trips/${this.props.match.params.tripID}/`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/trips/${this.props.match.params.tripID}/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

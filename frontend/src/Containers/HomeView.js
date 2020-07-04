@@ -32,7 +32,7 @@ export default class HomeView extends Component {
 
     componentDidMount(){
         // GET THIS YEAR TRIP DETAILS
-        axios.get(`http://travelplanner.lpsoftware.space/api/trips/`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/trips/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

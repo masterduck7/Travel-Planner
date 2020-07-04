@@ -13,7 +13,7 @@ export default class HotelListView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`http://travelplanner.lpsoftware.space/api/hotels/`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/hotels/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

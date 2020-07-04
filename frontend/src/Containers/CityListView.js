@@ -13,7 +13,7 @@ export default class CityListView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`http://travelplanner.lpsoftware.space/api/cities/`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/cities/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

@@ -54,7 +54,7 @@ export default class TripDetail extends Component {
             start_date: this.state.start_date,
             end_date: this.state.end_date
         }
-        axios.put(`http://travelplanner.lpsoftware.space/api/trips/${tripID}/`, tripObj,{
+        axios.put(`https://travelplanner.lpsoftware.space/api/trips/${tripID}/`, tripObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -78,7 +78,7 @@ export default class TripDetail extends Component {
     onClickRemove = event => {
         event.preventDefault();
         const tripID = this.props.trip.id
-        axios.delete(`http://travelplanner.lpsoftware.space/api/trips/${tripID}/`,{
+        axios.delete(`https://travelplanner.lpsoftware.space/api/trips/${tripID}/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

@@ -22,7 +22,7 @@ export default class MapView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`http://travelplanner.lpsoftware.space/api/users/${this.state.user_id}`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/users/${this.state.user_id}`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -38,7 +38,7 @@ export default class MapView extends Component {
             .catch(error => {
                 console.log("Error in get user data, ", error)
             })
-        axios.get(`http://travelplanner.lpsoftware.space/api/trips/`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/trips/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

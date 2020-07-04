@@ -14,7 +14,7 @@ export default class TripListPastView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`http://travelplanner.lpsoftware.space/api/trips_status/Cancelled`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/trips_status/Cancelled`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

@@ -36,7 +36,7 @@ export default class StatisticsView extends Component {
 
     componentDidMount(){
         // GET YEAR DETAILS
-        axios.get(`http://travelplanner.lpsoftware.space/api/trips/`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/trips/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
