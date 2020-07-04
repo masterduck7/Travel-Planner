@@ -45,7 +45,7 @@ export default class TripList extends Component {
             status: this.state.status,
             planning_file: event.target.planning_file.value
         }
-        axios.post(`http://travelplanner.lpsoftware.space/api/trips/`, postObj,{
+        axios.post(`https://travelplanner.lpsoftware.space/api/trips/`, postObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

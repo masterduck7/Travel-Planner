@@ -18,7 +18,7 @@ export default class NavBar extends Component{
             this.setState({
                 isLogged: true
             })
-            axios.get(`http://travelplanner.lpsoftware.space/api/users/${user_id}`,{
+            axios.get(`https://travelplanner.lpsoftware.space/api/users/${user_id}`,{
             headers: {
               'Authorization': `Bearer ${token}`
             }})

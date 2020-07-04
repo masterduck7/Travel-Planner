@@ -21,6 +21,7 @@ module.exports = (app) => {
   // Users Routes
   app.get('/users', [ValidationMiddleware.validJWTNeeded, userController.findAll]);
   app.get('/users/:id', [ValidationMiddleware.validJWTNeeded, userController.findOne]);
+  app.get('/users_complete', [ValidationMiddleware.validJWTNeeded, userController.findAllData]);
   app.post('/users', [ValidationMiddleware.validJWTNeeded, VerifyUserMiddleware.isSuperUser, userController.create]);
   app.put('/users/:id', [ValidationMiddleware.validJWTNeeded, userController.update]);
   app.delete('/users/:id', [ValidationMiddleware.validJWTNeeded, userController.delete]);
@@ -28,6 +29,7 @@ module.exports = (app) => {
   // Trips Routes
   app.get('/trips', [ValidationMiddleware.validJWTNeeded, tripController.findAll]);
   app.get('/trips/:id', [ValidationMiddleware.validJWTNeeded, tripController.findOne]);
+  app.get('/trips_status/:status', [ValidationMiddleware.validJWTNeeded, tripController.findByType]);
   app.post('/trips', [ValidationMiddleware.validJWTNeeded, tripController.create]);
   app.put('/trips/:id', [ValidationMiddleware.validJWTNeeded, tripController.update]);
   app.delete('/trips/:id', [ValidationMiddleware.validJWTNeeded, tripController.delete]);

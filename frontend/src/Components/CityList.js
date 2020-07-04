@@ -48,7 +48,7 @@ export default class CityList extends Component {
             country: this.state.country,
             map_link: event.target.map_link.value
         }
-        axios.post(`http://travelplanner.lpsoftware.space/api/cities/`, postObj,{
+        axios.post(`https://travelplanner.lpsoftware.space/api/cities/`, postObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -84,7 +84,7 @@ export default class CityList extends Component {
             country: this.state.country,
             map_link: this.state.map_link
         }
-        axios.put(`http://travelplanner.lpsoftware.space/api/cities/${id}/`, cityObj,{
+        axios.put(`https://travelplanner.lpsoftware.space/api/cities/${id}/`, cityObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -112,7 +112,7 @@ export default class CityList extends Component {
     onClickRemove = (event) => {
         event.preventDefault();
         const id = this.state.id
-        axios.delete(`http://travelplanner.lpsoftware.space/api/cities/${id}/`,{
+        axios.delete(`https://travelplanner.lpsoftware.space/api/cities/${id}/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

@@ -48,7 +48,7 @@ export default class UserList extends Component {
             "userLogged": this.state.userLogged,
             "permissionLevel": this.state.permissionLevel
         }
-        axios.post(`http://travelplanner.lpsoftware.space/api/users`, postObj,{
+        axios.post(`https://travelplanner.lpsoftware.space/api/users`, postObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -91,7 +91,7 @@ export default class UserList extends Component {
             visitedCountries: this.state.visitedCountries,
             permissionLevel: this.state.permissionLevel
         }
-        axios.put(`http://travelplanner.lpsoftware.space/api/users/${userID}/`, userObj,{
+        axios.put(`https://travelplanner.lpsoftware.space/api/users/${userID}/`, userObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -119,7 +119,7 @@ export default class UserList extends Component {
     onClickRemove = (event) => {
         event.preventDefault();
         const userID = this.state.user_id
-        axios.delete(`http://travelplanner.lpsoftware.space/api/users/${userID}/`,{
+        axios.delete(`https://travelplanner.lpsoftware.space/api/users/${userID}/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

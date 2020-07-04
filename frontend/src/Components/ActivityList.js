@@ -52,7 +52,7 @@ export default class ActivityList extends Component {
             badge_amount_paid: this.state.badge_amount_paid,
             badge_amount_not_paid: this.state.badge_amount_not_paid
         }
-        axios.post(`http://travelplanner.lpsoftware.space/api/activities/`, postObj,{
+        axios.post(`https://travelplanner.lpsoftware.space/api/activities/`, postObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -95,7 +95,7 @@ export default class ActivityList extends Component {
             badge_amount_paid: this.state.badge_amount_paid,
             badge_amount_not_paid: this.state.badge_amount_not_paid
         }
-        axios.put(`http://travelplanner.lpsoftware.space/api/activities/${activityID}/`, activityObj,{
+        axios.put(`https://travelplanner.lpsoftware.space/api/activities/${activityID}/`, activityObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -123,7 +123,7 @@ export default class ActivityList extends Component {
     onClickRemove = (event) => {
         event.preventDefault();
         const activityID = this.state.activity_id
-        axios.delete(`http://travelplanner.lpsoftware.space/api/activities/${activityID}/`,{
+        axios.delete(`https://travelplanner.lpsoftware.space/api/activities/${activityID}/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

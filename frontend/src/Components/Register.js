@@ -29,7 +29,7 @@ export default class Register extends Component {
             "userLogged": this.state.userLogged,
             "permissionLevel": 1
         }
-        axios.post(`http://travelplanner.lpsoftware.space/api/users`, postObj,{
+        axios.post(`https://travelplanner.lpsoftware.space/api/users`, postObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

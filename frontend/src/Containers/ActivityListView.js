@@ -13,7 +13,7 @@ export default class ActivityListView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`http://travelplanner.lpsoftware.space/api/activities/`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/activities/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

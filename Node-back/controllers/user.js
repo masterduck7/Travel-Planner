@@ -66,5 +66,13 @@ module.exports = {
             }
         })
         .catch(err => {res.status(500).send({message: "Could not delete User with id=" + id});});
+    },
+    findAllData(req, res){
+        User.findAll({include: [{model: Trip, as: 'trips', 
+        include: [{model: Flight, as: 'flights'},
+        {model: City, as: 'cities', include: [{model: Hotel, as: 'hotels'},
+        {model: Activity, as: 'activities'},{model: Cost, as: 'citycosts'}]}]}]})
+        .then(users => res.status(200).json(users))
+        .catch(error => res.status(400).send(error))
     }
 }

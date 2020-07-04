@@ -14,7 +14,7 @@ export default class TripDetailView extends Component {
     
     componentDidMount(){
         const tripID = this.props.match.params.tripID;
-        axios.get(`http://travelplanner.lpsoftware.space/api/trips/${tripID}/`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/trips/${tripID}/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

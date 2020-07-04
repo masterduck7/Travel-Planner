@@ -20,7 +20,7 @@ export default class Login extends Component {
             "username": this.state.username,
             "password": this.state.password
         }
-        axios.post(`http://travelplanner.lpsoftware.space/api/auth/`, postObj,{
+        axios.post(`https://travelplanner.lpsoftware.space/api/auth/`, postObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
