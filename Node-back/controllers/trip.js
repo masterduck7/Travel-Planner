@@ -56,5 +56,18 @@ module.exports = {
             }
         })
         .catch(err => {res.status(500).send({message: "Could not delete Trip with id=" + id});});
+    },
+    findByType(req, res){
+        const statusRecieved = req.params.status
+        Trip.findAll(
+            {
+                where: { status : statusRecieved },
+                attributes: [`id`, `destination`, `start_date`, `end_date`, `planning_file`, `status`, `createdAt`, `updatedAt`, `userID`],
+                include: [{model: Flight, as: 'flights'},{model: City, as: 'cities', 
+                include: [{model: Hotel, as: 'hotels'},{model: Activity, as: 'activities'},{model: Cost, as: 'citycosts'}]}]
+            }
+        )
+        .then(trips => res.status(200).json(trips))
+        .catch(error => res.status(400).send(error))
     }
 }
