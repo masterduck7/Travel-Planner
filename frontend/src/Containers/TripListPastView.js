@@ -14,7 +14,7 @@ export default class TripListPastView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`http://travelplanner.lpsoftware.space/api/trips/`,{
+        axios.get(`http://travelplanner.lpsoftware.space/api/trips_status/Past`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -22,7 +22,7 @@ export default class TripListPastView extends Component {
                 if (!res.data["Error"]) {
                     let filterData = []
                     res.data.forEach(trip => {
-                        if (trip.status === "Past" && trip.userID.toString() === this.state.user_id.toString()) {
+                        if (trip.userID.toString() === this.state.user_id.toString()) {
                             filterData.push(trip)
                         }
                     });

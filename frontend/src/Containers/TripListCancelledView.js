@@ -14,7 +14,7 @@ export default class TripListPastView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`http://travelplanner.lpsoftware.space/api/trips/`,{
+        axios.get(`http://travelplanner.lpsoftware.space/api/trips_status/Cancelled`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -23,7 +23,7 @@ export default class TripListPastView extends Component {
                     const data = res.data
                     let filterData = []
                     data.forEach(trip => {
-                        if (trip.status === "Cancelled" && trip.userID.toString() === this.state.user_id.toString()) {
+                        if (trip.userID.toString() === this.state.user_id.toString()) {
                             filterData.push(trip)
                         }
                     });
