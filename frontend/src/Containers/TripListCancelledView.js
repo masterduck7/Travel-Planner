@@ -14,21 +14,14 @@ export default class TripListPastView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`https://travelplanner.lpsoftware.space/api/trips_status/Cancelled`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/trips_status_user?userID=${this.state.user_id}&status=Cancelled`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
             .then(res => {
                 if (!res.data["Error"]) {
-                    const data = res.data
-                    let filterData = []
-                    data.forEach(trip => {
-                        if (trip.userID.toString() === this.state.user_id.toString()) {
-                            filterData.push(trip)
-                        }
-                    });
                     this.setState({
-                        trips: filterData
+                        trips: res.data
                     })
                 }else{
                     console.log("Error in Get Cancelled Trips data")

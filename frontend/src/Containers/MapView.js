@@ -38,7 +38,9 @@ export default class MapView extends Component {
             .catch(error => {
                 console.log("Error in get user data, ", error)
             })
-        axios.get(`https://travelplanner.lpsoftware.space/api/trips/`,{
+            
+        if (this.state.permissionLevel){
+            axios.get(`https://travelplanner.lpsoftware.space/api/trips`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -48,41 +50,59 @@ export default class MapView extends Component {
                     let visited_cities = {}
                     let countryCodes = []
                     let total_countries = 0
-                    if (this.state.permissionLevel){
-                        res.data.forEach(trip => {
-                            trip.cities.forEach(city => {
-                                if (!visited_cities[city.name]) {
-                                    visited_cities[city.name] = city.country
-                                }
-                                if (city.country) {
-                                    if (!countryCodes.includes(city.country)) {
-                                        countryCodes.push(city.country.toString())
-                                    }
-                                    if (!visited_countries[city.country]) {
-                                        visited_countries[city.country] = 10
-                                        total_countries = total_countries + 1  
-                                    }
-                                }
-                            })
-                        })
-                    }
                     res.data.forEach(trip => {
-                        if (Number(trip.userID) === Number(this.state.user_id)) {
-                            trip.cities.forEach(city => {
-                                if (!visited_cities[city.name]) {
-                                    visited_cities[city.name] = city.country
+                        trip.cities.forEach(city => {
+                            if (!visited_cities[city.name]) {
+                                visited_cities[city.name] = city.country
+                            }
+                            if (city.country) {
+                                if (!countryCodes.includes(city.country)) {
+                                    countryCodes.push(city.country.toString())
                                 }
-                                if (city.country) {
-                                    if (!countryCodes.includes(city.country)) {
-                                        countryCodes.push(city.country.toString())
-                                    }
-                                    if (!visited_countries[city.country]) {
-                                        visited_countries[city.country] = 10
-                                        total_countries = total_countries + 1  
-                                    }
+                                if (!visited_countries[city.country]) {
+                                    visited_countries[city.country] = 10
+                                    total_countries = total_countries + 1  
                                 }
-                            })
-                        }
+                            }
+                        })
+                    })
+                    this.setState({
+                        countries: visited_countries,
+                        countryCodes: countryCodes,
+                        total_countries: total_countries,
+                        total_cities: Object.keys(visited_cities).length,
+                        percentaje_world: Number((total_countries/250).toFixed(2))
+                    })  
+                }else{
+                    console.log("Error in Get City Map data")
+                }
+            })
+        }else{
+            axios.get(`https://travelplanner.lpsoftware.space/api/trips_user?userID=${this.state.user_id}`,{
+            headers: {
+              'Authorization': `Bearer ${this.state.token}`
+            }})
+            .then(res => {
+                if (!res.data["Error"]) {
+                    let visited_countries = {}
+                    let visited_cities = {}
+                    let countryCodes = []
+                    let total_countries = 0
+                    res.data.forEach(trip => {
+                        trip.cities.forEach(city => {
+                            if (!visited_cities[city.name]) {
+                                visited_cities[city.name] = city.country
+                            }
+                            if (city.country) {
+                                if (!countryCodes.includes(city.country)) {
+                                    countryCodes.push(city.country.toString())
+                                }
+                                if (!visited_countries[city.country]) {
+                                    visited_countries[city.country] = 10
+                                    total_countries = total_countries + 1  
+                                }
+                            }
+                        })
                     });
                     this.setState({
                         countries: visited_countries,
@@ -95,6 +115,7 @@ export default class MapView extends Component {
                     console.log("Error in Get City Map data")
                 }
             })
+        }
     }
 
     render() {

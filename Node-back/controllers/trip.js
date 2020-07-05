@@ -69,11 +69,10 @@ module.exports = {
         .then(trips => res.status(200).json(trips))
         .catch(error => res.status(400).send(error))
     },
-    findByType(req, res){
-        const statusRecieved = req.params.status
+    findByTypeAndUser(req, res){
         Trip.findAll(
             {
-                where: { status : statusRecieved },
+                where: { status: req.query.status, userID: req.query.userID },
                 attributes: [`id`, `destination`, `start_date`, `end_date`, `planning_file`, `status`, `createdAt`, `updatedAt`, `userID`],
                 include: [{model: Flight, as: 'flights'},{model: City, as: 'cities', 
                 include: [{model: Hotel, as: 'hotels'},{model: Activity, as: 'activities'},{model: Cost, as: 'citycosts'}]}]

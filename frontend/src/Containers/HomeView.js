@@ -32,7 +32,7 @@ export default class HomeView extends Component {
 
     componentDidMount(){
         // GET THIS YEAR TRIP DETAILS
-        axios.get(`https://travelplanner.lpsoftware.space/api/trips/`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/trips_status_user?userID=${this.state.user_id}&status=Active`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -50,7 +50,7 @@ export default class HomeView extends Component {
                     let total_hotels = 0
                     let total_flights = 0
                     res.data.forEach(trip => {
-                        if ( Number(trip.userID) === Number(this.state.user_id) && (moment(trip.start_date).fromNow()).includes("en") && nextTrips.length < 7  && trip.status === "Active") {
+                        if ( (moment(trip.start_date).fromNow()).includes("en") && nextTrips.length < 7 ) {
                             nextTrips.push(
                                 {
                                     'destination': trip.destination,
@@ -60,7 +60,7 @@ export default class HomeView extends Component {
                                 }
                             )
                         }
-                        if ( Number(trip.userID) === Number(this.state.user_id) && moment(trip.start_date).format('YYYY') === moment().format('YYYY')) {
+                        if ( moment(trip.start_date).format('YYYY') === moment().format('YYYY')) {
                             number_trips = Number(number_trips) + 1
                             trip.flights.forEach(flight => {
                                 number_flights = Number(number_flights) + 1

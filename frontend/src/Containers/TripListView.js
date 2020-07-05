@@ -14,20 +14,14 @@ export default class TripListView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`https://travelplanner.lpsoftware.space/api/trips/`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/trips_user?userID=${this.state.user_id}`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
             .then(res => {
                 if (!res.data["Error"]) {
-                    let tripList = []
-                    res.data.forEach(trip => {
-                        if (trip.userID.toString() === this.state.user_id) {
-                            tripList.push(trip)
-                        }
-                    });
                     this.setState({
-                        trips: tripList
+                        trips: res.data
                     })    
                 }else{
                     console.log("Error in Get Trips data")

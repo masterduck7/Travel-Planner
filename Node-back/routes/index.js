@@ -30,7 +30,7 @@ module.exports = (app) => {
   app.get('/trips', [ValidationMiddleware.validJWTNeeded, tripController.findAll]);
   app.get('/trips/:id', [ValidationMiddleware.validJWTNeeded, tripController.findOne]);
   app.get('/trips_user', [ValidationMiddleware.validJWTNeeded, tripController.findAllByUser]);
-  app.get('/trips_status/:status', [ValidationMiddleware.validJWTNeeded, tripController.findByType]);
+  app.get('/trips_status_user', [ValidationMiddleware.validJWTNeeded, tripController.findByTypeAndUser]);
   app.post('/trips', [ValidationMiddleware.validJWTNeeded, tripController.create]);
   app.put('/trips/:id', [ValidationMiddleware.validJWTNeeded, tripController.update]);
   app.delete('/trips/:id', [ValidationMiddleware.validJWTNeeded, tripController.delete]);
