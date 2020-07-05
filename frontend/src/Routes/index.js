@@ -25,6 +25,15 @@ import AdminView from '../Containers/AdminView';
 import AdminUsersView from '../Containers/AdminUsersView';
 import NoPermissionView from '../Containers/NoPermissionView';
 
+//Demo views
+
+import DemoHome from '../Containers/Demo/DemoHome'
+import DemoTripListView from '../Containers/Demo/DemoTripListView';
+import DemoTripDetail from '../Containers/Demo/DemoTripDetail';
+import DemoNoAccess from '../Containers/Demo/DemoNoAccess';
+import DemoMapView from '../Containers/Demo/DemoMapView';
+import DemoCalendarView from '../Containers/Demo/DemoCalendarView';
+
 const BaseRouter = () => (
     <div>
         <HashRouter basename='/'>
@@ -32,6 +41,12 @@ const BaseRouter = () => (
                 <Route exact path='/' component={LayoutView} />
                 <Route exact path='/login' component={LoginView} />
                 <Route exact path='/blocked' component={NoPermissionView} />
+                <Route exact path='/demo' component={DemoHome} />
+                <Route exact path='/demo/blocked' component={DemoNoAccess} />
+                <Route exact path='/demo/map' component={DemoMapView} />
+                <Route exact path='/demo/trips' component={DemoTripListView} />
+                <Route exact path='/demo/trips/1' component={DemoTripDetail} />
+                <Route exact path='/demo/calendar' component={DemoCalendarView} />
                 <AdminRoutes exact path='/register' component={RegisterView} />
                 <AdminRoutes exact path='/admin' component={props => <AdminView {...props}/>} />
                 <AdminRoutes exact path='/admin_users' component={props => <AdminUsersView {...props}/>} />
