@@ -29,6 +29,7 @@ module.exports = (app) => {
   // Trips Routes
   app.get('/trips', [ValidationMiddleware.validJWTNeeded, tripController.findAll]);
   app.get('/trips/:id', [ValidationMiddleware.validJWTNeeded, tripController.findOne]);
+  app.get('/trips_user', [ValidationMiddleware.validJWTNeeded, tripController.findAllByUser]);
   app.get('/trips_status/:status', [ValidationMiddleware.validJWTNeeded, tripController.findByType]);
   app.post('/trips', [ValidationMiddleware.validJWTNeeded, tripController.create]);
   app.put('/trips/:id', [ValidationMiddleware.validJWTNeeded, tripController.update]);
@@ -36,6 +37,7 @@ module.exports = (app) => {
 
   // Flights Routes
   app.get('/flights', [ValidationMiddleware.validJWTNeeded, flightController.findAll]);
+  app.get('/flights_trip', [ValidationMiddleware.validJWTNeeded, flightController.findAllByTrip]);
   app.get('/flights/:id', [ValidationMiddleware.validJWTNeeded, flightController.findOne]);
   app.post('/flights', [ValidationMiddleware.validJWTNeeded, flightController.create]);
   app.put('/flights/:id', [ValidationMiddleware.validJWTNeeded, flightController.update]);
@@ -43,6 +45,7 @@ module.exports = (app) => {
 
   // Cities Routes
   app.get('/cities', [ValidationMiddleware.validJWTNeeded, cityController.findAll]);
+  app.get('/cities_trip', [ValidationMiddleware.validJWTNeeded, cityController.findAllByTrip]);
   app.get('/cities/:id', [ValidationMiddleware.validJWTNeeded, cityController.findOne]);
   app.post('/cities', [ValidationMiddleware.validJWTNeeded, cityController.create]);
   app.put('/cities/:id', [ValidationMiddleware.validJWTNeeded, cityController.update]);
@@ -50,6 +53,7 @@ module.exports = (app) => {
 
   // Costs Routes
   app.get('/costs', [ValidationMiddleware.validJWTNeeded, costController.findAll]);
+  app.get('/costs_city', [ValidationMiddleware.validJWTNeeded, costController.findAllByCity]);
   app.get('/costs/:id', [ValidationMiddleware.validJWTNeeded, costController.findOne]);
   app.post('/costs', [ValidationMiddleware.validJWTNeeded, costController.create]);
   app.put('/costs/:id', [ValidationMiddleware.validJWTNeeded, costController.update]);
@@ -57,6 +61,7 @@ module.exports = (app) => {
 
   // Hotels Routes
   app.get('/hotels', [ValidationMiddleware.validJWTNeeded, hotelController.findAll]);
+  app.get('/hotels_city', [ValidationMiddleware.validJWTNeeded, hotelController.findAllByCity]);
   app.get('/hotels/:id', [ValidationMiddleware.validJWTNeeded, hotelController.findOne]);
   app.post('/hotels', [ValidationMiddleware.validJWTNeeded, hotelController.create]);
   app.put('/hotels/:id', [ValidationMiddleware.validJWTNeeded, hotelController.update]);
@@ -64,6 +69,7 @@ module.exports = (app) => {
 
   // Activities Routes
   app.get('/activities', [ValidationMiddleware.validJWTNeeded, activityController.findAll]);
+  app.get('/activities_city', [ValidationMiddleware.validJWTNeeded, activityController.findAllByCity]);
   app.get('/activities/:id', [ValidationMiddleware.validJWTNeeded, activityController.findOne]);
   app.post('/activities', [ValidationMiddleware.validJWTNeeded, activityController.create]);
   app.put('/activities/:id', [ValidationMiddleware.validJWTNeeded, activityController.update]);

@@ -57,6 +57,18 @@ module.exports = {
         })
         .catch(err => {res.status(500).send({message: "Could not delete Trip with id=" + id});});
     },
+    findAllByUser(req, res){
+        Trip.findAll(
+            {
+                where: { userID: req.query.userID },
+                include: [{model: Flight, as: 'flights'},{model: City, as: 'cities',
+                include: [{model: Hotel, as: 'hotels'},{model: Activity, as: 'activities'},{model: Cost, as: 'citycosts'}]}],
+                attributes: [`id`, `destination`, `start_date`, `end_date`, `planning_file`, `status`, `createdAt`, `updatedAt`, `userID`]
+            }
+        )
+        .then(trips => res.status(200).json(trips))
+        .catch(error => res.status(400).send(error))
+    },
     findByType(req, res){
         const statusRecieved = req.params.status
         Trip.findAll(

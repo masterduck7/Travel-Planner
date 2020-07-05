@@ -50,5 +50,15 @@ module.exports = {
             }
         })
         .catch(err => {res.status(500).send({message: "Could not delete Flight with id=" + id});});
+    },
+    findAllByTrip(req, res){
+        Flight.findAll(
+            {   
+                where: { tripID: req.query.tripID },
+                attributes: [`id`, `origin`, `destination`, `start_date`, `end_date`, `airline_name`, `flight_number`, `price`, `tripID`]
+            }
+        )
+        .then(data => res.status(200).json(data))
+        .catch(error => res.status(400).send(error))
     }
 }

@@ -45,5 +45,15 @@ module.exports = {
             }
         })
         .catch(err => {res.status(500).send({message: "Could not delete Cost with id=" + id});});
+    },
+    findAllByCity(req, res){
+        Cost.findAll(
+            {
+                where: { cityID: req.query.cityID },
+                attributes: [`id`, `name`, `total_price`, `createdAt`, `updatedAt`, `cityID`]
+            }
+        )
+        .then(data => res.status(200).json(data))
+        .catch(error => res.status(400).send(error))
     }
 }
