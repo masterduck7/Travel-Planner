@@ -50,6 +50,7 @@ export default class LayoutView extends Component {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="ml-auto">
+                        <Nav.Link style={{color:"white"}} href="#/demo">Demo</Nav.Link>
                         <Nav.Link style={{color:"white"}} href="#/login">Ingresar</Nav.Link>
                         {/* <Nav.Link style={{color:"white"}} href="#/register">Registro</Nav.Link> */}
                     </Nav>
