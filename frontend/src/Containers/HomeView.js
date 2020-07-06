@@ -5,6 +5,7 @@ import moment from 'moment';
 import {Link} from 'react-router-dom';
 import { Table } from 'antd';
 import { Icon, Grid, Statistic } from 'semantic-ui-react';
+import CryptoJS from "crypto-js";
 
 export default class HomeView extends Component {
 
@@ -12,8 +13,8 @@ export default class HomeView extends Component {
         super(props)
         this.state = {
             token: localStorage.getItem('token'),
-            user_id: localStorage.getItem('user_id'),
-            user_logged: localStorage.getItem('user_logged'),
+            user_id: this.decrypt(localStorage.getItem('user_id')),
+            user_logged: this.decrypt(localStorage.getItem('user_logged')),
             nextTrips : [],
             number_countries: 0,
             number_trips : 0,
@@ -27,6 +28,16 @@ export default class HomeView extends Component {
             total_flights : 0,
             totalYear: 0,
             badge_total_year: 'USD'
+        }
+    }
+
+    decrypt(value){
+        if (value) {
+            var bytes  = CryptoJS.AES.decrypt(value.toString(), process.env.REACT_APP_HASH);
+            var response = bytes.toString(CryptoJS.enc.Utf8);
+            return response    
+        }else{
+            return null
         }
     }
 

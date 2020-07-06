@@ -4,6 +4,7 @@ import moment from 'moment';
 import NavBar from '../Components/NavBar';
 import { Table } from 'antd';
 import { Icon, Flag, Statistic, Tab } from 'semantic-ui-react';
+import CryptoJS from "crypto-js";
 
 const { getNameList } = require('country-list');
 
@@ -13,7 +14,7 @@ export default class StatisticsView extends Component {
         super(props)
         this.state = {
             token: localStorage.getItem('token'),
-            user_id: localStorage.getItem('user_id'),
+            user_id: this.decrypt(localStorage.getItem('user_id')),
             country_list: getNameList(),
             totalActivitiesAllTrips : 0,
             avgTotalFlights: 0,
@@ -27,6 +28,16 @@ export default class StatisticsView extends Component {
             cities_most_visited : 0, //Last View
             number_flights: 0, //Last View
             hotelNights: 0,    //Last View
+        }
+    }
+
+    decrypt(value){
+        if (value) {
+            var bytes  = CryptoJS.AES.decrypt(value.toString(), process.env.REACT_APP_HASH);
+            var response = bytes.toString(CryptoJS.enc.Utf8);
+            return response    
+        }else{
+            return null
         }
     }
 

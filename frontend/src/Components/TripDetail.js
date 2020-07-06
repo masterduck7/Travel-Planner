@@ -7,6 +7,7 @@ import '../Assets/styles.css'
 import { Modal } from 'react-responsive-modal';
 import moment from 'moment';
 import axios from 'axios';
+import CryptoJS from "crypto-js";
 
 const { Option } = Select;
 
@@ -16,7 +17,7 @@ export default class TripDetail extends Component {
         super(props)
         this.state = {
             token: localStorage.getItem('token'),
-            user_id: localStorage.getItem('user_id'),
+            user_id: this.decrypt(localStorage.getItem('user_id')),
             modalEdit: null,
             modalRemove: null,
             destination: "",
@@ -24,6 +25,16 @@ export default class TripDetail extends Component {
             status: "",
             start_date: "",
             end_date: ""
+        }
+    }
+
+    decrypt(value){
+        if (value) {
+            var bytes  = CryptoJS.AES.decrypt(value.toString(), process.env.REACT_APP_HASH);
+            var response = bytes.toString(CryptoJS.enc.Utf8);
+            return response    
+        }else{
+            return null
         }
     }
 

@@ -4,6 +4,7 @@ import { VectorMap } from "react-jvectormap"
 import { Col, Row } from 'antd';
 import axios from 'axios';
 import { Icon, Flag, Segment, Statistic } from 'semantic-ui-react';
+import CryptoJS from "crypto-js";
 
 export default class MapView extends Component {
 
@@ -11,13 +12,23 @@ export default class MapView extends Component {
         super(props)
         this.state = {
             token: localStorage.getItem('token'),
-            user_id: localStorage.getItem('user_id'),
+            user_id: this.decrypt(localStorage.getItem('user_id')),
             permissionLevel: false,
             countryCodes: [],
             countries: {},
             total_countries: 0,
             total_cities: 0,
             percentaje_world: 0
+        }
+    }
+
+    decrypt(value){
+        if (value) {
+            var bytes  = CryptoJS.AES.decrypt(value.toString(), process.env.REACT_APP_HASH);
+            var response = bytes.toString(CryptoJS.enc.Utf8);
+            return response    
+        }else{
+            return null
         }
     }
     
