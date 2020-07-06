@@ -28,10 +28,12 @@ export default class Login extends Component {
         .then(function (response) {
             var userID = CryptoJS.AES.encrypt(response.data.userID.toString(), process.env.REACT_APP_HASH);
             var userLogged = CryptoJS.AES.encrypt(response.data.userLogged.toString(), process.env.REACT_APP_HASH);
+            var userLevel = CryptoJS.AES.encrypt(response.data.userLevel.toString(), process.env.REACT_APP_HASH);
             localStorage.setItem('token',response.data.accessToken)
             localStorage.setItem('refresh_token',response.data.refreshToken)
             localStorage.setItem('user_id', userID)
             localStorage.setItem('user_logged', userLogged)
+            localStorage.setItem('user_level', userLevel)
             window.location.href="#/home";
         })
         .catch(function (error) {

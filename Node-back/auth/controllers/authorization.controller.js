@@ -11,7 +11,15 @@ exports.login = (req, res) => {
         let token = jwt.sign(req.body, jwtSecret, {expiresIn: '24h'});
         let b = new Buffer(hash);
         let refresh_token = b.toString('base64');
-        res.status(201).send({accessToken: token, refreshToken: refresh_token, userID: req.body.userId, userLogged: req.body.username});
+        res.status(201).send(
+            {
+                accessToken: token,
+                refreshToken: refresh_token,
+                userID: req.body.userId,
+                userLogged: req.body.username,
+                userLevel: req.body.permissionLevel
+            }
+        );
     } catch (err) {
         res.status(500).send({errors: err});
     }

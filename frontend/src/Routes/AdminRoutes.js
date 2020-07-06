@@ -21,10 +21,10 @@ const decrypt = (value) => {
 
 const AdminRoutes = ({ component: Component, ...rest }) => {  
   var session_token=localStorage.getItem('token')
-  var userLogged=decrypt(localStorage.getItem('user_logged'))
+  var userLevel=decrypt(localStorage.getItem('user_level'))
   return (
     <Route {...rest} render={props => (
-        (session_token !== null && userLogged === 'admin') ? (
+        (session_token !== null && Number(userLevel) === 10) ? (
         < Component  {...props} />
         ) : (
             <Redirect to={{
