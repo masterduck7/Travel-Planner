@@ -6,6 +6,7 @@ import { Table } from 'antd';
 import { Button, Icon, Flag, Statistic, Tab } from 'semantic-ui-react';
 import NavBar from '../Components/NavBar';
 import Nodata from '../Assets/Icons/Nodata.png'
+import CryptoJS from "crypto-js";
 
 const { getNameList } = require('country-list');
 
@@ -15,8 +16,8 @@ export default class AdminView extends Component {
         super(props)
         this.state = {
             token: localStorage.getItem('token'),
-            user_id: localStorage.getItem('user_id'),
-            userLogged: localStorage.getItem('user_logged'),
+            user_id: this.decrypt(localStorage.getItem('user_id')),
+            user_logged: this.decrypt(localStorage.getItem('user_logged')),
             country_list: getNameList(),
             data: false,
             totalActivitiesAllTrips : 0,
@@ -31,6 +32,16 @@ export default class AdminView extends Component {
             cities_most_visited : 0, //Last View
             number_flights: 0, //Last View
             hotelNights: 0,    //Last View
+        }
+    }
+
+    decrypt(value){
+        if (value) {
+            var bytes  = CryptoJS.AES.decrypt(value.toString(), process.env.REACT_APP_HASH);
+            var response = bytes.toString(CryptoJS.enc.Utf8);
+            return response    
+        }else{
+            return null
         }
     }
 

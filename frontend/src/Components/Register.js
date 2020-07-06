@@ -3,18 +3,29 @@ import { Form, Input } from 'antd';
 import { Button } from 'semantic-ui-react';
 import axios from 'axios';
 import "antd/dist/antd.css";
+import CryptoJS from "crypto-js";
 
 export default class Register extends Component {
     constructor(props){
         super(props)
         this.state = {
             token: localStorage.getItem('token'),
-            userLogged: localStorage.getItem('user_logged'),
+            userLogged: this.decrypt(localStorage.getItem('user_logged')),
             username: "",
             password: "",
             email: "",
             country: "",
             visitedCountries: ""
+        }
+    }
+    
+    decrypt(value){
+        if (value) {
+            var bytes  = CryptoJS.AES.decrypt(value.toString(), process.env.REACT_APP_HASH);
+            var response = bytes.toString(CryptoJS.enc.Utf8);
+            return response    
+        }else{
+            return null
         }
     }
 

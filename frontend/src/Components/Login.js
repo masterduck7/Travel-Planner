@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Input } from 'antd';
 import { Button } from 'semantic-ui-react';
+import CryptoJS from "crypto-js";
 import axios from 'axios';
 import "antd/dist/antd.css";
 
@@ -25,10 +26,12 @@ export default class Login extends Component {
               'Authorization': `Bearer ${this.state.token}`
             }})
         .then(function (response) {
+            var userID = CryptoJS.AES.encrypt(response.data.userID.toString(), process.env.REACT_APP_HASH);
+            var userLogged = CryptoJS.AES.encrypt(response.data.userLogged.toString(), process.env.REACT_APP_HASH);
             localStorage.setItem('token',response.data.accessToken)
             localStorage.setItem('refresh_token',response.data.refreshToken)
-            localStorage.setItem('user_id',response.data.userID)
-            localStorage.setItem('user_logged',response.data.userLogged)
+            localStorage.setItem('user_id', userID)
+            localStorage.setItem('user_logged', userLogged)
             window.location.href="#/home";
         })
         .catch(function (error) {

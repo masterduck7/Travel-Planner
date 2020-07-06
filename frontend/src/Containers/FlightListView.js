@@ -13,20 +13,14 @@ export default class FlightListView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`https://travelplanner.lpsoftware.space/api/flights/`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/flights_trip?tripID=${this.props.match.params.tripID}`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
             .then(res => {
                 if (!res.data["Error"]) {
-                    let flightdata = []
-                    res.data.forEach(flight => {
-                        if (Number(this.props.match.params.tripID) === flight.tripID) {
-                            flightdata.push(flight)
-                        }
-                    });
                     this.setState({
-                        flights: flightdata
+                        flights: res.data
                     }) 
                 }else{
                     console.log("Error in Get Flight data")

@@ -13,20 +13,14 @@ export default class CityCostView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`https://travelplanner.lpsoftware.space/api/costs/`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/costs_city?cityID=${this.props.match.params.cityID}`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
             .then(res => {
                 if (!res.data["Error"]) {
-                    let costData = []
-                    res.data.forEach(cost => {
-                        if (Number(this.props.match.params.cityID) === Number(cost.cityID)) {
-                            costData.push(cost)
-                        }
-                    });
                     this.setState({
-                        costs: costData
+                        costs: res.data
                     })
                 }else{
                     console.log("Error in Get City Costs data")

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
+import CryptoJS from "crypto-js";
 import axios from 'axios';
 
 export default class NavBar extends Component{
@@ -7,20 +8,31 @@ export default class NavBar extends Component{
         super(props)
         this.state={
             isLogged : false,
-            permissionLevel: false
+            permissionLevel: false,
+            token: localStorage.getItem('token'),
+            userID: this.decrypt(localStorage.getItem('user_id')),
+            userLogged: this.decrypt(localStorage.getItem('user_logged'))
+        }
+    }
+
+    decrypt(value){
+        if (value) {
+            var bytes  = CryptoJS.AES.decrypt(value.toString(), process.env.REACT_APP_HASH);
+            var response = bytes.toString(CryptoJS.enc.Utf8);
+            return response    
+        }else{
+            return null
         }
     }
 
     componentDidMount(){
-        const token = window.localStorage.getItem('token')
-        const user_id = window.localStorage.getItem('user_id')
-        if (token !== null && user_id !== null) {
+        if (this.state.token !== null && this.state.userID !== null) {
             this.setState({
                 isLogged: true
             })
-            axios.get(`https://travelplanner.lpsoftware.space/api/users/${user_id}`,{
+            axios.get(`https://travelplanner.lpsoftware.space/api/users/${this.state.userID}`,{
             headers: {
-              'Authorization': `Bearer ${token}`
+              'Authorization': `Bearer ${this.state.token}`
             }})
             .then(res => {
                 if (!res.data["Error"]) {

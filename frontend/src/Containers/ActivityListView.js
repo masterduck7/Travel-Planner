@@ -13,20 +13,14 @@ export default class ActivityListView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`https://travelplanner.lpsoftware.space/api/activities/`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/activities_city?cityID=${this.props.match.params.cityID}`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
             .then(res => {
                 if (!res.data["Error"]) {
-                    let activityData = []
-                    res.data.forEach(activity => {
-                        if (Number(this.props.match.params.cityID) === Number(activity.cityID)) {
-                            activityData.push(activity)
-                        }
-                    });
                     this.setState({
-                        activities: activityData
+                        activities: res.data
                     })
                 }else{
                     console.log("Error in Get Activity data")

@@ -5,6 +5,7 @@ import moment from 'moment';
 import {Link} from 'react-router-dom';
 import { Table } from 'antd';
 import { Icon, Grid, Statistic } from 'semantic-ui-react';
+import CryptoJS from "crypto-js";
 
 export default class HomeView extends Component {
 
@@ -12,8 +13,8 @@ export default class HomeView extends Component {
         super(props)
         this.state = {
             token: localStorage.getItem('token'),
-            user_id: localStorage.getItem('user_id'),
-            user_logged: localStorage.getItem('user_logged'),
+            user_id: this.decrypt(localStorage.getItem('user_id')),
+            user_logged: this.decrypt(localStorage.getItem('user_logged')),
             nextTrips : [],
             number_countries: 0,
             number_trips : 0,
@@ -30,9 +31,19 @@ export default class HomeView extends Component {
         }
     }
 
+    decrypt(value){
+        if (value) {
+            var bytes  = CryptoJS.AES.decrypt(value.toString(), process.env.REACT_APP_HASH);
+            var response = bytes.toString(CryptoJS.enc.Utf8);
+            return response    
+        }else{
+            return null
+        }
+    }
+
     componentDidMount(){
         // GET THIS YEAR TRIP DETAILS
-        axios.get(`https://travelplanner.lpsoftware.space/api/trips/`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/trips_status_user?userID=${this.state.user_id}&status=Active`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -50,7 +61,7 @@ export default class HomeView extends Component {
                     let total_hotels = 0
                     let total_flights = 0
                     res.data.forEach(trip => {
-                        if ( Number(trip.userID) === Number(this.state.user_id) && (moment(trip.start_date).fromNow()).includes("en") && nextTrips.length < 7  && trip.status === "Active") {
+                        if ( (moment(trip.start_date).fromNow()).includes("en") && nextTrips.length < 7 ) {
                             nextTrips.push(
                                 {
                                     'destination': trip.destination,
@@ -60,7 +71,7 @@ export default class HomeView extends Component {
                                 }
                             )
                         }
-                        if ( Number(trip.userID) === Number(this.state.user_id) && moment(trip.start_date).format('YYYY') === moment().format('YYYY')) {
+                        if ( moment(trip.start_date).format('YYYY') === moment().format('YYYY')) {
                             number_trips = Number(number_trips) + 1
                             trip.flights.forEach(flight => {
                                 number_flights = Number(number_flights) + 1

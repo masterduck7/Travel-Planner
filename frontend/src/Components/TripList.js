@@ -7,6 +7,7 @@ import moment from 'moment';
 import axios from 'axios';
 import 'react-responsive-modal/styles.css';
 import '../Assets/styles.css'
+import CryptoJS from "crypto-js";
 
 const { Option } = Select;
 
@@ -16,12 +17,22 @@ export default class TripList extends Component {
         super(props)
         this.state = {
             token: localStorage.getItem('token'),
-            user_id: localStorage.getItem('user_id'),
+            user_id: this.decrypt(localStorage.getItem('user_id')),
             modalCreate: false,
             status: "",
             planning_file: "",
             start_date: moment().format("YYYY-MM-DD"),
             end_date: moment().format("YYYY-MM-DD")
+        }
+    }
+
+    decrypt(value){
+        if (value) {
+            var bytes  = CryptoJS.AES.decrypt(value.toString(), process.env.REACT_APP_HASH);
+            var response = bytes.toString(CryptoJS.enc.Utf8);
+            return response    
+        }else{
+            return null
         }
     }
 

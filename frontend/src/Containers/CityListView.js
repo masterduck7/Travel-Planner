@@ -13,20 +13,14 @@ export default class CityListView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`https://travelplanner.lpsoftware.space/api/cities/`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/cities_trip?tripID=${this.props.match.params.tripID}`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
             .then(res => {
                 if (!res.data["Error"]) {
-                    let citiesdata = []
-                    res.data.forEach(city => {
-                        if (Number(this.props.match.params.tripID) === Number(city.tripID)) {
-                            citiesdata.push(city)
-                        }
-                    });
                     this.setState({
-                        cities: citiesdata
+                        cities: res.data
                     }) 
                 }else{
                     console.log("Error in Get City data")

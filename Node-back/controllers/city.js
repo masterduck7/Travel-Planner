@@ -45,5 +45,15 @@ module.exports = {
             }
         })
         .catch(err => {res.status(500).send({message: "Could not delete City with id=" + id});});
+    },
+    findAllByTrip(req, res){
+        City.findAll(
+            {
+                where: { tripID: req.query.tripID },
+                include: ['hotels','citycosts','activities'], attributes: [`id`, `name`, `country`, `map_link`, `createdAt`, `updatedAt`, `tripID`]
+            }
+        )
+        .then(data => res.status(200).json(data))
+        .catch(error => res.status(400).send(error))
     }
 }

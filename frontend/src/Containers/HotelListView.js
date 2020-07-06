@@ -13,20 +13,14 @@ export default class HotelListView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`https://travelplanner.lpsoftware.space/api/hotels/`,{
+        axios.get(`https://travelplanner.lpsoftware.space/api/hotels_city?cityID=${this.props.match.params.cityID}`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
             .then(res => {
                 if (!res.data["Error"]) {
-                    let hotelData = []
-                    res.data.forEach(hotel => {
-                        if (Number(this.props.match.params.cityID) === Number(hotel.cityID)) {
-                            hotelData.push(hotel)
-                        }
-                    });
                     this.setState({
-                        hotels: hotelData
+                        hotels: res.data
                     })
                 }else{
                     console.log("Error in Get Hotel data")

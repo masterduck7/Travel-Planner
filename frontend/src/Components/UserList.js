@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import 'react-responsive-modal/styles.css';
 import '../Assets/styles.css'
+import CryptoJS from "crypto-js";
 
 export default class UserList extends Component {
 
@@ -13,7 +14,7 @@ export default class UserList extends Component {
         super(props)
         this.state = {
             token: localStorage.getItem('token'),
-            userLogged: localStorage.getItem('user_logged'),
+            userLogged: this.decrypt(localStorage.getItem('user_logged')),
             modalCreate: false,
             modalEdit: false,
             modalRemove: false,
@@ -24,6 +25,16 @@ export default class UserList extends Component {
             country: "",
             visitedCountries: "",
             permissionLevel: ""
+        }
+    }
+
+    decrypt(value){
+        if (value) {
+            var bytes  = CryptoJS.AES.decrypt(value.toString(), process.env.REACT_APP_HASH);
+            var response = bytes.toString(CryptoJS.enc.Utf8);
+            return response    
+        }else{
+            return null
         }
     }
 

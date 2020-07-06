@@ -50,5 +50,15 @@ module.exports = {
             }
         })
         .catch(err => {res.status(500).send({message: "Could not delete Activity with id=" + id});});
+    },
+    findAllByCity(req, res){
+        Activity.findAll(
+            {
+                where: { cityID: req.query.cityID },
+                attributes: [`id`, `name`, `activity_date`, `amount_paid`, `amount_not_paid`, `total_price`, `createdAt`, `updatedAt`, `cityID`]
+            }
+        )
+        .then(data => res.status(200).json(data))
+        .catch(error => res.status(400).send(error))
     }
 }
