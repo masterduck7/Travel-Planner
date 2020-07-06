@@ -36,7 +36,8 @@ module.exports.isPasswordAndUserMatch = (req, res, next) => {
                         email: user.dataValues.email,
                         username: user.dataValues.username,
                         country: user.dataValues.country,
-                        visited_countries: user.dataValues.visited_countries
+                        visited_countries: user.dataValues.visited_countries,
+                        permissionLevel: user.dataValues.permissionLevel
                     };
                     return next();
                 } else {

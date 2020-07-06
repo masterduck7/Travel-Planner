@@ -55,6 +55,7 @@ export default class NavBar extends Component{
         window.localStorage.removeItem('refresh_token')
         window.localStorage.removeItem('user_id')
         window.localStorage.removeItem('user_logged')
+        window.localStorage.removeItem('user_level')
         window.location.href="#/"
     }
     
