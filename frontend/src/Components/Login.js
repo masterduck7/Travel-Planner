@@ -21,10 +21,7 @@ export default class Login extends Component {
             "username": this.state.username,
             "password": this.state.password
         }
-        axios.post(`https://travelplanner.lpsoftware.space/api/auth/`, postObj,{
-            headers: {
-              'Authorization': `Bearer ${this.state.token}`
-            }})
+        axios.post(`https://travelplanner.lpsoftware.space/api/auth/`, postObj)
         .then(function (response) {
             var userID = CryptoJS.AES.encrypt(response.data.userID.toString(), process.env.REACT_APP_HASH);
             var userLogged = CryptoJS.AES.encrypt(response.data.userLogged.toString(), process.env.REACT_APP_HASH);

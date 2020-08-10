@@ -61,13 +61,27 @@ export default class HomeView extends Component {
                     let total_hotels = 0
                     let total_flights = 0
                     res.data.forEach(trip => {
-                        if ( (moment(trip.start_date).fromNow()).includes("en") && nextTrips.length < 7 ) {
+                        if (moment().isBetween(trip.start_date, trip.end_date)) {
                             nextTrips.push(
                                 {
                                     'destination': trip.destination,
                                     'start_date': trip.start_date,
                                     'end_date': trip.end_date,
-                                    'trip_id': trip.id
+                                    'id': trip.id,
+                                    'type': 'actual',
+                                    'color': '#2988BC'
+                                }
+                            )
+                        }
+                        if ( ((moment(trip.start_date).fromNow()).includes("in") || (moment(trip.start_date).fromNow()).includes("en")) && nextTrips.length < 7 ) {
+                            nextTrips.push(
+                                {
+                                    'destination': trip.destination,
+                                    'start_date': trip.start_date,
+                                    'end_date': trip.end_date,
+                                    'trip_id': trip.id,
+                                    'type': 'next',
+                                    'color': '#2F496E'
                                 }
                             )
                         }
@@ -97,6 +111,12 @@ export default class HomeView extends Component {
                             });
                         }
                     });
+
+                    nextTrips = nextTrips.sort(function(a, b) {
+                        var dateA = new Date(a.start_date), dateB = new Date(b.start_date);
+                        return dateA - dateB;
+                    });
+                    
                     this.setState({
                         number_trips : number_trips,
                         number_flights : number_flights,
