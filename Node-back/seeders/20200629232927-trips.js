@@ -7,7 +7,7 @@ module.exports = {
       start_date: '2020/01/01',
       end_date: '2020/01/08',
       planning_file: 'paris.xlsx',
-      status: 'Past',
+      status: 'PAST',
       userID: 1,
       createdAt: new Date(),
       updatedAt: new Date()
@@ -17,7 +17,7 @@ module.exports = {
       start_date: '2020/11/10',
       end_date: '2020/11/18',
       planning_file: 'barcelona.xlsx',
-      status: 'Active',
+      status: 'FUTURE',
       userID: 1,
       createdAt: new Date(),
       updatedAt: new Date()

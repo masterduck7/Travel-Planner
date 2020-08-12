@@ -5,6 +5,7 @@ var createError = require('http-errors');
 var express = require('express');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var cors = require('cors')
 global.crypto = require('crypto')
 
 var app = express();
@@ -13,6 +14,7 @@ var app = express();
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(cors())
 
 // Models
 var models = require('./models');
