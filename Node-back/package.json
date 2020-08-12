@@ -4,7 +4,7 @@
   "description": "Travel Planner API",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "nodemon node ./bin/www"
   },
   "author": "Luis Ramirez",
@@ -19,6 +19,7 @@
     "express": "^4.16.3",
     "http-errors": "~1.6.2",
     "https": "^1.0.0",
+    "jest": "^26.3.0",
     "jsonwebtoken": "^8.5.1",
     "jwt-simple": "^0.5.1",
     "moment": "^2.17.1",
@@ -26,7 +27,8 @@
     "mysql": "^2.15.0",
     "mysql2": "^2.1.0",
     "pug": "2.0.0-beta11",
-    "sequelize": "^6.2.2"
+    "sequelize": "^6.2.2",
+    "supertest": "^4.0.2"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"

@@ -23,7 +23,7 @@ var models = require('./models');
 
 models.sequelize.sync().then(function(){
   console.log('DB OK')
-}).catch(function(error){
+}).catch(function(err){
   console.log(err, 'Error found')
 })
 
