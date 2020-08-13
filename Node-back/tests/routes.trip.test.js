@@ -1,7 +1,6 @@
 const request = require('supertest')
 const app = require('../appTest')
 const http = require('http')
-let token = ""
 
 describe('Auth', () => {
   let server;
