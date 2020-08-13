@@ -20,15 +20,9 @@ app.use(cors())
 var models = require('./models');
 
 // DB
+models.sequelize.sync()
 
-models.sequelize.sync().then(function(){
-  console.log('DB OK')
-}).catch(function(err){
-  console.log(err, 'Error found')
-})
-
-//Certificate
-
+//Certificates
 const options = {
   key: fs.readFileSync('./certificates/travelPlanner_key.pem'),
   cert: fs.readFileSync('./certificates/travelPlanner_Certificate.pem')
@@ -36,7 +30,6 @@ const options = {
 
 
 // Routes
-
 require('./routes')(app);
 http.createServer(app).listen(3000, () => { console.log('Server started listening on port ' + 3000); });
 https.createServer(options, app).listen(8000);
