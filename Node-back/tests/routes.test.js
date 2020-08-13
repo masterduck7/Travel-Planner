@@ -1,21 +1,44 @@
 const request = require('supertest')
 const app = require('../appTest')
 const http = require('http')
-const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoiYWRtaW5AbHBzb2Z0d2FyZS5zcGFjZSIsInVzZXJuYW1lIjoiYWRtaW4iLCJjb3VudHJ5IjoiQ0wiLCJwZXJtaXNzaW9uTGV2ZWwiOjEwLCJyZWZyZXNoS2V5IjoiYkd2WmtWNnlqTTVNRGFwUUVFclNFQT09IiwiaWF0IjoxNTk3MzM2ODkyLCJleHAiOjE1OTc0MjMyOTJ9.X9GVV12jVz8hbC5J6G1hDmQYHpSPRzlmtP1ZPYsGW7A"
+let token = ""
 
-describe('Post Endpoints', () => {
+describe('Auth', () => {
   let server;
+  let tokenAuth = ""
+
   beforeAll(done => {
     server = http.createServer(app);
     server.listen(done);
   });
+
   afterAll(done => {
     server.close(done);
   });
+
+  it('Get Token auth', async () => {
+    const res = await request(server)
+      .post('/auth/')
+      .send({
+        username: process.env.SEED_SUPERUSER_USERNAME,
+        password: process.env.SEED_SUPERUSER_PASSWORD
+      })
+    expect(res.statusCode).toEqual(201)
+    expect(res.body).toHaveProperty('accessToken')
+    tokenAuth = res.body.accessToken
+  })
+
+  it('Get all trips', async () => {
+    const res = await request(server)
+      .get('/trips')
+      .set({ Authorization: 'Bearer ' + tokenAuth })
+      expect(res.statusCode).toEqual(200)
+  })
+
   it('Should create a new trip', async () => {
     const res = await request(server)
       .post('/trips')
-      .set({ Authorization: token })
+      .set({ Authorization: 'Bearer ' + tokenAuth })
       .send({
         destination: 'Test destination',
         start_date: '2020-02-01',
@@ -25,5 +48,6 @@ describe('Post Endpoints', () => {
         userID: 1
       })
       expect(res.statusCode).toEqual(201)
+      expect(res.body).toHaveProperty('destination')
   })
 })

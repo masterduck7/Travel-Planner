@@ -4,7 +4,7 @@
   "description": "Travel Planner API",
   "main": "app.js",
   "scripts": {
-    "test": "jest --detectOpenHandles --forceExit",
+    "test": "jest --runInBand --detectOpenHandles --forceExit",
     "start": "nodemon node ./bin/www"
   },
   "author": "Luis Ramirez",
