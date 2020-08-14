@@ -34,8 +34,8 @@ describe('Trip tests', () => {
       .set({ Authorization: 'Bearer ' + tokenAuth })
       .send({
         destination: 'Test destination',
-        start_date: '2020-02-01',
-        end_date: '2020-03-01',
+        start_date: '2020-02-01T06:46:28.304Z',
+        end_date: '2020-03-01T06:46:28.304Z',
         planning_file: 'test_file.xlsx',
         status: 'ACTIVE',
         userID: 1

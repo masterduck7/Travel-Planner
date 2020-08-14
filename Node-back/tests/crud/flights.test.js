@@ -35,8 +35,8 @@ describe('Flights tests', () => {
         .send({
             origin: 'Test origin',
             destination: 'Test destination',
-            start_date: '2020-02-01',
-            end_date: '2020-03-01',
+            start_date: '2020-02-01T06:46:28.304Z',
+            end_date: '2020-03-01T06:46:28.304Z',
             airline_name: 'Airline Tests',
             flight_number: '111',
             price: '1000',

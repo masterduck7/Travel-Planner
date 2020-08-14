@@ -34,7 +34,7 @@ describe('Activities tests', () => {
         .set({ Authorization: 'Bearer ' + tokenAuth })
         .send({
             name: 'Test activity',
-            activity_date: '2020-02-01',
+            activity_date: '2020-02-01T06:46:28.304Z',
             total_price: 1000,
             amount_paid: 1000,
             amount_not_paid: 0,
