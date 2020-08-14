@@ -1,3 +1,4 @@
+var cors = require('cors');
 var express = require('express');
 var router = express.Router();
 
@@ -77,7 +78,7 @@ module.exports = (app) => {
 
   // Auth
 
-  app.post('/auth', [
+  app.post('/auth', cors(), [
     VerifyUserMiddleware.hasAuthValidFields,
     VerifyUserMiddleware.isPasswordAndUserMatch,
     AuthorizationController.login
