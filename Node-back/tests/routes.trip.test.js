@@ -1,10 +1,11 @@
 const request = require('supertest')
 const app = require('../appTest')
-const http = require('http')
+const http = require('http');
 
-describe('Auth', () => {
+describe('Trip tests', () => {
   let server;
-  let tokenAuth = ""
+  let tokenAuth = null;
+  let tripCreated = null;
 
   beforeAll(done => {
     server = http.createServer(app);
@@ -27,14 +28,7 @@ describe('Auth', () => {
     tokenAuth = res.body.accessToken
   })
 
-  it('Get all trips', async () => {
-    const res = await request(server)
-      .get('/trips')
-      .set({ Authorization: 'Bearer ' + tokenAuth })
-      expect(res.statusCode).toEqual(200)
-  })
-
-  it('Should create a new trip', async () => {
+  it('Create a new trip', async () => {
     const res = await request(server)
       .post('/trips')
       .set({ Authorization: 'Bearer ' + tokenAuth })
@@ -48,5 +42,40 @@ describe('Auth', () => {
       })
       expect(res.statusCode).toEqual(201)
       expect(res.body).toHaveProperty('destination')
+      tripCreated = res.body.id
+  })
+
+  it('Get one trip', async () => {
+    const res = await request(server)
+      .get('/trips/' + tripCreated)
+      .set({ Authorization: 'Bearer ' + tokenAuth })
+      expect(res.statusCode).toEqual(200)
+      expect(res.body).toHaveProperty('destination')
+  })
+
+  it('Edit trip', async () => {
+    const res = await request(server)
+      .put('/trips/' + tripCreated)
+      .set({ Authorization: 'Bearer ' + tokenAuth })
+      .send({
+        destination: 'Destination edited'
+      })
+      expect(res.statusCode).toEqual(200)
+      expect(res.body).toHaveProperty('message')
+      expect(res.body.message).toBe('Trip was updated successfully.')
+  })
+
+  it('Remove trip', async () => {
+    const res = await request(server)
+      .delete('/trips/'+ tripCreated)
+      .set({ Authorization: 'Bearer ' + tokenAuth })
+      expect(res.statusCode).toEqual(200)
+  })
+
+  it('Get all trips', async () => {
+    const res = await request(server)
+      .get('/trips')
+      .set({ Authorization: 'Bearer ' + tokenAuth })
+      expect(res.statusCode).toEqual(200)
   })
 })
