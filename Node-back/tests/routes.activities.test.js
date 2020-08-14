@@ -2,10 +2,10 @@ const request = require('supertest')
 const app = require('../appTest')
 const http = require('http');
 
-describe('Cities tests', () => {
+describe('Activities tests', () => {
     let server;
     let tokenAuth = null;
-    let cityCreated = null;
+    let activityCreated = null;
 
     beforeAll(done => {
         server = http.createServer(app);
@@ -28,51 +28,56 @@ describe('Cities tests', () => {
         tokenAuth = res.body.accessToken
     })
 
-    it('Create a new city', async () => {
+    it('Create a new activity', async () => {
         const res = await request(server)
-        .post('/cities')
+        .post('/activities')
         .set({ Authorization: 'Bearer ' + tokenAuth })
         .send({
-            name: 'Test city',
-            country: 'CL',
-            map_link: 'map.xlsx',
-            tripID: 1
+            name: 'Test activity',
+            activity_date: '2020-02-01',
+            total_price: 1000,
+            amount_paid: 1000,
+            amount_not_paid: 0,
+            badge_total_price: 'USD',
+            badge_amount_paid: 'USD',
+            badge_amount_not_paid: 'USD',
+            cityID: 1
         })
         expect(res.statusCode).toEqual(201)
         expect(res.body).toHaveProperty('name')
-        cityCreated = res.body.id
+        activityCreated = res.body.id
     })
 
-    it('Get one city', async () => {
+    it('Get one activity', async () => {
         const res = await request(server)
-        .get('/cities/' + cityCreated)
+        .get('/activities/' + activityCreated)
         .set({ Authorization: 'Bearer ' + tokenAuth })
         expect(res.statusCode).toEqual(200)
         expect(res.body).toHaveProperty('name')
     })
 
-    it('Edit city', async () => {
+    it('Edit activity', async () => {
         const res = await request(server)
-        .put('/cities/' + cityCreated)
+        .put('/activities/' + activityCreated)
         .set({ Authorization: 'Bearer ' + tokenAuth })
         .send({
             name: 'name edited'
         })
         expect(res.statusCode).toEqual(200)
         expect(res.body).toHaveProperty('message')
-        expect(res.body.message).toBe('City was updated successfully.')
+        expect(res.body.message).toBe('Activity was updated successfully.')
     })
 
-    it('Remove city', async () => {
+    it('Remove activity', async () => {
         const res = await request(server)
-        .delete('/cities/'+ cityCreated)
+        .delete('/activities/'+ activityCreated)
         .set({ Authorization: 'Bearer ' + tokenAuth })
         expect(res.statusCode).toEqual(200)
     })
 
-    it('Get all cities', async () => {
+    it('Get all activities', async () => {
         const res = await request(server)
-        .get('/cities')
+        .get('/activities')
         .set({ Authorization: 'Bearer ' + tokenAuth })
         expect(res.statusCode).toEqual(200)
     })
