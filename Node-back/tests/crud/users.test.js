@@ -1,11 +1,11 @@
 const request = require('supertest')
-const app = require('../appTest')
+const app = require('../../appTest')
 const http = require('http');
 
-describe('Flights tests', () => {
+describe('Users tests', () => {
     let server;
     let tokenAuth = null;
-    let flightCreated = null;
+    let userCreated = null;
 
     beforeAll(done => {
         server = http.createServer(app);
@@ -28,56 +28,54 @@ describe('Flights tests', () => {
         tokenAuth = res.body.accessToken
     })
 
-    it('Create a new flight', async () => {
+    it('Create a new user', async () => {
         const res = await request(server)
-        .post('/flights')
+        .post('/users')
         .set({ Authorization: 'Bearer ' + tokenAuth })
         .send({
-            origin: 'Test origin',
-            destination: 'Test destination',
-            start_date: '2020-02-01',
-            end_date: '2020-03-01',
-            airline_name: 'Airline Tests',
-            flight_number: '111',
-            price: '1000',
-            badge_price: 'USD',
-            tripID: 1
+            username: 'Test user',
+            password: 'Testing',
+            email: 'test@lpsoftware.space',
+            country: 'CL',
+            visitedCountries: 'CL',
+            permissionLevel: 1,
+            userLogged: process.env.SEED_SUPERUSER_USERNAME
         })
         expect(res.statusCode).toEqual(201)
-        expect(res.body).toHaveProperty('destination')
-        flightCreated = res.body.id
+        expect(res.body).toHaveProperty('username')
+        userCreated = res.body.id
     })
 
-    it('Get one flight', async () => {
+    it('Get one user', async () => {
         const res = await request(server)
-        .get('/flights/' + flightCreated)
+        .get('/users/' + userCreated)
         .set({ Authorization: 'Bearer ' + tokenAuth })
         expect(res.statusCode).toEqual(200)
-        expect(res.body).toHaveProperty('destination')
+        expect(res.body).toHaveProperty('username')
     })
 
-    it('Edit flight', async () => {
+    it('Edit user', async () => {
         const res = await request(server)
-        .put('/flights/' + flightCreated)
+        .put('/users/' + userCreated)
         .set({ Authorization: 'Bearer ' + tokenAuth })
         .send({
-            destination: 'Destination edited'
+            username: 'username edited' + userCreated
         })
         expect(res.statusCode).toEqual(200)
         expect(res.body).toHaveProperty('message')
-        expect(res.body.message).toBe('Flight was updated successfully.')
+        expect(res.body.message).toBe('User was updated successfully.')
     })
 
-    it('Remove flight', async () => {
+    it('Remove user', async () => {
         const res = await request(server)
-        .delete('/flights/'+ flightCreated)
+        .delete('/users/'+ userCreated)
         .set({ Authorization: 'Bearer ' + tokenAuth })
         expect(res.statusCode).toEqual(200)
     })
 
-    it('Get all flights', async () => {
+    it('Get all users', async () => {
         const res = await request(server)
-        .get('/flights')
+        .get('/users')
         .set({ Authorization: 'Bearer ' + tokenAuth })
         expect(res.statusCode).toEqual(200)
     })

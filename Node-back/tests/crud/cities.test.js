@@ -1,11 +1,11 @@
 const request = require('supertest')
-const app = require('../appTest')
+const app = require('../../appTest')
 const http = require('http');
 
-describe('Users tests', () => {
+describe('Cities tests', () => {
     let server;
     let tokenAuth = null;
-    let userCreated = null;
+    let cityCreated = null;
 
     beforeAll(done => {
         server = http.createServer(app);
@@ -28,54 +28,51 @@ describe('Users tests', () => {
         tokenAuth = res.body.accessToken
     })
 
-    it('Create a new user', async () => {
+    it('Create a new city', async () => {
         const res = await request(server)
-        .post('/users')
+        .post('/cities')
         .set({ Authorization: 'Bearer ' + tokenAuth })
         .send({
-            username: 'Test user',
-            password: 'Testing',
-            email: 'test@lpsoftware.space',
+            name: 'Test city',
             country: 'CL',
-            visitedCountries: 'CL',
-            permissionLevel: 1,
-            userLogged: process.env.SEED_SUPERUSER_USERNAME
+            map_link: 'map.xlsx',
+            tripID: 1
         })
         expect(res.statusCode).toEqual(201)
-        expect(res.body).toHaveProperty('username')
-        userCreated = res.body.id
+        expect(res.body).toHaveProperty('name')
+        cityCreated = res.body.id
     })
 
-    it('Get one user', async () => {
+    it('Get one city', async () => {
         const res = await request(server)
-        .get('/users/' + userCreated)
+        .get('/cities/' + cityCreated)
         .set({ Authorization: 'Bearer ' + tokenAuth })
         expect(res.statusCode).toEqual(200)
-        expect(res.body).toHaveProperty('username')
+        expect(res.body).toHaveProperty('name')
     })
 
-    it('Edit user', async () => {
+    it('Edit city', async () => {
         const res = await request(server)
-        .put('/users/' + userCreated)
+        .put('/cities/' + cityCreated)
         .set({ Authorization: 'Bearer ' + tokenAuth })
         .send({
-            username: 'username edited'
+            name: 'name edited'
         })
         expect(res.statusCode).toEqual(200)
         expect(res.body).toHaveProperty('message')
-        expect(res.body.message).toBe('User was updated successfully.')
+        expect(res.body.message).toBe('City was updated successfully.')
     })
 
-    it('Remove user', async () => {
+    it('Remove city', async () => {
         const res = await request(server)
-        .delete('/users/'+ userCreated)
+        .delete('/cities/'+ cityCreated)
         .set({ Authorization: 'Bearer ' + tokenAuth })
         expect(res.statusCode).toEqual(200)
     })
 
-    it('Get all users', async () => {
+    it('Get all cities', async () => {
         const res = await request(server)
-        .get('/users')
+        .get('/cities')
         .set({ Authorization: 'Bearer ' + tokenAuth })
         expect(res.statusCode).toEqual(200)
     })

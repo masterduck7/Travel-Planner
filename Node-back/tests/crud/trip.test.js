@@ -1,5 +1,5 @@
 const request = require('supertest')
-const app = require('../appTest')
+const app = require('../../appTest')
 const http = require('http');
 
 describe('Trip tests', () => {
