@@ -1,6 +1,7 @@
 const request = require('supertest')
 const app = require('../appTest')
 const http = require('http');
+const varProd = require('../../varProd.js');
 
 describe('Costs tests', () => {
     let server;
@@ -19,8 +20,8 @@ describe('Costs tests', () => {
         const res = await request(server)
         .post('/auth/')
         .send({
-            username: process.env.SEED_SUPERUSER_USERNAME,
-            password: process.env.SEED_SUPERUSER_PASSWORD
+            username: varProd.SEED_SUPERUSER_USERNAME,
+            password: varProd.SEED_SUPERUSER_PASSWORD
         })
         expect(res.statusCode).toEqual(201)
         expect(res.body).toHaveProperty('accessToken')
@@ -37,7 +38,7 @@ describe('Costs tests', () => {
             country: 'CL',
             visitedCountries: 'CL',
             permissionLevel: 1,
-            userLogged: process.env.SEED_SUPERUSER_USERNAME
+            userLogged: varProd.SEED_SUPERUSER_USERNAME
         })
         expect(res.statusCode).toEqual(400)
         expect(res.body.name).toBe('SequelizeValidationError')

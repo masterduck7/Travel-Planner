@@ -1,31 +1,32 @@
 require('dotenv').config();
+const varProd = require('../varProd.js');
 module.exports = {
   development: {
-    "username": process.env.DB_USERNAME,
-    "password": process.env.DB_PASSWORD,
-    "database": process.env.DB_NAME,
-    "host": process.env.DB_HOSTNAME,
-    "port": process.env.DB_PORT,
-    "dialect": process.env.DB_DIALECT,
+    "username": varProd.DB_USERNAME,
+    "password": varProd.DB_PASSWORD,
+    "database": varProd.DB_NAME,
+    "host": varProd.DB_HOSTNAME,
+    "port": varProd.DB_PORT,
+    "dialect": varProd.DB_DIALECT,
     "pool": {
-      "max": parseInt(process.env.DB_POOL_MAX),
-      "min": parseInt(process.env.DB_POOL_MIN),
-      "acquire": parseInt(process.env.DB_POOL_ACQUIRE),
-      "idle": parseInt(process.env.DB_POOL_IDLE)
+      "max": parseInt(varProd.DB_POOL_MAX),
+      "min": parseInt(varProd.DB_POOL_MIN),
+      "acquire": parseInt(varProd.DB_POOL_ACQUIRE),
+      "idle": parseInt(varProd.DB_POOL_IDLE)
     }
   },
   test: {
-    "username": process.env.DB_USERNAME,
-    "password": process.env.DB_PASSWORD,
-    "database": process.env.DB_NAME,
-    "host": process.env.DB_HOSTNAME,
-    "port": process.env.DB_PORT,
-    "dialect": process.env.DB_DIALECT,
+    "username": varProd.DB_USERNAME,
+    "password": varProd.DB_PASSWORD,
+    "database": varProd.DB_NAME,
+    "host": varProd.DB_HOSTNAME,
+    "port": varProd.DB_PORT,
+    "dialect": varProd.DB_DIALECT,
     "pool": {
-      "max": parseInt(process.env.DB_POOL_MAX),
-      "min": parseInt(process.env.DB_POOL_MIN),
-      "acquire": parseInt(process.env.DB_POOL_ACQUIRE),
-      "idle": parseInt(process.env.DB_POOL_IDLE)
+      "max": parseInt(varProd.DB_POOL_MAX),
+      "min": parseInt(varProd.DB_POOL_MIN),
+      "acquire": parseInt(varProd.DB_POOL_ACQUIRE),
+      "idle": parseInt(varProd.DB_POOL_IDLE)
     },
     operatorsAliases: 0,
     logging: false

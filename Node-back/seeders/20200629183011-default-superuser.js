@@ -1,11 +1,12 @@
 crypto = require('crypto')
 require('dotenv').config();
 'use strict';
+const varProd = require('../varProd.js');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const username =  process.env.SEED_SUPERUSER_USERNAME;
-    const password =  process.env.SEED_SUPERUSER_PASSWORD;
+    const username =  varProd.SEED_SUPERUSER_USERNAME;
+    const password =  varProd.SEED_SUPERUSER_PASSWORD;
     let salt = crypto.randomBytes(16).toString('base64')
     let hash = crypto.createHmac('sha512',salt)
       .update(password)

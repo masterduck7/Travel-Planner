@@ -1,6 +1,7 @@
 jwt = require('jsonwebtoken');
 require('dotenv').config();
-const jwtSecret = process.env.JWT_SECRET
+const varProd = require('../../varProd.js');
+const jwtSecret = varProd.JWT_SECRET
 
 exports.login = (req, res) => {
     try {
