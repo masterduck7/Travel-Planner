@@ -5,7 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      User.hasMany(models.Trip,{
+      User.hasMany(models.Trip, {
         foreignKey: 'userID',
         as: 'trips',
       })
@@ -39,6 +39,11 @@ module.exports = (sequelize, DataTypes) => {
     permissionLevel: {
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    currency: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: "USD"
     }
   }, {
     sequelize,

@@ -5,7 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Activity extends Model {
     static associate(models) {
-      Activity.belongsTo(models.City,{
+      Activity.belongsTo(models.City, {
         foreignKey: 'cityID',
         onDelete: 'CASCADE',
       })
@@ -15,6 +15,11 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    numberPersons: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1
     },
     activity_date: {
       type: DataTypes.DATE,
