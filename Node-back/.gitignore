@@ -34,3 +34,7 @@ package-lock.json
 
 # Certificates
 /certificates/*
+
+# Sensitive vars
+.varProd.js
+.varTest.js
