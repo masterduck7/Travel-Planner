@@ -130,5 +130,5 @@ dmypy.json
 .pyre/
 
 # Sensitive vars
-Node-back/varProd.js
-Node-back/varTest.js
+backend/varProd.js
+backend/varTest.js
