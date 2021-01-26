@@ -37,3 +37,4 @@ package-lock.json
 
 # Sensitive vars
 .varProd.js
+.varTest.js

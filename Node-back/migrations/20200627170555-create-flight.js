@@ -1,4 +1,6 @@
 'use strict';
+var DataTypes = require('sequelize/lib/data-types');
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Flights', {
@@ -7,6 +9,11 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
+      },
+      numberPersons: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 1
       },
       origin: {
         type: Sequelize.STRING,

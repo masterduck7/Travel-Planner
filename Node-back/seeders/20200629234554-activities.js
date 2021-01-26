@@ -5,6 +5,7 @@ module.exports = {
     return queryInterface.bulkInsert('Activities', [{
       name: 'Ski',
       activity_date: '2020/01/01',
+      numberPersons: 1,
       amount_paid: '1000',
       badge_amount_paid: 'USD',
       amount_not_paid: '500',
@@ -18,6 +19,7 @@ module.exports = {
     {
       name: 'Free Tour',
       activity_date: '2020/01/10',
+      numberPersons: 2,
       amount_paid: '1000',
       badge_amount_paid: 'EUR',
       amount_not_paid: '500',
@@ -29,7 +31,7 @@ module.exports = {
       updatedAt: new Date()
     }]);
   },
-down: (queryInterface, Sequelize) => {
+  down: (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('Activities', { name: 'Ski' }, { name: 'Free Tour' });
   }
 };

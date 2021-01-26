@@ -3,6 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Flights', [{
+      numberPersons: 1,
       origin: 'Lyon',
       destination: 'Paris',
       start_date: '2020/01/01',
@@ -16,6 +17,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      numberPersons: 2,
       origin: 'Madrid',
       destination: 'Barcelona',
       start_date: '2020/11/10',
@@ -29,7 +31,7 @@ module.exports = {
       updatedAt: new Date()
     }]);
   },
-down: (queryInterface, Sequelize) => {
+  down: (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('Flights', { destination: 'Paris' }, { destination: 'Barcelona' });
   }
 };

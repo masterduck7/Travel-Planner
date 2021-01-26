@@ -1,4 +1,5 @@
 'use strict';
+var DataTypes = require('sequelize/lib/data-types');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -8,6 +9,11 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
+      },
+      currency: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        defaultValue: "USD"
       },
       username: {
         type: Sequelize.STRING,

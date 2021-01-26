@@ -5,13 +5,18 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Flight extends Model {
     static associate(models) {
-      Flight.belongsTo(models.Trip,{
+      Flight.belongsTo(models.Trip, {
         foreignKey: 'tripID',
         onDelete: 'CASCADE',
       })
     }
   };
   Flight.init({
+    numberPersons: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1
+    },
     origin: {
       type: DataTypes.STRING,
       allowNull: false
