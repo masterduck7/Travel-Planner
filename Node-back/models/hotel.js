@@ -5,7 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Hotel extends Model {
     static associate(models) {
-      Hotel.belongsTo(models.City,{
+      Hotel.belongsTo(models.City, {
         foreignKey: 'cityID',
         onDelete: 'CASCADE',
       })
@@ -15,6 +15,11 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    numberPersons: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1
     },
     number_beds: {
       type: DataTypes.INTEGER,

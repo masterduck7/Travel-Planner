@@ -5,6 +5,7 @@ module.exports = {
     return queryInterface.bulkInsert('Hotels', [{
       name: 'Paris',
       number_beds: 1,
+      numberPersons: 1,
       start_date: '2020/01/01',
       end_date: '2020/01/08',
       breakfast: true,
@@ -21,6 +22,7 @@ module.exports = {
     {
       name: 'Barcelona',
       number_beds: 2,
+      numberPersons: 2,
       start_date: '2020/11/10',
       end_date: '2020/11/18',
       breakfast: false,
@@ -35,7 +37,7 @@ module.exports = {
       updatedAt: new Date()
     }]);
   },
-down: (queryInterface, Sequelize) => {
+  down: (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('Hotels', { name: 'Paris' }, { name: 'Barcelona' });
   }
 };
