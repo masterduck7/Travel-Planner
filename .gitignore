@@ -129,5 +129,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# VS CODE
+# Sensitive vars
 Node-back/varProd.js
