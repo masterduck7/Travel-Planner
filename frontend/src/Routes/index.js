@@ -34,15 +34,10 @@ import DemoNoAccess from '../Containers/Demo/DemoNoAccess';
 import DemoMapView from '../Containers/Demo/DemoMapView';
 import DemoCalendarView from '../Containers/Demo/DemoCalendarView';
 
-//Test View
-//TODO: Remove
-import TestView from '../Containers/TestView';
-
 const BaseRouter = () => (
     <div>
         <HashRouter basename='/'>
             <Switch>
-                <Route exact path='/test' component={TestView} />
                 <Route exact path='/' component={LayoutView} />
                 <Route exact path='/login' component={LoginView} />
                 <Route exact path='/blocked' component={NoPermissionView} />
