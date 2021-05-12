@@ -7,13 +7,14 @@ export default class AdminUsersView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             users: []
         }
     }
     
     componentDidMount(){
-        axios.get(`https://travelplanner.lpsoftware.space/api/users/`,{
+        axios.get(`${this.state.apiURL}users/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

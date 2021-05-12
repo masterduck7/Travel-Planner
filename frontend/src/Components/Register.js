@@ -9,6 +9,7 @@ export default class Register extends Component {
     constructor(props){
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             userLogged: this.decrypt(localStorage.getItem('user_logged')),
             username: "",
@@ -40,7 +41,7 @@ export default class Register extends Component {
             "userLogged": this.state.userLogged,
             "permissionLevel": 1
         }
-        axios.post(`https://travelplanner.lpsoftware.space/api/users`, postObj,{
+        axios.post(`${this.state.apiURL}users`, postObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

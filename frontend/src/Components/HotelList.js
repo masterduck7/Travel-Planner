@@ -13,6 +13,7 @@ export default class HotelList extends Component {
     constructor(props){
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             modalCreate: false,
             modalEdit: false,
@@ -58,7 +59,7 @@ export default class HotelList extends Component {
             badge_amount_paid: this.state.badge_amount_paid,
             badge_amount_not_paid: this.state.badge_amount_not_paid
         }
-        axios.post(`https://travelplanner.lpsoftware.space/api/hotels/`, postObj,{
+        axios.post(`${this.state.apiURL}hotels/`, postObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -107,7 +108,7 @@ export default class HotelList extends Component {
             badge_amount_paid: this.state.badge_amount_paid,
             badge_amount_not_paid: this.state.badge_amount_not_paid
         }
-        axios.put(`https://travelplanner.lpsoftware.space/api/hotels/${hotelID}/`, hotelObj,{
+        axios.put(`${this.state.apiURL}hotels/${hotelID}/`, hotelObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -135,7 +136,7 @@ export default class HotelList extends Component {
     onClickRemove = (event) => {
         event.preventDefault();
         const hotelID = this.state.hotel_id
-        axios.delete(`https://travelplanner.lpsoftware.space/api/hotels/${hotelID}/`,{
+        axios.delete(`${this.state.apiURL}hotels/${hotelID}/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

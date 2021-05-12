@@ -15,6 +15,7 @@ export default class AdminView extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             user_id: this.decrypt(localStorage.getItem('user_id')),
             user_logged: this.decrypt(localStorage.getItem('user_logged')),
@@ -51,7 +52,7 @@ export default class AdminView extends Component {
 
     getData() {
         // GET YEAR DETAILS
-        axios.get(`https://travelplanner.lpsoftware.space/api/trips/`, {
+        axios.get(`${this.state.apiURL}trips/`, {
             headers: {
                 'Authorization': `Bearer ${this.state.token}`
             }

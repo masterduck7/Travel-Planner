@@ -7,6 +7,7 @@ export default class TripDetailView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             trip: []
         }
@@ -14,7 +15,7 @@ export default class TripDetailView extends Component {
     
     componentDidMount(){
         const tripID = this.props.match.params.tripID;
-        axios.get(`https://travelplanner.lpsoftware.space/api/trips/${tripID}/`,{
+        axios.get(`${this.state.apiURL}trips/${tripID}/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

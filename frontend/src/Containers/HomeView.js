@@ -12,6 +12,7 @@ export default class HomeView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             user_id: this.decrypt(localStorage.getItem('user_id')),
             user_logged: this.decrypt(localStorage.getItem('user_logged')),
@@ -43,7 +44,7 @@ export default class HomeView extends Component {
 
     componentDidMount(){
         // GET THIS YEAR TRIP DETAILS
-        axios.get(`https://travelplanner.lpsoftware.space/api/trips_status_user?userID=${this.state.user_id}&status=Active`,{
+        axios.get(`${this.state.apiURL}trips_status_user?userID=${this.state.user_id}&status=Active`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

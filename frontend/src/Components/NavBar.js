@@ -7,6 +7,7 @@ export default class NavBar extends Component{
     constructor(props){
         super(props)
         this.state={
+            apiURL: "http://localhost:3000/",
             isLogged : false,
             permissionLevel: false,
             token: localStorage.getItem('token'),
@@ -30,7 +31,7 @@ export default class NavBar extends Component{
             this.setState({
                 isLogged: true
             })
-            axios.get(`https://travelplanner.lpsoftware.space/api/users/${this.state.userID}`,{
+            axios.get(`${this.state.apiURL}users/${this.state.userID}`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

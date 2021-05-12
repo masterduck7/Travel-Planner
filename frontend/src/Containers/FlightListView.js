@@ -7,13 +7,14 @@ export default class FlightListView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             flights: []
         }
     }
     
     componentDidMount(){
-        axios.get(`https://travelplanner.lpsoftware.space/api/flights_trip?tripID=${this.props.match.params.tripID}`,{
+        axios.get(`${this.state.apiURL}flights_trip?tripID=${this.props.match.params.tripID}`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

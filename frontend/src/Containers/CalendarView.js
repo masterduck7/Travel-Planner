@@ -9,6 +9,7 @@ export default class CalendarView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             user_id: this.decrypt(localStorage.getItem('user_id')),
             trips: []
@@ -26,7 +27,7 @@ export default class CalendarView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`https://travelplanner.lpsoftware.space/api/trips_user?userID=${this.state.user_id}`,{
+        axios.get(`${this.state.apiURL}trips_user?userID=${this.state.user_id}`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

@@ -13,6 +13,7 @@ export default class ActivityList extends Component {
     constructor(props){
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             modalCreate: false,
             modalEdit: false,
@@ -52,7 +53,7 @@ export default class ActivityList extends Component {
             badge_amount_paid: this.state.badge_amount_paid,
             badge_amount_not_paid: this.state.badge_amount_not_paid
         }
-        axios.post(`https://travelplanner.lpsoftware.space/api/activities/`, postObj,{
+        axios.post(`${this.state.apiURL}activities/`, postObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -95,7 +96,7 @@ export default class ActivityList extends Component {
             badge_amount_paid: this.state.badge_amount_paid,
             badge_amount_not_paid: this.state.badge_amount_not_paid
         }
-        axios.put(`https://travelplanner.lpsoftware.space/api/activities/${activityID}/`, activityObj,{
+        axios.put(`${this.state.apiURL}activities/${activityID}/`, activityObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -123,7 +124,7 @@ export default class ActivityList extends Component {
     onClickRemove = (event) => {
         event.preventDefault();
         const activityID = this.state.activity_id
-        axios.delete(`https://travelplanner.lpsoftware.space/api/activities/${activityID}/`,{
+        axios.delete(`${this.state.apiURL}activities/${activityID}/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

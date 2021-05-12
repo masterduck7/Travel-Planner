@@ -16,6 +16,7 @@ export default class TripList extends Component {
     constructor(props){
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             user_id: this.decrypt(localStorage.getItem('user_id')),
             modalCreate: false,
@@ -56,7 +57,7 @@ export default class TripList extends Component {
             status: this.state.status,
             planning_file: event.target.planning_file.value
         }
-        axios.post(`https://travelplanner.lpsoftware.space/api/trips/`, postObj,{
+        axios.post(`${this.state.apiURL}trips/`, postObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

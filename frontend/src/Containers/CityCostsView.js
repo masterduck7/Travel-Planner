@@ -7,13 +7,14 @@ export default class CityCostView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             costs: []
         }
     }
     
     componentDidMount(){
-        axios.get(`https://travelplanner.lpsoftware.space/api/costs_city?cityID=${this.props.match.params.cityID}`,{
+        axios.get(`${this.state.apiURL}costs_city?cityID=${this.props.match.params.cityID}`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

@@ -16,6 +16,7 @@ export default class TripDetail extends Component {
     constructor(props){
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             user_id: this.decrypt(localStorage.getItem('user_id')),
             modalEdit: null,
@@ -65,7 +66,7 @@ export default class TripDetail extends Component {
             start_date: this.state.start_date,
             end_date: this.state.end_date
         }
-        axios.put(`https://travelplanner.lpsoftware.space/api/trips/${tripID}/`, tripObj,{
+        axios.put(`${this.state.apiURL}trips/${tripID}/`, tripObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -89,7 +90,7 @@ export default class TripDetail extends Component {
     onClickRemove = event => {
         event.preventDefault();
         const tripID = this.props.trip.id
-        axios.delete(`https://travelplanner.lpsoftware.space/api/trips/${tripID}/`,{
+        axios.delete(`${this.state.apiURL}trips/${tripID}/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

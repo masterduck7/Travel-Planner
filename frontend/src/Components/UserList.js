@@ -13,6 +13,7 @@ export default class UserList extends Component {
     constructor(props){
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             userLogged: this.decrypt(localStorage.getItem('user_logged')),
             modalCreate: false,
@@ -59,7 +60,7 @@ export default class UserList extends Component {
             "userLogged": this.state.userLogged,
             "permissionLevel": this.state.permissionLevel
         }
-        axios.post(`https://travelplanner.lpsoftware.space/api/users`, postObj,{
+        axios.post(`${this.state.apiURL}users`, postObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -102,7 +103,7 @@ export default class UserList extends Component {
             visitedCountries: this.state.visitedCountries,
             permissionLevel: this.state.permissionLevel
         }
-        axios.put(`https://travelplanner.lpsoftware.space/api/users/${userID}/`, userObj,{
+        axios.put(`${this.state.apiURL}users/${userID}/`, userObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -130,7 +131,7 @@ export default class UserList extends Component {
     onClickRemove = (event) => {
         event.preventDefault();
         const userID = this.state.user_id
-        axios.delete(`https://travelplanner.lpsoftware.space/api/users/${userID}/`,{
+        axios.delete(`${this.state.apiURL}users/${userID}/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

@@ -9,6 +9,7 @@ export default class CostView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             number_flights: 0,
             number_cities: 0,
@@ -30,7 +31,7 @@ export default class CostView extends Component {
     }
 
     componentDidMount(){
-        axios.get(`https://travelplanner.lpsoftware.space/api/trips/${this.props.match.params.tripID}/`,{
+        axios.get(`${this.state.apiURL}trips/${this.props.match.params.tripID}/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

@@ -13,6 +13,7 @@ export default class FlightList extends Component {
     constructor(props){
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             modalCreate: false,
             modalEdit: false,
@@ -53,7 +54,7 @@ export default class FlightList extends Component {
             badge_price: this.state.badge_price
         }
         console.log(postObj)
-        axios.post(`https://travelplanner.lpsoftware.space/api/flights/`, postObj,{
+        axios.post(`${this.state.apiURL}flights/`, postObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -99,7 +100,7 @@ export default class FlightList extends Component {
             price: this.state.price,
             badge_price: this.state.badge_price
         }
-        axios.put(`https://travelplanner.lpsoftware.space/api/flights/${flightID}/`, flightObj,{
+        axios.put(`${this.state.apiURL}flights/${flightID}/`, flightObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -127,7 +128,7 @@ export default class FlightList extends Component {
     onClickRemove = (event) => {
         event.preventDefault();
         const flightID = this.state.flight_id
-        axios.delete(`https://travelplanner.lpsoftware.space/api/flights/${flightID}/`,{
+        axios.delete(`${this.state.apiURL}flights/${flightID}/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

@@ -8,6 +8,7 @@ export default class TripListPastView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             user_id: this.decrypt(localStorage.getItem('user_id')),
             trips: []
@@ -25,7 +26,7 @@ export default class TripListPastView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`https://travelplanner.lpsoftware.space/api/trips_status_user?userID=${this.state.user_id}&status=Past`,{
+        axios.get(`${this.state.apiURL}trips_status_user?userID=${this.state.user_id}&status=Past`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

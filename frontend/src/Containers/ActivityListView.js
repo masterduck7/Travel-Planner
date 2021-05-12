@@ -7,13 +7,14 @@ export default class ActivityListView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             activities: []
         }
     }
     
     componentDidMount(){
-        axios.get(`https://travelplanner.lpsoftware.space/api/activities_city?cityID=${this.props.match.params.cityID}`,{
+        axios.get(`${this.state.apiURL}activities_city?cityID=${this.props.match.params.cityID}`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

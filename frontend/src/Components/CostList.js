@@ -12,6 +12,7 @@ export default class CostList extends Component {
     constructor(props){
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             modalCreate: false,
             modalEdit: false,
@@ -41,7 +42,7 @@ export default class CostList extends Component {
             total_price: event.target.total_price.value,
             badge_total_price: this.state.badge_total_price
         }
-        axios.post(`https://travelplanner.lpsoftware.space/api/costs/`, postObj,{
+        axios.post(`${this.state.apiURL}costs/`, postObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -76,7 +77,7 @@ export default class CostList extends Component {
             total_price: this.state.total_price,
             badge_total_price: this.state.badge_total_price
         }
-        axios.put(`https://travelplanner.lpsoftware.space/api/costs/${costID}/`, costObj,{
+        axios.put(`${this.state.apiURL}costs/${costID}/`, costObj,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -104,7 +105,7 @@ export default class CostList extends Component {
     onClickRemove = (event) => {
         event.preventDefault();
         const costID = this.state.cost_id
-        axios.delete(`https://travelplanner.lpsoftware.space/api/costs/${costID}/`,{
+        axios.delete(`${this.state.apiURL}costs/${costID}/`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

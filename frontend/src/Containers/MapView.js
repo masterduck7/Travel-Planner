@@ -11,6 +11,7 @@ export default class MapView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             user_id: this.decrypt(localStorage.getItem('user_id')),
             permissionLevel: false,
@@ -33,7 +34,7 @@ export default class MapView extends Component {
     }
     
     componentDidMount(){
-        axios.get(`https://travelplanner.lpsoftware.space/api/users/${this.state.user_id}`,{
+        axios.get(`${this.state.apiURL}users/${this.state.user_id}`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -51,7 +52,7 @@ export default class MapView extends Component {
             })
             
         if (this.state.permissionLevel){
-            axios.get(`https://travelplanner.lpsoftware.space/api/trips`,{
+            axios.get(`${this.state.apiURL}trips`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
@@ -89,7 +90,7 @@ export default class MapView extends Component {
                 }
             })
         }else{
-            axios.get(`https://travelplanner.lpsoftware.space/api/trips_user?userID=${this.state.user_id}`,{
+            axios.get(`${this.state.apiURL}trips_user?userID=${this.state.user_id}`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})

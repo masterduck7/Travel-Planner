@@ -9,6 +9,7 @@ export default class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             username: "",
             password: ""
@@ -21,7 +22,7 @@ export default class Login extends Component {
             "username": this.state.username,
             "password": this.state.password
         }
-        axios.post(`https://travelplanner.lpsoftware.space/api/auth/`, postObj)
+        axios.post(`${this.state.apiURL}auth/`, postObj)
             .then(function (response) {
                 var userID = CryptoJS.AES.encrypt(response.data.userID.toString(), process.env.REACT_APP_HASH);
                 var userLogged = CryptoJS.AES.encrypt(response.data.userLogged.toString(), process.env.REACT_APP_HASH);

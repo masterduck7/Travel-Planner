@@ -7,13 +7,14 @@ export default class HotelListView extends Component {
     constructor(props){
         super(props)
         this.state = {
+            apiURL: "http://localhost:3000/",
             token: localStorage.getItem('token'),
             hotels: []
         }
     }
     
     componentDidMount(){
-        axios.get(`https://travelplanner.lpsoftware.space/api/hotels_city?cityID=${this.props.match.params.cityID}`,{
+        axios.get(`${this.state.apiURL}hotels_city?cityID=${this.props.match.params.cityID}`,{
             headers: {
               'Authorization': `Bearer ${this.state.token}`
             }})
