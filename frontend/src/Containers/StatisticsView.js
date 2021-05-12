@@ -109,7 +109,7 @@ export default class StatisticsView extends Component {
                             city.citycosts.forEach(citycost => {
                                 totalCityCost = Number(totalCityCost) + Number(citycost.total_price)
                             });
-                            let countryName = Object.keys(this.state.country_list).find(key => this.state.country_list[key] === city.country)
+                            let countryName = city.country.toLowerCase()
                             let countryNameCapitalized = this.capitalizeFirstLetter(countryName)
                             let avgHotels = Number(totalHotels/hotelNights).toFixed(2)
                             let avgActivities = Number(totalActivities/selectedActivities).toFixed(2)
